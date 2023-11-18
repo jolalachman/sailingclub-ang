@@ -1,0 +1,20 @@
+<nav class="navbar navbar-light bg-light mcp-navbar">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <div ngbDropdown>
+    <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+      <div>
+        <!-- <img src="/assets/icons/flags/{{currentLanguage}}.webp" alt="{{currentLanguage}} icon" aria-label="icons" /> -->
+        {{currentLang | uppercase}}
+      </div>
+    </button>
+    <div ngbDropdownMenu>
+      <a ngbDropdownItem
+         *ngFor="let language of arrayLanguage"
+         (click)="changeLanguage(language)">
+         <!-- <img src="/assets/icons/flags/{{language}}.webp" alt="{{language}} icon" aria-label="icons" /> -->
+        {{ language | translate }}
+      </a>
+    </div>
+  </div>
+</nav>
+  
