@@ -14,11 +14,16 @@ export class HeaderComponent {
   ];
 
   arrayLanguage = this.languageService.arrayLanguage;
+  isLoggedIn = false;
 
   constructor(public languageService: LanguageService) {}
 
   get currentLang(): string {
     return this.languageService.currentLang;
+  }
+
+  logout() {
+    this.isLoggedIn=false;
   }
 
   changeLanguage(language: string): void {

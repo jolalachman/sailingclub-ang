@@ -1,3 +1,15 @@
 {
-    "home works!": "działa!"
+    "home works!": "działa!",
+    "pl": "Polski",
+    "en": "Angielski",
+    "Silesian Yacht Club": "Śląski Klub Jachtowy",
+    "Sign in": "Zaloguj się",
+    "My account": "Moje konto",
+    "My bookings": "Moje rezerwacje",
+    "Log out": "Wyloguj się",
+    "Find your next yacht": "Znajdź odpowiedni jacht",
+    "Pick up date": "Data odbioru",
+    "Pick up time": "Godzina odbioru",
+    "Drop off date": "Data zwrotu",
+    "Drop off time": "Godzina zwrotu"
 }

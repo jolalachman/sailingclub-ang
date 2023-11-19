@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
+  pickupDate: NgbDateStruct | undefined;
+  dropoffDate: NgbDateStruct | undefined;
+  time = { hour: 13, minute: 30 };
 }

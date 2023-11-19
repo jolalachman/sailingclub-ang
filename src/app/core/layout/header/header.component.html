@@ -1,20 +1,42 @@
-<nav class="navbar navbar-light bg-light mcp-navbar">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <div ngbDropdown>
-    <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
-      <div>
+<div class="bg-light app-navbar">
+  <a class="navbar-brand" href="#">{{ 'Silesian Yacht Club' | translate }}</a>
+  <div class="app-navbar-options">  
+    <div ngbDropdown placement="bottom-end" data-toggle="dropdown">
+      <button type="button" class="btn sail-secondary-button btn-sm" ngbDropdownToggle>
         <!-- <img src="/assets/icons/flags/{{currentLanguage}}.webp" alt="{{currentLanguage}} icon" aria-label="icons" /> -->
         {{currentLang | uppercase}}
+      </button>
+      <div ngbDropdownMenu>
+        <a ngbDropdownItem *ngFor="let language of arrayLanguage" (click)="changeLanguage(language)">
+           <!-- <img src="/assets/icons/flags/{{language}}.webp" alt="{{language}} icon" aria-label="icons" /> -->
+          {{ language | translate }}
+        </a>
       </div>
-    </button>
-    <div ngbDropdownMenu>
-      <a ngbDropdownItem
-         *ngFor="let language of arrayLanguage"
-         (click)="changeLanguage(language)">
-         <!-- <img src="/assets/icons/flags/{{language}}.webp" alt="{{language}} icon" aria-label="icons" /> -->
-        {{ language | translate }}
-      </a>
     </div>
+
+    <div *ngIf="isLoggedIn else login">
+      <div ngbDropdown placement="bottom-end" data-toggle="dropdown">
+        <button type="button" class="btn user-button btn-sm" ngbDropdownToggle>
+          {{'jl' | uppercase}}
+        </button>
+        <div ngbDropdownMenu>
+          <a ngbDropdownItem [routerLink]="['/account']">
+            {{ 'My account' | translate }}
+          </a>
+          <a ngbDropdownItem [routerLink]="['/bookings']">
+            {{ 'My bookings' | translate }}
+          </a>
+          <a ngbDropdownItem (click)="logout()">
+            {{ 'Log out' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+    <ng-template #login>
+      <button class="btn sail-primary-button btn-sm" type="button" (click)="isLoggedIn=true">
+        {{'Sign in' | translate}}
+      </button>
+    </ng-template>
   </div>
-</nav>
+</div>
   

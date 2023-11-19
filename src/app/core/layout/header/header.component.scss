@@ -1,5 +1,17 @@
 :host {
-    // .mcp-navbar {
-    //     border: solid 1px #e6e6e7;
-    // }
+    .app-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 20px;
+        &-options {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dropdown-toggle::after {
+            display: none;
+        }
+    }
 }

@@ -14,6 +14,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from 'src/app/core/service/storage/local-storage.service';
 import { LANGUAGE_KEY } from 'src/app/core/service/language/constants';
+import { JsonPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgbAlertModule, NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -32,6 +35,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   imports: [
     CommonModule,
     HomeRoutingModule,
+    NgbDatepickerModule, 
+    NgbAlertModule, 
+    FormsModule,
+    JsonPipe,
+    NgbTimepickerModule,
 
     // translation module
     TranslateModule.forChild({

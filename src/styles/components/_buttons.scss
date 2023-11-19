@@ -1,0 +1,39 @@
+.sail-primary-button {
+    background-color: blue;
+    color: white;
+
+    &:hover, .btn-check:checked + &,
+    :not(.btn-check) + &:active,
+    &:first-child:active,
+    &.active,
+    &.show {
+        background-color: blue;
+        color: white;
+    }
+}
+
+.sail-secondary-button {
+    border: solid 1px gray;
+
+    &:hover, .btn-check:checked + &,
+    :not(.btn-check) + &:active,
+    &:first-child:active,
+    &.active,
+    &.show {
+        border: solid 1px gray;
+    }
+}
+
+.user-button {
+    background-color: blue;
+    color: white;
+
+    &:hover, .btn-check:checked + &,
+    :not(.btn-check) + &:active,
+    &:first-child:active,
+    &.active,
+    &.show {
+        background-color: blue;
+        color: white;
+    }
+}
