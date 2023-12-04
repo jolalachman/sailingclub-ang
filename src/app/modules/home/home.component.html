@@ -1,8 +1,9 @@
-<div>
-    <div class="home-form">
-        <h2>{{'Find your next yacht' | translate}}</h2>
-        <form>
-            <div class="mb-3" style="display: flex; gap: 10px;">
+<div class="home">
+    <div class="home-background-image"></div>
+    <div class="home-container">
+        <h2 class="my-h3">{{'Find your next yacht' | translate}}</h2>
+        <form class="home-form">
+            <div class="form-row">
                 <div>
                     <label for="inputPickup" class="form-label">{{ 'Pick up date' | translate }}</label>
                     <div class="input-group" id="inputPickup">
@@ -22,7 +23,7 @@
                     <ngb-timepicker [(ngModel)]="time" [spinners]="false" id="inputPickupTime"/>
                 </div>
             </div>
-            <div class="mb-3" style="display: flex; gap: 10px;">
+            <div class="form-row">
                 <div>
                     <label for="inputDropoff" class="form-label">{{ 'Drop off date' | translate }}</label>
                     <div class="input-group" id="inputDropoff">
@@ -43,9 +44,19 @@
 
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="form-row">
+                <div>
+                    <label for="cabinInput" class="form-label">{{ 'Number of cabins' | translate }}</label>
+                    <input type="number" class="form-control" id="cabinInput" [(ngModel)]="cabinValue" name="cabinInput"
+                           min="1" onkeypress="return false;" onkeydown="return false;" onpaste="return false;">
+                </div>
+                <div>
+                    <label for="peopleInput" class="form-label">{{ 'Number of people' | translate }}</label>
+                    <input type="number" class="form-control" id="peopleInput" [(ngModel)]="peopleValue" name="peopleInput"
+                           min="1" onkeypress="return false;" onkeydown="return false;" onpaste="return false;">
+                </div>            
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Search' | translate }}</button>
         </form>
     </div>
 </div>

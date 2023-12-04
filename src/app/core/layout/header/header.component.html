@@ -33,7 +33,7 @@
       </div>
     </div>
     <ng-template #login>
-      <button class="btn sail-primary-button btn-sm" type="button" (click)="isLoggedIn=true">
+      <button class="btn sail-primary-button btn-sm" type="button" [routerLink]="['/auth/login']">
         {{'Sign in' | translate}}
       </button>
     </ng-template>

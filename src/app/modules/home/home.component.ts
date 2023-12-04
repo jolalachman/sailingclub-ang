@@ -10,4 +10,6 @@ export class HomeComponent {
   pickupDate: NgbDateStruct | undefined;
   dropoffDate: NgbDateStruct | undefined;
   time = { hour: 13, minute: 30 };
+  cabinValue: number = 1;
+  peopleValue: number = 1;
 }

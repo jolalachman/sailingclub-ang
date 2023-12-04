@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotLoggedInGuard } from './core/guards';
 
 const routes: Routes = [
   {
@@ -15,14 +16,14 @@ const routes: Routes = [
         m => m.HomeModule,
       ),
   },
-  // {
-  //   path: 'person-details/:employeeId',
-  //   canActivate: [],
-  //   loadChildren: () =>
-  //     import('./modules/person-details/person-details.module').then(
-  //       m => m.PersonDetailsModule,
-  //     ),
-  // },
+  {
+    path: 'auth',
+    canActivate: [NotLoggedInGuard],
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then(
+        m => m.AuthModule,
+      ),
+  },
 ];
 
 @NgModule({
