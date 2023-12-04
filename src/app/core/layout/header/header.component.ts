@@ -8,10 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  menu = [
-    {
-      items: [{ text: 'page.person.catalog', path: '/persons-list' }],
-    },
+  arrayOptions = [
+    { text: 'Yachts', path: '/yachts', icon: 'bi-life-preserver' },
+    { text: 'Bookings', path: '/bookings', icon: 'bi-book' }, 
+    { text: 'Club members', path: '/club-members', icon: 'bi-people' }, 
+    { text: 'Reported notices', path: '/notices', icon: 'bi-exclamation-circle' }, 
   ];
 
   arrayLanguage = this.languageService.arrayLanguage;

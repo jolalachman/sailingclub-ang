@@ -12,4 +12,13 @@ export class HomeComponent {
   time = { hour: 13, minute: 30 };
   cabinValue: number = 1;
   peopleValue: number = 1;
+
+  getCurrentDate(): NgbDateStruct {
+    const today = new Date();
+    return {
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+      day: today.getDate()
+    };
+  }
 }

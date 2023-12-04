@@ -7,11 +7,64 @@
         &-options {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 15px;
+        }
+
+        .left-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .btn {
+                border: none;
+            }
+
+            .header-icon {
+                font-size: 25px;
+            }
+        }
+
+        .navbar-brand {
+            color: #000;
+            font-family: Gelasio;
+            font-size: 25px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
         }
         
         .dropdown-toggle::after {
             display: none;
+        }
+
+        .align-center {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-list {
+            color: #000;
+            text-align: center;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .option-list {
+            color: #000;
+            text-align: center;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .selected-language {
+            font-weight: 700;
         }
     }
 }

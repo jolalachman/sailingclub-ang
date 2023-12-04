@@ -3,60 +3,59 @@
     <div class="home-container">
         <h2 class="my-h3">{{'Find your next yacht' | translate}}</h2>
         <form class="home-form">
-            <div class="form-row">
-                <div>
-                    <label for="inputPickup" class="form-label">{{ 'Pick up date' | translate }}</label>
-                    <div class="input-group" id="inputPickup">
-                        <input
-                            class="form-control"
-                            placeholder="yyyy-mm-dd"
-                            name="dp"
-                            [(ngModel)]="pickupDate"
-                            ngbDatepicker
-                            #di="ngbDatepicker"
-                        />
-                        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="di.toggle()" type="button"></button>
-                    </div>
-                </div>
-                <div>
-                    <label for="inputPickupTime" class="form-label">{{ 'Pick up time' | translate }}</label>
-                    <ngb-timepicker [(ngModel)]="time" [spinners]="false" id="inputPickupTime"/>
+            <div class="form-item">
+                <label for="inputPickup" class="form-label">{{ 'Pick up date' | translate }}</label>
+                <div class="input-group" id="inputPickup">
+                    <input
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        name="dp"
+                        [minDate]="getCurrentDate()"
+                        [(ngModel)]="pickupDate"
+                        ngbDatepicker
+                        #di="ngbDatepicker"
+                    />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="di.toggle()" type="button"></button>
                 </div>
             </div>
-            <div class="form-row">
-                <div>
-                    <label for="inputDropoff" class="form-label">{{ 'Drop off date' | translate }}</label>
-                    <div class="input-group" id="inputDropoff">
-                        <input
-                            class="form-control"
-                            placeholder="yyyy-mm-dd"
-                            name="dp"
-                            [(ngModel)]="dropoffDate"
-                            ngbDatepicker
-                            #dp="ngbDatepicker"
-                        />
-                        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
-                    </div>
-                </div>
-                <div>
-                    <label for="inputDropoffTime" class="form-label">{{ 'Drop off time' | translate }}</label>
-                    <ngb-timepicker [(ngModel)]="time" [spinners]="false" id="inputDropoffTime"/>
-
+            <div class="form-item">
+                <label for="inputPickupTime" class="form-label">{{ 'Pick up time' | translate }}</label>
+                <ngb-timepicker [(ngModel)]="time" [spinners]="false" id="inputPickupTime"/>
+            </div>
+            <div class="form-item">
+                <label for="inputDropoff" class="form-label">{{ 'Drop off date' | translate }}</label>
+                <div class="input-group" id="inputDropoff">
+                    <input
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        name="dp"
+                        [minDate]="getCurrentDate()"
+                        [(ngModel)]="dropoffDate"
+                        ngbDatepicker
+                        #dp="ngbDatepicker"
+                    />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
                 </div>
             </div>
-            <div class="form-row">
-                <div>
-                    <label for="cabinInput" class="form-label">{{ 'Number of cabins' | translate }}</label>
-                    <input type="number" class="form-control" id="cabinInput" [(ngModel)]="cabinValue" name="cabinInput"
-                           min="1" onkeypress="return false;" onkeydown="return false;" onpaste="return false;">
-                </div>
-                <div>
-                    <label for="peopleInput" class="form-label">{{ 'Number of people' | translate }}</label>
-                    <input type="number" class="form-control" id="peopleInput" [(ngModel)]="peopleValue" name="peopleInput"
-                           min="1" onkeypress="return false;" onkeydown="return false;" onpaste="return false;">
-                </div>            
+            <div class="form-item">
+                <label for="inputDropoffTime" class="form-label">{{ 'Drop off time' | translate }}</label>
+                <ngb-timepicker [(ngModel)]="time" [spinners]="false" id="inputDropoffTime"/>
             </div>
-            <button type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Search' | translate }}</button>
+            <div class="form-item">
+                <label for="cabinInput" class="form-label">{{ 'Number of cabins' | translate }}</label>
+                <input type="number" class="form-control" id="cabinInput" [(ngModel)]="cabinValue" name="cabinInput"
+                        min="1" onkeypress="return false;" onkeydown="return false;" onpaste="return false;">
+            </div>
+            <div class="form-item">
+                <label for="peopleInput" class="form-label">{{ 'Number of people' | translate }}</label>
+                <input type="number" class="form-control" id="peopleInput" [(ngModel)]="peopleValue" name="peopleInput"
+                        min="1" onkeypress="return false;" onkeydown="return false;" onpaste="return false;">
+            </div>
+            <div class="form-item">
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Search' | translate }}</button>
+            </div>
         </form>
     </div>
 </div>

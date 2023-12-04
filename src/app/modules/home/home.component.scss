@@ -25,19 +25,24 @@
         }
 
         &-form {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr) 0.5fr;
             gap: 40px;
 
-            .form-row {
+            .form-item {
                 display: flex;
+                flex-direction: column;
                 padding: 0 50px;
-                gap: 50px;
+                gap: 10px;
             }
 
             .form-button {
                 width: fit-content;
-                margin-left: auto;
+                padding-right: 30px;
+                padding-left: 30px;
+                float: right;
+                font-size: 16px;
             }
             
         }
