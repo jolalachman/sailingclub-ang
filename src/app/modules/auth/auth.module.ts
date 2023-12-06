@@ -7,6 +7,7 @@ import { LANGUAGE_KEY } from "src/app/core/service/language/constants";
 import { LocalStorageService } from "src/app/core/service/storage/local-storage.service";
 import { AuthRoutingModule, routedComponents } from "./auth.routing.module";
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(
@@ -25,6 +26,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       AuthRoutingModule,
       JsonPipe,
       NgbNavModule,
+      FormsModule,
+      ReactiveFormsModule,
   
       // translation module
       TranslateModule.forChild({
@@ -43,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       protected localStorageService: LocalStorageService,
     ) {
       const language = this.localStorageService.get(LANGUAGE_KEY);
-      this.translate.setDefaultLang(language ?? 'pl');
+      const browserLang = translate.getBrowserLang();
+      this.translate.setDefaultLang(language ?? browserLang ?? 'pl');
     }
    }

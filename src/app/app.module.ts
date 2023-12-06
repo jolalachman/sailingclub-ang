@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageService } from './core/service/language/language.service';
+import { StoreModule } from '@ngrx/store';
 
 export function InitializeAppLanguage(appLanguage: LanguageService) {
   return () => appLanguage.load();
@@ -37,6 +38,8 @@ export function createTranslateLoader(http: HttpClient) {
       },
       isolate: false,
     }),
+
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     {

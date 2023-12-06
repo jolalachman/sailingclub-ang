@@ -2,24 +2,25 @@
     <div class="login-background-image"></div>
     <div class="login-page">
         <div class="login-subheader">
-            <i class="bi bi-arrow-left-circle-fill subheader-icon" [routerLink]="['/']"></i>
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
             <p class="my-subheader">
                 {{ 'Login' | translate }}
             </p>
         </div>
         <div class="login-container">
-            <form class="login-form">
+            <form class="login-form" [formGroup]="loginForm" (submit)="login()">
                 <div class="form-row">
                     <label for="email" class="login-form-label">{{ 'Email' | translate }}</label>
-                    <input type="email" class="form-control" id="email" name="email">
+                    <input type="email" class="form-control" id="email" autocomplete="email" required formControlName="email">
                 </div>
                 <div class="form-row">
                     <label for="password" class="login-form-label">{{ 'Password' | translate }}</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control" id="password" autocomplete="current-password" required formControlName="password">
                 </div>
                 <div class="form-buttons">
                     <button class="btn sail-primary-button btn-md form-button" [routerLink]="['/auth/register']">{{ 'Create account' | translate }}</button>
-                    <button type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Sign in' | translate }}</button>
+                    <button type="submit" class="btn sail-primary-button btn-md form-button"
+                        [disabled]="loginForm.invalid || loading">{{ 'Sign in' | translate }}</button>
                 </div>
                 <a class="login-form-link" [routerLink]="['/auth/recover-password']"> {{'Forgot password?' | translate}}</a>
             </form>

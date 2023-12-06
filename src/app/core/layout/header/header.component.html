@@ -27,20 +27,22 @@
         </a>
       </div>
     </div>
-
     <div *ngIf="isLoggedIn else login">
       <div ngbDropdown placement="bottom-end" data-toggle="dropdown">
         <button type="button" class="btn user-button btn-sm" ngbDropdownToggle>
           {{'jl' | uppercase}}
         </button>
         <div ngbDropdownMenu>
-          <a ngbDropdownItem [routerLink]="['/account']">
+          <a ngbDropdownItem class="align-center option-list" [routerLink]="['/account']">
+            <i class="bi bi-person-circle"></i>
             {{ 'My account' | translate }}
           </a>
-          <a ngbDropdownItem [routerLink]="['/bookings']">
+          <a ngbDropdownItem class="align-center option-list" [routerLink]="['/my-bookings']">
+            <i class="bi bi-book"></i>
             {{ 'My bookings' | translate }}
           </a>
-          <a ngbDropdownItem (click)="logout()">
+          <a ngbDropdownItem class="align-center option-list" (click)="logout()">
+            <i class="bi bi-box-arrow-left"></i>
             {{ 'Log out' | translate }}
           </a>
         </div>

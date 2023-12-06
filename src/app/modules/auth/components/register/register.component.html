@@ -2,65 +2,49 @@
     <div class="register-background-image"></div>
     <div class="register-page">
         <div class="register-subheader">
-            <i class="bi bi-arrow-left-circle-fill subheader-icon" [routerLink]="['/']"></i>
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
             <p class="my-subheader">
                 {{ 'Create account' | translate }}
             </p>
         </div>
         <div class="register-container">
-            <form class="register-form" *ngIf="firstPage; else secondPage">
+            <form class="register-form" [formGroup]="registerForm" (submit)="register()">
                 <div class="form-row">
                     <label for="firstName" class="register-form-label">{{ 'First name' | translate }}</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName">
+                    <input type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
                 </div>
                 <div class="form-row">
                     <label for="lastName" class="register-form-label">{{ 'Last name' | translate }}</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName">
+                    <input type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
                 </div>
                 <div class="form-row">
-                    <label for="status" class="register-form-label">{{ 'Club status' | translate }}</label>
-                    <input type="text" class="form-control" id="status" name="status">
+                    <label for="clubStatus" class="register-form-label">{{ 'Club status' | translate }}</label>
+                    <input type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
                 </div>
                 <div class="form-row">
-                    <label for="qualifications" class="register-form-label">{{ 'Sailing qualifications' | translate }}</label>
-                    <input type="text" class="form-control" id="qualifications" name="qualifications">
+                    <label for="sailingLicense" class="register-form-label">{{ 'Sailing qualifications' | translate }}</label>
+                    <input type="text" class="form-control" id="sailingLicense" formControlName="sailingLicense">
+                </div>
+                <div class="form-row">
+                    <label for="email" class="register-form-label">{{ 'Email' | translate }}</label>
+                    <input type="email" class="form-control" id="email" autocomplete="email" required formControlName="email">
+                </div>
+                <div class="form-row">
+                    <label for="password" class="register-form-label">{{ 'Password' | translate }}</label>
+                    <input type="password" class="form-control" id="password" autocomplete="new-password" required formControlName="password">
+                </div>
+                <div class="form-row">
+                    <label for="repeatPassword" class="register-form-label">{{ 'Repeat password' | translate }}</label>
+                    <input type="password" class="form-control" id="repeatPassword" autocomplete="new-password" required formControlName="repeatPassword">
                 </div>
                 <div class="form-buttons">
-                    <button class="btn sail-primary-button btn-md form-button" (click)="firstPage=false">
-                        {{ 'Next page' | translate }}
-                    </button>
+                    <button type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Sign up' | translate }}</button>
                 </div>
                 <div class="form-link">
                     <p class="register-form-text"> {{'Do you already have an account?' | translate }}</p>
                     <a class="register-form-link" [routerLink]="['/auth/login']"> {{'Sign in' | translate}}</a>
                 </div>
             </form>
-            <ng-template #secondPage>
-                <form class="register-form">
-                    <div class="form-row">
-                        <label for="email" class="register-form-label">{{ 'Email' | translate }}</label>
-                        <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                    <div class="form-row">
-                        <label for="password" class="register-form-label">{{ 'Password' | translate }}</label>
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                    <div class="form-row">
-                        <label for="repeatPassword" class="register-form-label">{{ 'Repeat password' | translate }}</label>
-                        <input type="password" class="form-control" id="repeatPassword" name="repeatPassword">
-                    </div>
-                    <div class="form-buttons">
-                        <button class="btn sail-secondary-button btn-md form-button" (click)="firstPage=true">
-                            {{ 'Previous page' | translate }}
-                        </button>
-                        <button type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Sign up' | translate }}</button>
-                    </div>
-                    <div class="form-link">
-                        <p class="register-form-text"> {{'Do you already have an account?' | translate }}</p>
-                        <a class="register-form-link" [routerLink]="['/auth/login']"> {{'Sign in' | translate}}</a>
-                    </div>
-                </form>
-            </ng-template>
         </div>
     </div>
 </div>
