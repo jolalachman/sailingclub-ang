@@ -21,6 +21,12 @@ export type UserRequest = {
     sailingLicense: string;
 }
 
+export type ChangePasswordRequest = {
+    id: string;
+    oldPassword: string;
+    newPassword: string;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -35,7 +41,12 @@ export class AccountService extends ApiService {
     }
 
     editAccount(data: UserRequest): Observable<UserResponse> {
-        const url = `${environment.apiUrl}${'v1'}/${'user'}?userId=${data.id}`;
-        return this.http.patch<UserResponse>(url, data, {headers: this.getHeaders()});
+        const url = `${environment.apiUrl}${'v1'}/${'user'}`;
+        return this.http.post<UserResponse>(url, data, {headers: this.getHeaders()});
+    }
+
+    changePassword(data: ChangePasswordRequest): Observable<boolean> {
+        const url = `${environment.apiUrl}${'v1'}/${'user'}/${'changePassword'}`;
+        return this.http.post<boolean>(url, data, {headers: this.getHeaders()});
     }
 }

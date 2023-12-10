@@ -9,5 +9,13 @@
     "Cancel": "Anuluj",
     "Phone number": "Numer telefonu",
     "Wrong phone number format": "Niepoprawny format numeru telefonu",
-    "Change password": "Zmień hasło"
+    "Change password": "Zmień hasło",
+    "Old password": "Stare hasło",
+    "New password": "Nowe hasło",
+    "Repeat new password": "Powtórz nowe hasło",
+    "Password should contain at least: 8 characters, one uppercase letter, one lowercase letter, one number and one of the following special characters: @$!%*?&":
+    "Hasło powinno zawierać przynajmniej: 8 znaków, wielką literę, małą literę, cyfrę i jeden z następujących znaków specjalnych: @$!%*?&",
+    "New password is the same as the old one": "Nowe hasło jest takie same jak stare",
+    "Passwords are different": "Hasła się różnią",
+    "Incorrect old password": "Niepoprawne stare hasło"
 }
