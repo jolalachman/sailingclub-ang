@@ -6,7 +6,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { LANGUAGE_KEY } from "src/app/core/service/language/constants";
 import { LocalStorageService } from "src/app/core/service/storage/local-storage.service";
 import { AuthRoutingModule, routedComponents } from "./auth.routing.module";
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -26,6 +26,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       AuthRoutingModule,
       JsonPipe,
       NgbNavModule,
+      NgbTypeaheadModule,
       FormsModule,
       ReactiveFormsModule,
   

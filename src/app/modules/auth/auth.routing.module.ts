@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
 
 const routes: Routes = [
     {
@@ -23,6 +24,10 @@ const routes: Routes = [
       path: 'register',
       component: RegisterComponent,
     },
+    {
+      path: 'activate-account',
+      component: ActivateAccountComponent,
+    },
 ];
 
 @NgModule({
@@ -31,4 +36,4 @@ const routes: Routes = [
 })
 export class AuthRoutingModule {}
 
-export const routedComponents = [LoginComponent, RecoverPasswordComponent, RegisterComponent];
+export const routedComponents = [LoginComponent, RecoverPasswordComponent, RegisterComponent, ActivateAccountComponent];

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -10,6 +10,10 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageService } from './core/service/language/language.service';
 import { StoreModule } from '@ngrx/store';
+import { LayoutModule } from './layout/layout.module';
+import { HomeModule } from './modules/home/home.module';
+import { ReservationsModule } from './modules/reservations/reservations.module';
+import { WithCredentialsInterceptorProvider } from './core/interceptors/with-credentials.interceptor';
 
 export function InitializeAppLanguage(appLanguage: LanguageService) {
   return () => appLanguage.load();
@@ -28,6 +32,10 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     NgbModule,
     CoreModule,
+    LayoutModule,
+    HomeModule,
+    ReservationsModule,
+    HttpClientModule,
 
     // translation module
     TranslateModule.forRoot({

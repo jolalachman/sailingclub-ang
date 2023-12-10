@@ -1,0 +1,1 @@
+export const phoneRegex: RegExp = /^(\+\d{2})?\d{9}$/;

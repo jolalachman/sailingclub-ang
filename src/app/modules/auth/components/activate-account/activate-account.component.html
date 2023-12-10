@@ -1,0 +1,31 @@
+<div class="activate-account">
+    <div class="activate-account-background-image"></div>
+    <div class="activate-account-page">
+        <div class="activate-account-subheader">
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
+            <p class="my-subheader">
+                {{ 'Activate account' | translate }}
+            </p>
+        </div>
+        <div class="activate-account-container">
+            <div class="activate-account-message">
+                {{"A verification token has been sent to given email address. Enter the token to activate your account." | translate}}
+            </div>
+            <form class="activate-account-form" [formGroup]="activateAccountForm" (submit)="activateAccount()">
+                <div class="form-row">
+                    <label for="token" class="activate-account-form-label">{{ 'Verification token' | translate }}</label>
+                    <input type="text" class="form-control" id="token" required formControlName="token">
+                    <div *ngIf="formControls['token'].invalid && (formControls['token'].dirty || formControls['token'].touched)">
+                        <div *ngIf="formControls['token'].errors?.['required']">
+                            <label class="error-message"> {{'This field is required' | translate}} </label>
+                        </div>
+                        <div *ngIf="formControls['token'].errors?.['wrongToken']">
+                            <label class="error-message"> {{'Wrong token' | translate}} </label>
+                        </div>
+                    </div>
+                    <button [disabled]="activateAccountForm.invalid || loading" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Activate' | translate }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

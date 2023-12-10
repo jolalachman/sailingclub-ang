@@ -1,0 +1,110 @@
+<div class="my-account">
+    <div class="my-account-background-image"></div>
+    <div class="my-account-page">
+        <div class="my-account-subheader">
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
+            <p class="my-subheader">
+                {{ 'My account' | translate }}
+            </p>
+        </div>
+        <div class="my-account-container">
+            <div class="my-account-container-header">
+                <div class="avatar-edit">
+                    <div *ngIf="userInfo$ | async as userInfo" class="user-button btn-md avatar">
+                        {{ createUserInitials(userInfo.firstName, userInfo.lastName) | uppercase}}
+                    </div>
+                    <div *ngIf="!editMode" class="edit-button">
+                        <button class="btn btn-sm sail-secondary-button edit" (click)="editMode=true">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!editMode; else editModeTemplate">
+                <div class="my-account-form">
+                    <div class="form-row">
+                        <label for="firstName" class="my-account-form-label">{{ 'First name' | translate }}</label>
+                        <span class="form-span" id="firstName">
+                            {{ myAccountForm.get('firstName')?.value }}
+                        </span>
+                    </div>
+                    <div class="form-row">
+                        <label for="lastName" class="my-account-form-label">{{ 'Last name' | translate }}</label>
+                        <span class="form-span" id="lastName">
+                            {{ myAccountForm.get('lastName')?.value }}
+                        </span>
+                    </div>
+                    <div class="form-row">
+                        <label for="phone" class="my-account-form-label">{{ 'Phone number' | translate }}</label>
+                        <span class="form-span" id="phone">
+                            {{ myAccountForm.get('phone')?.value }}
+                        </span>
+                    </div>
+                    <div class="form-row">
+                        <label for="clubStatus" class="my-account-form-label">{{ 'Club status' | translate }}</label>
+                        <span class="form-span" id="clubStatus">
+                            {{ myAccountForm.get('clubStatus')?.value }}
+                        </span>
+                    </div>
+                    <div class="form-row">
+                        <label for="sailingLicense" class="my-account-form-label">{{ 'Sailing qualifications' | translate }}</label>
+                        <span class="form-span" id="sailingLicense">
+                            {{ myAccountForm.get('sailingLicense')?.value }}
+                        </span>
+                    </div>
+                    <div class="form-link">
+                        <a class="my-account-form-link" [routerLink]="['/account/change-password']"> {{'Change password' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+            <ng-template #editModeTemplate>
+                <form class="my-account-form" [formGroup]="myAccountForm" (submit)="editMyAccount()">
+                    <div class="form-row">
+                        <label for="firstName" class="my-account-form-label">{{ 'First name' | translate }}</label>
+                        <input type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
+                        <div *ngIf="formControls['firstName'].invalid && (formControls['firstName'].dirty || formControls['firstName'].touched)">
+                            <div *ngIf="formControls['firstName'].errors?.['required']">
+                                <label class="error-message"> {{'This field is required' | translate}} </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="lastName" class="my-account-form-label">{{ 'Last name' | translate }}</label>
+                        <input type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
+                        <div *ngIf="formControls['lastName'].invalid && (formControls['lastName'].dirty || formControls['lastName'].touched)">
+                            <div *ngIf="formControls['lastName'].errors?.['required']">
+                                <label class="error-message"> {{'This field is required' | translate}} </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="phone" class="my-account-form-label">{{ 'Phone number' | translate }}</label>
+                        <input type="tel" class="form-control" id="phone" formControlName="phone">
+                        <div *ngIf="formControls['phone'].invalid && (formControls['phone'].dirty || formControls['phone'].touched)">
+                            <div *ngIf="formControls['phone'].errors?.['pattern']">
+                                <label class="error-message"> {{'Wrong phone number format' | translate}} </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="clubStatus" class="my-account-form-label">{{ 'Club status' | translate }}</label>
+                        <input type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
+                    </div>
+                    <div class="form-row">
+                        <label for="sailingLicense" class="my-account-form-label">{{ 'Sailing qualifications' | translate }}</label>
+                        <input type="text" class="form-control" id="sailingLicense" required formControlName="sailingLicense">
+                        <div *ngIf="formControls['sailingLicense'].invalid && (formControls['sailingLicense'].dirty || formControls['sailingLicense'].touched)">
+                            <div *ngIf="formControls['sailingLicense'].errors?.['required']">
+                                <label class="error-message"> {{'This field is required' | translate}} </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn sail-secondary-button btn-md form-button" (click)="editMode=false">{{ 'Cancel' | translate }}</button>
+                        <button type="submit" [disabled]="myAccountForm.invalid || loading" class="btn sail-primary-button btn-md form-button">{{ 'Save' | translate }}</button>
+                    </div>
+                </form>
+            </ng-template>
+        </div>
+    </div>
+</div>

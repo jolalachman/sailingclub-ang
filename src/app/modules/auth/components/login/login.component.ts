@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NonNullableFormBuilder, FormGroup, Validators } from '@angular/forms'
 import { LoginService } from 'src/app/core/service/login/login.service';
 import { Location } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth-login',
@@ -25,6 +26,10 @@ export class LoginComponent {
     private loginService: LoginService
   ) {}
 
+  get formControls() {
+    return this.loginForm.controls;
+  }
+
   login() {
     if (this.loginForm.invalid) return;
 
@@ -39,7 +44,11 @@ export class LoginComponent {
       },
       error: (error) => {
         this.loading = false;
-        console.log(error);
+        if (error instanceof HttpErrorResponse) {
+          this.loginForm.get('password')?.setErrors({
+            wrongPassword: true,
+          })
+        }
       }
     })
   }

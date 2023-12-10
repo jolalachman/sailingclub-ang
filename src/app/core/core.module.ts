@@ -5,8 +5,7 @@ import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { LanguageService } from "./service/language/language.service";
 import { LocalStorageService } from "./service/storage/local-storage.service";
-import { WithCredentialsInterceptor } from "./interceptors/with-credentials.interceptor";
-import { layout } from './layout';
+import { WithCredentialsInterceptor, WithCredentialsInterceptorProvider } from "./interceptors/with-credentials.interceptor";
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -17,16 +16,10 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
       TranslateModule,
       NgbDropdownModule,
     ],
-    declarations: [layout],
-    exports: [layout],
     providers: [
       LanguageService,
       LocalStorageService,
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: WithCredentialsInterceptor,
-        multi: true,
-      },
+      WithCredentialsInterceptorProvider,
     ],
   })
   export class CoreModule {

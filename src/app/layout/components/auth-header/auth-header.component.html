@@ -1,0 +1,21 @@
+<div class="bg-light app-navbar">
+    <div class="left-header">
+      <a class="navbar-brand" href="#">{{ 'Silesian Yacht Club' | translate }}</a>
+    </div>
+    <div class="app-navbar-options">  
+      <div ngbDropdown placement="bottom-end" data-toggle="dropdown">
+        <button type="button" class="btn sail-secondary-button btn-sm" ngbDropdownToggle>
+          <img src="../../../../assets/flags/{{currentLang}}.svg" alt="{{currentLang}} icon" aria-label="icons" />
+          {{currentLang | uppercase}}
+        </button>
+        <div ngbDropdownMenu>
+          <a ngbDropdownItem  class="align-center language-list" [class.selected-language]="language === currentLang"
+             *ngFor="let language of arrayLanguage" (click)="changeLanguage(language)">
+             <img src="../../../../assets/flags/{{language}}.svg" alt="{{language}} icon" aria-label="icons" />
+            {{ language | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+</div>
+    

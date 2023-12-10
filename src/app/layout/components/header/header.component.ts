@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { LanguageService } from '../../service/language/language.service';
 import { Router } from '@angular/router';
-import { LoginService } from '../../service/login/login.service';
+import { LanguageService } from 'src/app/core/service/language/language.service';
+import { LoginService } from 'src/app/core/service/login/login.service';
+
 
 @Component({
   selector: 'app-header',
@@ -11,13 +12,14 @@ import { LoginService } from '../../service/login/login.service';
 export class HeaderComponent {
   arrayOptions = [
     { text: 'Yachts', path: '/yachts', icon: 'bi-life-preserver' },
-    { text: 'All bookings', path: '/all-bookings', icon: 'bi-book' }, 
+    { text: 'All reservations', path: '/reservations', icon: 'bi-book' }, 
     { text: 'Club members', path: '/club-members', icon: 'bi-people' }, 
     { text: 'Reported notices', path: '/notices', icon: 'bi-exclamation-circle' }, 
   ];
 
   arrayLanguage = this.languageService.arrayLanguage;
   isLoggedIn = this.loginService.isLoggedIn;
+  userInfo$ = this.loginService.userInfo.asObservable();
 
   constructor(
     public languageService: LanguageService,
@@ -32,6 +34,7 @@ export class HeaderComponent {
   logout() {
     this.loginService.signOut();
     void this.router.navigate(['/']);
+    window.location.reload();
   }
 
   changeLanguage(language: string): void {
@@ -40,5 +43,9 @@ export class HeaderComponent {
     }
 
     this.languageService.setLanguage(language);
+  }
+
+  createUserInitials(firstName: string, lastName: string) {
+    return firstName.charAt(0) + '' + lastName.charAt(0);
   }
 }

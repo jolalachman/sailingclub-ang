@@ -42,7 +42,19 @@
 
 .user-button {
     background-color: #0040E4;
-    color: white;
+    border-radius: 50%;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover, .btn-check:checked + &,
     :not(.btn-check) + &:active,
