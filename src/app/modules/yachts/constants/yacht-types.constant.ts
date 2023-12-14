@@ -1,0 +1,1 @@
+export const YACHT_TYPES = [null, 'sailing', 'motor', 'sail-motor'];

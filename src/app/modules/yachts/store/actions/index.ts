@@ -1,0 +1,1 @@
+export * as YachtsListActions from './yachts-list.action';

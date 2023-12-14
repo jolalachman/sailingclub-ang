@@ -33,8 +33,7 @@ export class HeaderComponent {
 
   logout() {
     this.loginService.signOut();
-    void this.router.navigate(['/']);
-    window.location.reload();
+    void this.router.navigate(['/']).finally(() => window.location.reload());
   }
 
   changeLanguage(language: string): void {

@@ -45,6 +45,22 @@ const routes: Routes = [
         m => m.AccountModule,
       ),
   },
+  {
+    path: 'yachts',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./modules/yachts/yachts.module').then(
+        m => m.YachtsModule,
+      ),
+  },
+  {
+    path: 'yacht-details/:yachtId',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./modules/yacht-details/yacht-details.module').then(
+        m => m.YachtDetailsModule,
+      ),
+  },
 ];
 
 @NgModule({

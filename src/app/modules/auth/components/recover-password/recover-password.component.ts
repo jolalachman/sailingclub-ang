@@ -93,7 +93,6 @@ export class RecoverPasswordComponent {
         error: (error) => {
           this.loading = false;
           if (error instanceof HttpErrorResponse) {
-            console.log(error);
             this.resetPasswordForm.get('resetToken')?.setErrors({
               wrongToken: true,
             })

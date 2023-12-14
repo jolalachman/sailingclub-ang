@@ -2,25 +2,38 @@
     <div class="home-background-image"></div>
     <div class="home-container">
         <h2 class="my-h3">{{'Find your next yacht' | translate}}</h2>
-        <form class="home-form">
+        <form class="home-form" [formGroup]="searchForm" (submit)="search()">
             <div class="form-item">
                 <label for="inputPickup" class="form-label">{{ 'Pick up date' | translate }}</label>
                 <div class="input-group" id="inputPickup">
                     <input
                         class="form-control"
                         placeholder="yyyy-mm-dd"
-                        name="dp"
                         [minDate]="getCurrentDate()"
-                        [(ngModel)]="pickupDate"
                         ngbDatepicker
                         #di="ngbDatepicker"
+                        required
+                        formControlName="inputPickup"
                     />
                     <button class="btn btn-outline-secondary bi bi-calendar3" (click)="di.toggle()" type="button"></button>
                 </div>
+                <div *ngIf="formControls['inputPickup'].invalid && (formControls['inputPickup'].dirty || formControls['inputPickup'].touched)">
+                    <div *ngIf="formControls['inputPickup'].errors?.['required']">
+                        <label class="error-message"> {{'This field is required' | translate}} </label>
+                    </div>
+                </div>
             </div>
             <div class="form-item">
-                <label for="inputPickupTime" class="form-label">{{ 'Pick up time' | translate }}</label>
-                <ngb-timepicker [(ngModel)]="time" [spinners]="false" id="inputPickupTime"/>
+                <label for="inputPickupTime" class="form-label">{{ 'Approx. pick up time' | translate }}</label>
+                <select
+                    class="form-select"
+                    id="inputPickupTime"
+                    formControlName="inputPickupTime"
+                >
+                    <option *ngFor="let time of pickupTimes" [value]="time">
+                        {{ time | timeFormat }}
+                    </option>
+                </select>
             </div>
             <div class="form-item">
                 <label for="inputDropoff" class="form-label">{{ 'Drop off date' | translate }}</label>
@@ -29,32 +42,48 @@
                         class="form-control"
                         placeholder="yyyy-mm-dd"
                         name="dp"
-                        [minDate]="getCurrentDate()"
-                        [(ngModel)]="dropoffDate"
+                        [minDate]="getMinDate()"
                         ngbDatepicker
                         #dp="ngbDatepicker"
+                        formControlName="inputDropoff"
                     />
                     <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
                 </div>
             </div>
             <div class="form-item">
-                <label for="inputDropoffTime" class="form-label">{{ 'Drop off time' | translate }}</label>
-                <ngb-timepicker [(ngModel)]="time" [spinners]="false" id="inputDropoffTime"/>
+                <label for="inputDropoffTime" class="form-label">{{ 'Approx. drop off time' | translate }}</label>
+                <select
+                    class="form-select"
+                    id="inputDropoffTime"
+                    formControlName="inputDropoffTime"
+                >
+                    <option *ngFor="let time of dropoffTimes" [value]="time">{{ time | timeFormat }}</option>
+                </select>
             </div>
             <div class="form-item">
                 <label for="cabinInput" class="form-label">{{ 'Number of cabins' | translate }}</label>
-                <input type="number" class="form-control" id="cabinInput" [(ngModel)]="cabinValue" name="cabinInput"
-                        min="1" onkeypress="return false;" onkeydown="return false;" onpaste="return false;">
+                <select
+                    class="form-select"
+                    id="cabinInput"
+                    formControlName="cabinInput"
+                >
+                    <option *ngFor="let number of numOfCabins" [value]="number">{{ number ?? '-' }}</option>
+                </select>
             </div>
             <div class="form-item">
                 <label for="peopleInput" class="form-label">{{ 'Number of people' | translate }}</label>
-                <input type="number" class="form-control" id="peopleInput" [(ngModel)]="peopleValue" name="peopleInput"
-                        min="1" onkeypress="return false;" onkeydown="return false;" onpaste="return false;">
+                <select
+                    class="form-select"
+                    id="peopleInput"
+                    formControlName="peopleInput"
+                >
+                    <option *ngFor="let number of numOfPeople" [value]="number">{{ number ?? '-' }}</option>
+                </select>
             </div>
             <div class="form-item">
             </div>
             <div class="form-buttons">
-                <button type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Search' | translate }}</button>
+                <button [disabled]="searchForm.invalid || loading" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Search' | translate }}</button>
             </div>
         </form>
     </div>

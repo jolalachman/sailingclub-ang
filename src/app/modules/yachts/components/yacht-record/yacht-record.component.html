@@ -1,0 +1,29 @@
+<div class="record" (clickEvent)="handleClick(record?.id)" clickEmitter>
+    <div class="record-pic">
+        <img [src]="record?.photo">
+    </div>
+    <div class="record-content">
+        <div class="record-header">
+            <div class="record-name">
+                {{record?.name ?? 'none' | translate}}
+            </div>
+        </div>
+        <div class="record-main">
+            <div class="record-type">{{"Type:" | translate }}
+                <span class="record-value">
+                    {{record?.type ?? 'none' | translate}}
+                </span>
+            </div>
+            <div class="record-registration">{{"Registration number:" | translate }}
+                <span class="record-value">
+                    {{record?.registrationNumber ?? 'none' | translate}}
+                </span>
+            </div>
+            <div class="record-status">{{"Current status:" | translate }}
+                <span class="record-value" [class.available]="record?.currentStatus === 'AVAILABLE'">
+                    {{record?.currentStatus ?? 'none' | translate}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

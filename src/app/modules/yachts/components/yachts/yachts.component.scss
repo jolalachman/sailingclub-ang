@@ -1,0 +1,129 @@
+:host {
+    .yachts {
+        &-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            background: url('../../../../../assets/backgrounds/pexels-szelei-robert-1482193.jpg') no-repeat;
+            background-color: aqua;
+            background-size: cover;
+        }
+
+        &-page {
+            display: flex;
+            flex-direction: column;
+            padding: 40px 50px 0 50px;
+            gap: 10px;
+        }
+
+        &-main-container {
+            display: flex;
+            width: 100%;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        &-container {
+            width: 60%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 10px;
+            height: calc(100vh - 200px);
+        }
+
+        &-modify {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .item {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .section{
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        &-pagination {
+            color: #000;
+            font-family: Inter;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+
+            flex: 0;
+            align-self: center;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        &-page-sizes {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        &-results {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+        }
+
+        &-subheader {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            .subheader-icon {
+                color: #FFF;
+                font-size: 30px;
+            }
+        }
+
+        .dropdown-toggle {
+            background-color: #0040E4;
+            border-color: #0040E4;
+        }
+    }
+}
+
+.my-subheader {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+.my-modify {
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+}
+
+ngb-pagination ::ng-deep ul > li.active > a {
+    background-color: #0040E4 !important;
+    border-color: #0040E4 !important;
+}

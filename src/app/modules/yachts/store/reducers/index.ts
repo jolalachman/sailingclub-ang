@@ -1,0 +1,1 @@
+export * as YachtsListReducer from './yachts-list.reducer'

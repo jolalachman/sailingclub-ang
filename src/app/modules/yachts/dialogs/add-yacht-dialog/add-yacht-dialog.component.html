@@ -1,0 +1,149 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{"Add yacht" | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="add-yacht-form" [formGroup]="addYachtForm">
+        <div class="form-section">
+            <div class="add-yacht-form-title">{{"General information" | translate}}</div>
+            <div class="form-row">
+                <label for="name" class="add-yacht-form-label">{{ 'Name' | translate }}</label>
+                <input type="text" maxlength="255" class="form-control" id="name" required formControlName="name">
+                <div *ngIf="formControls['name'].invalid && (formControls['name'].dirty || formControls['name'].touched)">
+                    <div *ngIf="formControls['name'].errors?.['required']">
+                        <label class="error-message"> {{'This field is required' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="type" class="add-yacht-form-label">{{ 'Type' | translate }}</label>
+                <select
+                    class="form-select"
+                    id="type"
+                    formControlName="type"
+                >
+                    <option *ngFor="let type of yachtTypes" [value]="type">
+                        {{ type ?? '-' | translate }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="registrationNumber" class="add-yacht-form-label">{{ 'Registration number' | translate }}</label>
+                <input type="text" maxlength="255" class="form-control" id="registrationNumber" required formControlName="registrationNumber">
+                <div *ngIf="formControls['registrationNumber'].invalid && (formControls['registrationNumber'].dirty || formControls['registrationNumber'].touched)">
+                    <div *ngIf="formControls['registrationNumber'].errors?.['required']">
+                        <label class="error-message"> {{'This field is required' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="description" class="add-yacht-form-label">{{ 'Description' | translate }}</label>
+                <textarea rows="3" maxlength="500" class="form-control" id="description" formControlName="description"></textarea>
+            </div>
+            <div class="form-row">
+                <label for="photo" class="add-yacht-form-label">{{ 'Photo' | translate }}</label>
+                <input type="file" class="form-control-file" id="photo" accept="image/*" (change)="onFileChange($event)">
+            </div>
+        </div>
+        <div class="form-section">
+            <div class="add-yacht-form-title">{{"Technical data" | translate}}</div>
+            <div class="form-row">
+                <label for="length" class="add-yacht-form-label">{{ 'Length' | translate }} [m]</label>
+                <input min="0" max="100" step="0.05" type="number" class="form-control" id="length" formControlName="length">
+                <div *ngIf="formControls['length'].invalid && (formControls['length'].dirty || formControls['length'].touched)">
+                    <div *ngIf="formControls['length'].errors?.['min'] || formControls['length'].errors?.['max']">
+                        <label class="error-message"> {{'Invalid number' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="width" class="add-yacht-form-label">{{ 'Width' | translate }} [m]</label>
+                <input min="0" max="100" step="0.05" type="number" class="form-control" id="width" formControlName="width">
+                <div *ngIf="formControls['width'].invalid && (formControls['width'].dirty || formControls['width'].touched)">
+                    <div *ngIf="formControls['width'].errors?.['min'] || formControls['width'].errors?.['max']">
+                        <label class="error-message"> {{'Invalid number' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="immersion" class="add-yacht-form-label">{{ 'Immersion' | translate }} [m]</label>
+                <input min="0" max="100" step="0.05" type="number" class="form-control" id="immersion" formControlName="immersion">
+                <div *ngIf="formControls['immersion'].invalid && (formControls['immersion'].dirty || formControls['immersion'].touched)">
+                    <div *ngIf="formControls['immersion'].errors?.['min'] || formControls['immersion'].errors?.['max']">
+                        <label class="error-message"> {{'Invalid number' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="sailArea" class="add-yacht-form-label">{{ 'Sail area' | translate }} [m²]</label>
+                <input min="0" max="100" step="0.05" type="number" class="form-control" id="sailArea" formControlName="sailArea">
+                <div *ngIf="formControls['sailArea'].invalid && (formControls['sailArea'].dirty || formControls['sailArea'].touched)">
+                    <div *ngIf="formControls['sailArea'].errors?.['min'] || formControls['sailArea'].errors?.['max']">
+                        <label class="error-message"> {{'Invalid number' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="maxPeople" class="add-yacht-form-label">{{ 'Max. people' | translate }}</label>
+                <input min="0" max="50" type="number" class="form-control" id="maxPeople" formControlName="maxPeople">
+                <div *ngIf="formControls['maxPeople'].invalid && (formControls['maxPeople'].dirty || formControls['maxPeople'].touched)">
+                    <div *ngIf="(formControls['maxPeople'].errors?.['min'] || formControls['maxPeople'].errors?.['pattern'])">
+                        <label class="error-message"> {{'Invalid number' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="cabinNumber" class="add-yacht-form-label">{{ 'Cabin number' | translate }}</label>
+                <input min="0" max="30" type="number" class="form-control" id="cabinNumber" formControlName="cabinNumber">
+                <div *ngIf="formControls['cabinNumber'].invalid && (formControls['cabinNumber'].dirty || formControls['cabinNumber'].touched)">
+                    <div *ngIf="formControls['cabinNumber'].errors?.['min'] || formControls['cabinNumber'].errors?.['max'] || formControls['cabinNumber'].errors?.['pattern']">
+                        <label class="error-message"> {{'Invalid number' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-section">
+            <div class="add-yacht-form-title">{{"Equipment" | translate}}</div>
+            <div class="form-row" style="flex-direction: row;">
+                <label for="shower" class="add-yacht-form-label">{{ 'Shower' | translate }}</label>
+                <input type="checkbox" class="form-check-input" id="shower" formControlName="shower">
+            </div>
+            <div class="form-row" style="flex-direction: row;">
+                <label for="wc" class="add-yacht-form-label">{{ 'WC' | translate }}</label>
+                <input type="checkbox" class="form-check-input" id="wc" formControlName="wc">
+            </div>
+            <div class="form-row" style="flex-direction: row;">
+                <label for="microwave" class="add-yacht-form-label">{{ 'Microwave' | translate }}</label>
+                <input type="checkbox" class="form-check-input" id="microwave" formControlName="microwave">
+            </div>
+            <div class="form-row" style="flex-direction: row;">
+                <label for="radio" class="add-yacht-form-label">{{ 'Radio' | translate }}</label>
+                <input type="checkbox" class="form-check-input" id="radio" formControlName="radio">
+            </div>
+        </div>
+        <div class="form-section">
+            <div class="add-yacht-form-title">{{"Prices" | translate}}</div>
+            <div class="form-row">
+                <label for="dailyPrice" class="add-yacht-form-label">{{ 'Daily price' | translate }} [zł]</label>
+                <input min="0" max="1000" step="0.05" type="number" class="form-control" id="dailyPrice" formControlName="dailyPrice">
+                <div *ngIf="formControls['dailyPrice'].invalid && (formControls['dailyPrice'].dirty || formControls['dailyPrice'].touched)">
+                    <div *ngIf="formControls['dailyPrice'].errors?.['min'] || formControls['dailyPrice'].errors?.['max']">
+                        <label class="error-message"> {{'Invalid number' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="hourlyPrice" class="add-yacht-form-label">{{ 'Hourly price' | translate }} [zł]</label>
+                <input min="0" max="1000" step="0.05" type="number" class="form-control" id="hourlyPrice" formControlName="hourlyPrice">
+                <div *ngIf="formControls['hourlyPrice'].invalid && (formControls['hourlyPrice'].dirty || formControls['hourlyPrice'].touched)">
+                    <div *ngIf="formControls['hourlyPrice'].errors?.['min'] || formControls['hourlyPrice'].errors?.['max']">
+                        <label class="error-message"> {{'Invalid number' | translate}} </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button [disabled]="addYachtForm.invalid || loading" type="submit" class="btn sail-dialog-button btn-lg form-button" (click)="addYacht()">{{"Add" | translate}}</button>
+</div>

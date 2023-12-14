@@ -1,10 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home.component';
-import {
-  HomeRoutingModule,
-  routedComponents,
-} from './home.routing.module';
 import {
   TranslateLoader,
   TranslateModule,
@@ -16,34 +11,43 @@ import { LocalStorageService } from 'src/app/core/service/storage/local-storage.
 import { LANGUAGE_KEY } from 'src/app/core/service/language/constants';
 import { JsonPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbAlertModule, NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { TimeFormatPipe } from './pipes/time-format.pipe';
+import { YachtsRoutingModule, routedComponents } from './yachts.routing.module';
+import { YachtsComponent } from './components/yachts/yachts.component';
+import { YachtRecordComponent } from './components/yacht-record/yacht-record.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { YachtsListReducer } from './store/reducers';
+import { YachtsListEffect } from './store/effects';
+import { NgbActiveModal, NgbDropdownModule, NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ClickEmitterDirective } from './directives/click.directive';
+import { AddYachtDialogComponent } from './dialogs/add-yacht-dialog/add-yacht-dialog.component';
 
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
     http,
-    `./assets/i18n/shared/`,
+    `./assets/i18n/yachts/`,
     '.json',
   );
 }
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    routedComponents,
-    TimeFormatPipe,
+    YachtsComponent,
+    YachtRecordComponent,
+    AddYachtDialogComponent,
+    ClickEmitterDirective,
+    routedComponents
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule,
-    NgbDatepickerModule, 
-    NgbAlertModule, 
+    YachtsRoutingModule,
     FormsModule,
     JsonPipe,
-    NgbTimepickerModule,
-    FormsModule,
+    NgbPaginationModule,
+    NgbDropdownModule,
     ReactiveFormsModule,
+
 
     // translation module
     TranslateModule.forChild({
@@ -54,9 +58,16 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
       isolate: true,
     }),
+
+    //ng store
+    EffectsModule.forFeature(YachtsListEffect.effects),
+    StoreModule.forFeature(
+      YachtsListReducer.STATE_KEY,
+      YachtsListReducer.reducers,
+    ),
   ]
 })
-export class HomeModule {
+export class YachtsModule {
   constructor(
     protected translate: TranslateService,
     protected localStorageService: LocalStorageService,

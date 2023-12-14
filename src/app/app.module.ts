@@ -12,8 +12,7 @@ import { LanguageService } from './core/service/language/language.service';
 import { StoreModule } from '@ngrx/store';
 import { LayoutModule } from './layout/layout.module';
 import { HomeModule } from './modules/home/home.module';
-import { ReservationsModule } from './modules/reservations/reservations.module';
-import { WithCredentialsInterceptorProvider } from './core/interceptors/with-credentials.interceptor';
+import { EffectsModule } from '@ngrx/effects';
 
 export function InitializeAppLanguage(appLanguage: LanguageService) {
   return () => appLanguage.load();
@@ -34,7 +33,6 @@ export function createTranslateLoader(http: HttpClient) {
     CoreModule,
     LayoutModule,
     HomeModule,
-    ReservationsModule,
     HttpClientModule,
 
     // translation module
@@ -48,6 +46,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
 
     StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     {

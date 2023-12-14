@@ -20,7 +20,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
     http,
-    `./assets/i18n/shared/`,
+    `./assets/i18n/reservations/`,
     '.json',
   );
 }
