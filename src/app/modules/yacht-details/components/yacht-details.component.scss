@@ -1,0 +1,141 @@
+:host {
+    .yacht-details {
+        &-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            background: url('../../../../assets/backgrounds/pexels-szelei-robert-1482193.jpg') no-repeat;
+            background-color: aqua;
+            background-size: cover;
+        }
+
+        &-page {
+            display: flex;
+            flex-direction: column;
+            padding: 40px 50px 0 50px;
+            gap: 10px;
+        }
+
+        &-main-container {
+            display: flex;
+            width: 100%;
+            gap: 15px;
+            padding: 10px;
+            min-height: calc(100vh - 200px);
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        &-subheader {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            .subheader-icon {
+                color: #FFF;
+                font-size: 30px;
+            }
+        }
+
+        .record {   
+            &-options {
+                display: flex;
+                gap: 10px;
+            }
+            &-description-value {
+                width: 400px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                word-wrap: break-word;
+                color: #717171;
+                font-family: Inter;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            } 
+            &-pic {
+                width: 200px;
+                height: 200px;
+                border: solid 1px black;
+                border-radius: 10px;
+                position: relative;
+                overflow: hidden;
+    
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+            }
+    
+            &-name {
+                color: #000;
+                font-family: Inter;
+                font-size: 25px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+            }
+    
+            &-main {
+                color: #000;
+                font-family: Inter;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+    
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                
+            }
+    
+            &-value {
+                color: #717171;
+                font-family: Inter;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+    
+            &-content {
+                display: flex;
+                flex-direction: column;
+                gap: 50px;
+                flex: 1;
+                padding: 0px 20px;
+            }
+    
+            .available {
+                color: green;
+            }
+        }
+    }
+}
+
+.my-subheader {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+.yacht-details-form-title {
+    color: #000;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 10px;
+}

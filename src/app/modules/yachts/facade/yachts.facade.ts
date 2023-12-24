@@ -91,20 +91,6 @@ export class YachtsFacade {
             else if (sort.dir === 'desc') {
                 sortedItems.sort((a, b) => (b.name.localeCompare(a.name)));
             }
-            else if (sort.dir === 'availability') {
-                sortedItems.sort((a, b) => {
-                    if (a.currentStatus === b.currentStatus) {
-                      return 0;
-                    }
-                    if (a.currentStatus === 'available') {
-                      return -1;
-                    }
-                    if (b.currentStatus === 'available') {
-                      return 1;
-                    }
-                    return a.currentStatus.localeCompare(b.currentStatus);
-                  });
-            }
 
             return {pageSize, skip, items: sortedItems, totalCount};
         }),

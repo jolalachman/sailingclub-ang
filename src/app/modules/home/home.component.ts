@@ -4,6 +4,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 import { CABINS, PEOPLE, TIMES } from './constants/searchForm.constant';
 import { Subscription } from 'rxjs';
 import { MyNgbDateParserFormatter } from './formaters/my-ngb-date-parser.formatter';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: NonNullableFormBuilder,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -118,33 +120,29 @@ export class HomeComponent implements OnInit, OnDestroy {
       peopleInput
     } = this.searchForm.value;
 
-    const inputPickupDateTime = new Date(
+    const inputPickupDate = new Date(
       inputPickup?.year,
       inputPickup?.month - 1,
-      inputPickup?.day,
-      inputPickupTime === 'null' || inputPickupTime === null || inputPickupTime === undefined
-        ? 0
-        : parseInt(inputPickupTime)
+      inputPickup?.day
       );
 
-    const inputDropoffDateTime = inputDropoff 
+    const inputDropoffDate = inputDropoff 
       ? new Date(
         inputDropoff.year,
         inputDropoff.month - 1,
-        inputDropoff.day,
-        inputDropoffTime === 'null' || inputDropoffTime === null || inputDropoffTime === undefined
-          ? 0
-          : parseInt(inputDropoffTime)
+        inputDropoff.day
         )
       : null;
 
-    // this.yachtsService.getYachts({inputPickupDateTime, inputDropoffDateTime, cabinInput, peopleInput }).subscribe({
-    //   next: () => {
-    //     this.loading = false;
-    //   },
-    //   error: () => {
-    //     this.loading = false;
-    //   }
-    // })
+      const queryParams = {
+        pickup: inputPickupDate,
+        pickupTime: inputPickupTime,
+        dropoff: inputDropoffDate,
+        dropoffTime: inputDropoffTime, 
+        cabin: cabinInput, 
+        people: peopleInput
+      }
+
+      this.router.navigate(['/yachts'], {queryParams: queryParams});
   }
 }

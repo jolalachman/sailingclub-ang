@@ -9,6 +9,7 @@ import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CABINS, PEOPLE, TIMES } from 'src/app/modules/home/constants/searchForm.constant';
 import { FiltersModel } from '../../models/yacht.model';
 import { YACHT_STATUSES } from '../../constants/yacht-statuses.constant';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-yachts',
@@ -23,6 +24,8 @@ export class YachtsComponent implements OnInit, OnDestroy {
     public location: Location,
     private modalService: NgbModal,
     private fb: NonNullableFormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
     ) {}
   pageSizes = [5, 10, 20];
   yachtTypes = YACHT_TYPES;
@@ -33,6 +36,7 @@ export class YachtsComponent implements OnInit, OnDestroy {
   numOfPeople = PEOPLE;
   private dialogSubscription: Subscription = Subscription.EMPTY;
   formSubscription = Subscription.EMPTY;
+  paramsSubscription = Subscription.EMPTY;
 
   filtersForm: FormGroup = this.fb.group({
     type: [null],
@@ -65,6 +69,22 @@ export class YachtsComponent implements OnInit, OnDestroy {
       month: today.getMonth() + 1,
       day: today.getDate()
     };
+  }
+
+  getDateObj(date: Date): NgbDateStruct {
+    return {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()
+    };
+  }
+
+  getDate(dateObj: NgbDateStruct) {
+    return new Date(
+      dateObj?.year,
+      dateObj?.month - 1,
+      dateObj?.day
+      );
   }
 
   getMinDate(): NgbDateStruct {
@@ -124,11 +144,49 @@ export class YachtsComponent implements OnInit, OnDestroy {
         }
       }
     });
+
+    this.paramsSubscription = this.route.queryParams.subscribe(params => {
+      this.filtersForm.patchValue({
+        inputPickup: params['pickup'] ? this.getDateObj(new Date(params['pickup'])) : null,
+        inputPickupTime: params['pickupTime'],
+        inputDropoff: params['dropoff'] ? this.getDateObj(new Date(params['dropoff'])) : null,
+        inputDropoffTime: params['dropoffTime'],
+        cabinInput: params['cabin'],
+        peopleInput: params['people'],
+      });
+
+      const inputPickupDateTime = params['pickup']
+      ? new Date(
+        params['pickup'],
+        params['pickupTime'] === 'null' || params['pickupTime'] === null || params['pickupTime'] === undefined
+        ? 0
+        : parseInt(params['pickupTime'])
+      )
+      : null;
+
+    const inputDropoffDateTime = params['dropoff']
+      ? new Date(
+        params['dropoff'],
+        params['dropoffTime'] === 'null' || params['dropoffTime'] === null || params['dropoffTime'] === undefined
+        ? 0
+        : parseInt(params['dropoffTime'])
+        )
+      : null;
+
+      this.facade.filterChange([
+        {field: 'pickup', value: inputPickupDateTime},
+        {field: 'dropoff', value: inputDropoffDateTime},
+        {field: 'cabin', value: parseInt(params['cabin'])},
+        {field: 'people', value: parseInt(params['people'])}
+      ]);
+    });
+
   }
 
   ngOnDestroy(): void {
     this.dialogSubscription.unsubscribe();
     this.formSubscription.unsubscribe();
+    this.paramsSubscription.unsubscribe();
   }
 
   pageChange(event: number, currentPageSize: number) {
@@ -207,6 +265,19 @@ export class YachtsComponent implements OnInit, OnDestroy {
       {field: 'people', value: parseInt(peopleInput)},
       {field: 'name', value: value},
     ]);
+
+    const queryParams: NavigationExtras = {
+      queryParams: {
+        pickup: inputPickup ? this.getDate(inputPickup) : null,
+        pickupTime: inputPickupTime,
+        dropoff: inputDropoff ? this.getDate(inputDropoff) : null,
+        dropoffTime: inputDropoffTime, 
+        cabin: cabinInput, 
+        people: peopleInput
+      },
+      replaceUrl: true
+    };
+    this.router.navigate([], queryParams);
   }
 
   clearFilters() {
@@ -222,5 +293,10 @@ export class YachtsComponent implements OnInit, OnDestroy {
     });
     const {value} = this.searchForm.value;
     this.facade.filterChange([{field: 'name', value: value},]);
+    const queryParams: NavigationExtras = {
+      queryParams: {},
+      replaceUrl: true
+    };
+    this.router.navigate([], queryParams);
   }
 }

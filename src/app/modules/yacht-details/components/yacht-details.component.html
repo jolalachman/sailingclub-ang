@@ -1,0 +1,155 @@
+<div class="yacht-details">
+    <div class="yacht-details-background-image"></div>
+    <div class="yacht-details-page">
+        <div class="yacht-details-subheader">
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
+            <p class="my-subheader">
+                {{ 'Yacht details' | translate }}
+            </p>
+        </div>
+        <div class="yacht-details-main-container" *ngIf="yacht$ | async as yacht">
+            <div>
+                <div class="record-pic">
+                    <img [src]="yacht?.photo">
+                </div>
+                <!-- <div class="calendar-buttons">
+                    <button
+                    class="btn sail-secondary-button btn-md"
+                    mwlCalendarPreviousView
+                    [(viewDate)]="viewDate"
+                    [view]="'week'">
+                        <i class="bi bi-arrow-left"></i>
+                    </button>
+                    <button
+                    class="btn sail-secondary-button btn-md"
+                    mwlCalendarNextView
+                    [(viewDate)]="viewDate"
+                    [view]="'week'">
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+                <mwl-calendar-week-view
+                [viewDate]="viewDate"
+                [weekStartsOn]="1"
+                [dayStartHour]="4"
+                [dayEndHour]="22"
+                [hourSegments]="1"
+                [events]="reservationCalendar"
+                (eventClicked)="handleClick($event.event.meta)">
+                </mwl-calendar-week-view> -->
+            </div>
+            <div class="record-content">
+                <div class="record-header">
+                    <div class="record-name">
+                        {{yacht?.name ?? 'none' | translate}}
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; gap: 50px;">
+                    <div class="record-main">
+                        <div class="yacht-details-form-title">{{"General information" | translate}}</div>
+                        <div class="record-type">{{"Type:" | translate }}
+                            <span class="record-value">
+                                {{yacht?.type ?? 'none' | translate}}
+                            </span>
+                        </div>
+                        <div class="record-registration">{{"Registration number:" | translate }}
+                            <span class="record-value">
+                                {{yacht?.registrationNumber ?? 'none' | translate}}
+                            </span>
+                        </div>
+                        <div class="record-status">{{"Current status:" | translate }}
+                            <span class="record-value" [class.available]="yacht?.currentStatus === 'AVAILABLE'">
+                                {{yacht?.currentStatus ?? 'none' | translate}}
+                            </span>
+                        </div>
+                        <div class="record-description">{{"Description:" | translate }}
+                            <div class="record-description-value">
+                                {{yacht?.description ?? 'none' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="record-main">
+                        <div class="yacht-details-form-title">{{"Technical data" | translate}}</div>
+                        <div class="record-length">{{"Length:" | translate }}
+                            <span class="record-value">
+                                {{ yacht?.technicalData?.length ?? '-' }}
+                            </span>
+                        </div>
+                        <div class="record-width">{{"Width:" | translate }}
+                            <span class="record-value">
+                                {{ yacht?.technicalData?.width ?? '-' }}
+                            </span>
+                        </div>
+                        <div class="record-immersion">{{"Immersion:" | translate }}
+                            <span class="record-value">
+                                {{ yacht?.technicalData?.immersion ?? '-' }}
+                            </span>
+                        </div>
+                        <div class="record-sail-area">{{"Sail area:" | translate }}
+                            <span class="record-value">
+                                {{ yacht?.technicalData?.sailArea ?? '-' }}
+                            </span>
+                        </div>
+                        <div class="record-cabinNum">{{"Cabin number:" | translate }}
+                            <span class="record-value">
+                                {{ yacht?.technicalData?.cabinNumber ?? '-' }}
+                            </span>
+                        </div>
+                        <div class="record-cabinNum">{{"Max. people:" | translate }}
+                            <span class="record-value">
+                                {{ yacht?.technicalData?.maxPeople ?? '-'}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="record-main">
+                        <div class="yacht-details-form-title">{{"Equipment" | translate}}</div>
+                        <ng-template #crossValue>
+                            <span class="record-value">
+                                <i class="bi bi-x"></i>
+                            </span>
+                        </ng-template>
+                        <div class="record-microwave">{{"Microwave:" | translate }}
+                            <span class="record-value" *ngIf="yacht?.equipment?.microwave; else crossValue">
+                                <i class="bi bi-check"></i>
+                            </span>
+                        </div>
+                        <div class="record-radio">{{"Radio:" | translate }}
+                            <span class="record-value" *ngIf="yacht?.equipment?.radio; else crossValue">
+                                <i class="bi bi-check"></i>
+                            </span>
+                        </div>
+                        <div class="record-shower">{{"Shower:" | translate }}
+                            <span class="record-value" *ngIf="yacht?.equipment?.shower; else crossValue">
+                                <i class="bi bi-check"></i>
+                            </span>
+                        </div>
+                        <div class="record-wc">{{"WC:" | translate }}
+                            <span class="record-value" *ngIf="yacht?.equipment?.wc; else crossValue">
+                                <i class="bi bi-check"></i>
+                            </span>
+                        </div>
+                        <div class="yacht-details-form-title" style="margin-top: 10px;">{{"Prices" | translate}}</div>
+                        <div class="record-daily-price">{{"Daily price:" | translate }}
+                            <span class="record-value">
+                                {{ yacht?.dailyPrice ?? '-' }}
+                            </span>
+                        </div>
+                        <div class="record-hourly-price">{{"Hourly price:" | translate }}
+                            <span class="record-value">
+                                {{ yacht?.hourlyPrice ?? '-' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="record-options">
+                <button class="btn sail-icon-button" (click)="editYacht()">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn sail-icon-button" (click)="deactivateYacht()">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
