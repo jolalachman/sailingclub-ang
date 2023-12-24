@@ -61,6 +61,14 @@ const routes: Routes = [
         m => m.YachtDetailsModule,
       ),
   },
+  {
+    path: 'reservation-details/:reservationId',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./modules/reservation-details/reservation-details.module').then(
+        m => m.ReservationDetailsModule,
+      ),
+  },
 ];
 
 @NgModule({

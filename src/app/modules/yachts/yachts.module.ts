@@ -18,9 +18,10 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { YachtsListReducer } from './store/reducers';
 import { YachtsListEffect } from './store/effects';
-import { NgbActiveModal, NgbDropdownModule, NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDatepickerModule, NgbDropdownModule, NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClickEmitterDirective } from './directives/click.directive';
 import { AddYachtDialogComponent } from './dialogs/add-yacht-dialog/add-yacht-dialog.component';
+import { HomeModule } from '../home/home.module';
 
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -47,6 +48,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NgbPaginationModule,
     NgbDropdownModule,
     ReactiveFormsModule,
+    NgbDatepickerModule, 
+    HomeModule,
 
 
     // translation module
@@ -65,6 +68,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       YachtsListReducer.STATE_KEY,
       YachtsListReducer.reducers,
     ),
+  ],
+  exports: [
+    ClickEmitterDirective,
   ]
 })
 export class YachtsModule {
@@ -73,6 +79,7 @@ export class YachtsModule {
     protected localStorageService: LocalStorageService,
   ) {
     const language = this.localStorageService.get(LANGUAGE_KEY);
-    this.translate.setDefaultLang(language ?? 'pl');
+    const browserLang = translate.getBrowserLang();
+    this.translate.setDefaultLang(language ?? browserLang ?? 'pl');
   }
  }

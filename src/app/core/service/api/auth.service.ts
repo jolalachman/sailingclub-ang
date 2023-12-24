@@ -24,7 +24,7 @@ export type RegisterRequest = {
     firstName: string;
     lastName: string;
     clubStatus: string;
-    sailingLicense: string;
+    sailingLicense: number;
     email: string;
     password: string;
 }

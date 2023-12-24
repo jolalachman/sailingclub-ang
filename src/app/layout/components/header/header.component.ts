@@ -11,6 +11,7 @@ import { LoginService } from 'src/app/core/service/login/login.service';
 })
 export class HeaderComponent {
   arrayOptions = [
+    { text: 'Search yacht', path: '/home', icon: 'bi-search' },
     { text: 'Yachts', path: '/yachts', icon: 'bi-life-preserver' },
     { text: 'All reservations', path: '/reservations', icon: 'bi-book' }, 
     { text: 'Club members', path: '/club-members', icon: 'bi-people' }, 

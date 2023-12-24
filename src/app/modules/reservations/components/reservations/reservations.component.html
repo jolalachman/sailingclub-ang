@@ -1,0 +1,235 @@
+<div class="reservations">
+    <div class="reservations-background-image"></div>
+    <div class="reservations-page">
+        <div class="reservations-subheader">
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
+            <p class="my-subheader">
+                {{ 'Reservations' | translate }}
+            </p>
+        </div>
+        <div class="reservations-main-container">
+            <div class="reservations-container" [hidden]="viewCalendar" *ngIf="reservationList$ | async as reservationList">
+                <div class="reservations-results">
+                    <div *ngFor="let record of reservationList.data">
+                        <app-reservation-record
+                            [record]="record">
+                        </app-reservation-record>
+                    </div>
+                    <span class="my-modify" *ngIf="reservationList.totalCount===0" style="align-self: center; margin-top: auto; margin-bottom: auto;">
+                        {{ 'There are no reservations' | translate}}
+                    </span>
+                </div>
+                <div class="reservations-pagination" *ngIf="paging$ | async as paging">
+                    <ngb-pagination class="ngb-pagination" style="height: 38px" [collectionSize]="reservationList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
+                    <div class="reservations-page-sizes">
+                        <span> {{ "Page size:" | translate }}</span>
+                        <div ngbDropdown data-toggle="dropdown">
+                            <button style="width: 60px;" type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+                                {{paging.pageSize}}
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem
+                                *ngFor="let pageSize of pageSizes" (click)="pageSizeChange(pageSize)">
+                                    {{pageSize}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reservations-container" *ngIf="viewCalendar">
+                <div *ngIf="reservationCalendar$ | async as reservationCalendar">
+                    <div class="calendar-buttons">
+                        <button
+                        class="btn sail-secondary-button btn-md"
+                        mwlCalendarPreviousView
+                        [(viewDate)]="viewDate"
+                        [view]="'week'">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <button
+                        class="btn sail-secondary-button btn-md"
+                        mwlCalendarNextView
+                        [(viewDate)]="viewDate"
+                        [view]="'week'">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                    <mwl-calendar-week-view
+                    [viewDate]="viewDate"
+                    [weekStartsOn]="1"
+                    [dayStartHour]="4"
+                    [dayEndHour]="22"
+                    [hourSegments]="1"
+                    [events]="reservationCalendar"
+                    (eventClicked)="handleClick($event.event.meta)">
+                    </mwl-calendar-week-view>
+                </div>
+            </div>
+            <div class="reservations-modify">
+                <div class="section" style="flex-direction: row; gap: 10px; justify-content: space-between; align-items: center;">
+                    <span class="my-modify" *ngIf="!viewCalendar; else calendar"> {{"Manage list" | translate }}</span>
+                    <ng-template #calendar>
+                        <span class="my-modify"> {{"Manage calendar" | translate }}</span>
+                    </ng-template>
+                    <button class="btn sail-icon-button" (click)="openAddReservationDialog()">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                </div>
+                <div class="section">
+                    <form [formGroup]="searchForm" class="search" (submit)="search()">
+                        <div class="input-container">
+                            <input formControlName="value" type="text" class="form-control">
+                            <button [hidden]="searchForm.invalid" class="btn sail-icon-button search-clear" (click)="clearSearch()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                        <button [disabled]="searchForm.invalid" type="submit" class="btn sail-primary-button btn-sm" style="border-radius: 6px;">
+                            {{'Search' | translate}}
+                        </button>
+                    </form>
+                </div>
+                <div class="section" *ngIf="!viewCalendar">
+                    <div ngbDropdown data-toggle="dropdown" *ngIf="sort$ | async as sort">
+                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
+                            {{"Sort" | translate}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange(undefined)">
+                                -
+                                <i class="bi bi-check" [hidden]="sort.dir !== undefined"></i>
+                            </button>
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('asc')">
+                                A - Z
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'asc'"></i>
+                            </button>
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('desc')">
+                                Z - A
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'desc'"></i>
+                            </button>
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('closest')">
+                                {{ "Closest" | translate}}
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'closest'"></i>
+                            </button>
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('furthest')">
+                                {{ "Furthest" | translate}}
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'furthest'"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div ngbDropdown data-toggle="dropdown">
+                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
+                            {{"View" | translate}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem (click)="viewCalendar=false">
+                                {{ "List" | translate}}
+                            </button>
+                            <button ngbDropdownItem (click)="viewCalendar=true">
+                                {{ "Calendar" | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="section">
+                    <div ngbDropdown data-toggle="dropdown">
+                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
+                            {{"Cabin number" | translate}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem (click)="sortChange(undefined)">
+                                -
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('asc')">
+                                A - Z
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('desc')">
+                                Z - A
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('availability')">
+                                {{ "Fastest available" | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div ngbDropdown data-toggle="dropdown">
+                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
+                            {{"People number" | translate}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem (click)="sortChange(undefined)">
+                                -
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('asc')">
+                                A - Z
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('desc')">
+                                Z - A
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('availability')">
+                                {{ "Fastest available" | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div ngbDropdown data-toggle="dropdown">
+                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
+                            {{"Current status" | translate}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem (click)="sortChange(undefined)">
+                                -
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('asc')">
+                                A - Z
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('desc')">
+                                Z - A
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('availability')">
+                                {{ "Fastest available" | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div ngbDropdown data-toggle="dropdown">
+                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
+                            {{"Availability" | translate}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem (click)="sortChange(undefined)">
+                                -
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('asc')">
+                                A - Z
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('desc')">
+                                Z - A
+                            </button>
+                            <button ngbDropdownItem (click)="sortChange('availability')">
+                                {{ "Fastest available" | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div ngbDropdown data-toggle="dropdown">
+                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
+                            {{"Type" | translate}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem *ngFor="let type of yachtTypes" (click)="filtersChange(type)">
+                                {{type ?? '-' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

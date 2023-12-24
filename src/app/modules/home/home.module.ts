@@ -54,6 +54,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
       isolate: true,
     }),
+  ],
+  exports: [
+    TimeFormatPipe,
   ]
 })
 export class HomeModule {
@@ -62,6 +65,7 @@ export class HomeModule {
     protected localStorageService: LocalStorageService,
   ) {
     const language = this.localStorageService.get(LANGUAGE_KEY);
-    this.translate.setDefaultLang(language ?? 'pl');
+    const browserLang = translate.getBrowserLang();
+    this.translate.setDefaultLang(language ?? browserLang ?? 'pl');
   }
  }

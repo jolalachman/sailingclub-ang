@@ -5,6 +5,17 @@ export type YachtShortDataModel = {
     registrationNumber: string;
     currentStatus: string;
     photo: string;
+    cabinNum: number;
+    peopleNum: number;
+    reservations: YachtReservation[];
+    closelyAvailable: boolean;
+};
+
+export type YachtReservation = {
+    reservationId: number;
+    pickup: string,
+    dropoff: string,
+    reservingPerson: string,
 };
 
 export type YachtsPageModel = {
@@ -14,7 +25,8 @@ export type YachtsPageModel = {
 };
 
 export type FiltersModel = {
-    filter: number;
+    field: string
+    value: Date | string | number | null;
 };
 
 export type PageInfo = {

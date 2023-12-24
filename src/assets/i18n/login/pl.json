@@ -39,5 +39,10 @@
     "Invalid email or token already sent": "Niepoprawny email lub kod został już wysłany",
     "Already have a token?": "Masz już kod?",
     "Need a token?": "Potrzebujesz kodu?",
-    "User not activated": "Użytkownik nie został aktywowany"
+    "User not activated": "Użytkownik nie został aktywowany",
+    "NONE": "Brak",
+    "SAILOR": "Żeglarz",
+    "MARITIME_HELMSMAN": "Sternik morski",
+    "CAPTAIN": "Kapitan",
+    "There are no sailing licences": "Brak uprawnień żeglarskich"
 }

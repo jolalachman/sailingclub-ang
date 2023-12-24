@@ -15,6 +15,9 @@
                             [record]="record">
                         </app-yacht-record>
                     </div>
+                    <span class="my-modify" *ngIf="yachtList.totalCount===0" style="align-self: center; margin-top: auto; margin-bottom: auto;">
+                        {{ 'There are no yachts' | translate}}
+                    </span>
                 </div>
                 <div class="yachts-pagination" *ngIf="paging$ | async as paging">
                     <ngb-pagination class="ngb-pagination" style="height: 38px" [collectionSize]="yachtList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
@@ -35,136 +38,156 @@
                 </div>
             </div>
             <div class="yachts-modify">
-                <div class="section">
+                <div class="section" style="flex-direction: row; gap: 10px; justify-content: space-between; align-items: center;">
                     <span class="my-modify"> {{"Manage list" | translate }}</span>
+                    <button class="btn sail-icon-button" (click)="openAddYachtDialog()">
+                        <i class="bi bi-plus"></i>
+                    </button>
                 </div>
                 <div class="section">
-                    <form style="display: flex; flex-direction: row; gap: 2px">
-                        <input type="text" class="form-control">
-                        <button type="submit" class="btn sail-primary-button btn-sm" style="border-radius: 6px;">
-                            {{'Search' | translate}}
-                        </button>
+                    <form [formGroup]="searchForm" class="search">
+                        <div class="input-container">
+                            <input formControlName="value" type="text" class="form-control" style="width: 250px" placeholder="{{'Search' | translate}}" (input)="search()">
+                            <button [hidden]="searchForm.invalid" class="btn sail-icon-button search-clear" (click)="clearSearch()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
                     </form>
                 </div>
-                <div class="section">
-                    <button class="btn sail-primary-button btn-lg" (click)="openAddYachtDialog()">{{ 'Add yacht' | translate }}</button>
-                </div>
-                <div class="section">
+                <div class="section" *ngIf="sort$ | async as sort">
                     <div ngbDropdown data-toggle="dropdown">
                         <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
                             {{"Sort" | translate}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem (click)="sortChange(undefined)">
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange(undefined)">
                                 -
+                                <i class="bi bi-check" [hidden]="sort.dir !== undefined"></i>
                             </button>
-                            <button ngbDropdownItem (click)="sortChange('asc')">
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('asc')">
                                 A - Z
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'asc'"></i>
                             </button>
-                            <button ngbDropdownItem (click)="sortChange('desc')">
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('desc')">
                                 Z - A
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'desc'"></i>
                             </button>
-                            <button ngbDropdownItem (click)="sortChange('availability')">
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('availability')">
                                 {{ "Fastest available" | translate}}
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'availability'"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="section">
-                    <div ngbDropdown data-toggle="dropdown">
-                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
-                            {{"Cabin number" | translate}}
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem (click)="sortChange(undefined)">
-                                -
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('asc')">
-                                A - Z
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('desc')">
-                                Z - A
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('availability')">
-                                {{ "Fastest available" | translate}}
-                            </button>
+                <div class="section" *ngIf="filters$ | async as filters">
+                    <form class="yachts-form" [formGroup]="filtersForm" (submit)="filter()">
+                        <div class="section">
+                            <span class="yachts-form-link" style="margin-left: auto;" (click)="clearFilters()">
+                                {{ "Clear filters" | translate }}
+                            </span>
+                            <label for="type" class="form-label">{{ 'Type' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="type"
+                                formControlName="type"
+                            >
+                                <option *ngFor="let type of yachtTypes" [value]="type">
+                                    {{ type ?? '-' | translate }}
+                                </option>
+                            </select>
                         </div>
-                    </div>
-                </div>
-                <div class="section">
-                    <div ngbDropdown data-toggle="dropdown">
-                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
-                            {{"People number" | translate}}
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem (click)="sortChange(undefined)">
-                                -
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('asc')">
-                                A - Z
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('desc')">
-                                Z - A
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('availability')">
-                                {{ "Fastest available" | translate}}
-                            </button>
+                        <div class="section">
+                            <label for="status" class="form-label">{{ 'Status' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="status"
+                                formControlName="status"
+                            >
+                                <option *ngFor="let status of yachtStatuses" [value]="status">
+                                    {{ status ?? '-' | translate }}
+                                </option>
+                            </select>
                         </div>
-                    </div>
-                </div>
-                <div class="section">
-                    <div ngbDropdown data-toggle="dropdown">
-                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
-                            {{"Current status" | translate}}
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem (click)="sortChange(undefined)">
-                                -
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('asc')">
-                                A - Z
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('desc')">
-                                Z - A
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('availability')">
-                                {{ "Fastest available" | translate}}
-                            </button>
+                        <div class="section">
+                            <label for="inputPickup" class="form-label">{{ 'Pick up date' | translate }}</label>
+                            <div class="input-group" id="inputPickup">
+                                <input
+                                    class="form-control"
+                                    placeholder="dd-mm-yyyy"
+                                    [minDate]="getCurrentDate()"
+                                    ngbDatepicker
+                                    #di="ngbDatepicker"
+                                    formControlName="inputPickup"
+                                />
+                                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="di.toggle()" type="button"></button>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="section">
-                    <div ngbDropdown data-toggle="dropdown">
-                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
-                            {{"Availability" | translate}}
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem (click)="sortChange(undefined)">
-                                -
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('asc')">
-                                A - Z
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('desc')">
-                                Z - A
-                            </button>
-                            <button ngbDropdownItem (click)="sortChange('availability')">
-                                {{ "Fastest available" | translate}}
-                            </button>
+                        <div class="section">
+                            <label for="inputPickupTime" class="form-label">{{ 'Approx. pick up time' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="inputPickupTime"
+                                formControlName="inputPickupTime"
+                            >
+                                <option *ngFor="let time of pickupTimes" [value]="time">
+                                    {{ time | timeFormat }}
+                                </option>
+                            </select>
                         </div>
-                    </div>
-                </div>
-                <div class="section">
-                    <div ngbDropdown data-toggle="dropdown">
-                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
-                            {{"Type" | translate}}
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem *ngFor="let type of yachtTypes" (click)="filtersChange(type)">
-                                {{type ?? '-' | translate }}
-                            </button>
+                        <div class="section">
+                            <label for="inputDropoff" class="form-label">{{ 'Drop off date' | translate }}</label>
+                            <div class="input-group" id="inputDropoff">
+                                <input
+                                    class="form-control"
+                                    placeholder="dd-mm-yyyy"
+                                    name="dp"
+                                    [minDate]="getMinDate()"
+                                    ngbDatepicker
+                                    #dp="ngbDatepicker"
+                                    formControlName="inputDropoff"
+                                />
+                                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
+                            </div>
+                            <div *ngIf="formControls['inputDropoff'].invalid && (formControls['inputDropoff'].dirty || formControls['inputDropoff'].touched)">
+                                <div *ngIf="formControls['inputDropoff'].errors">
+                                    <label class="error-message"> {{'Incorrect date' | translate}} </label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="section">
+                            <label for="inputDropoffTime" class="form-label">{{ 'Approx. drop off time' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="inputDropoffTime"
+                                formControlName="inputDropoffTime"
+                            >
+                                <option *ngFor="let time of dropoffTimes" [value]="time">{{ time | timeFormat }}</option>
+                            </select>
+                        </div>
+                        <div class="section">
+                            <label for="cabinInput" class="form-label">{{ 'Number of cabins' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="cabinInput"
+                                formControlName="cabinInput"
+                            >
+                                <option *ngFor="let number of numOfCabins" [value]="number">{{ number ?? '-' }}</option>
+                            </select>
+                        </div>
+                        <div class="section">
+                            <label for="peopleInput" class="form-label">{{ 'Number of people' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="peopleInput"
+                                formControlName="peopleInput"
+                            >
+                                <option *ngFor="let number of numOfPeople" [value]="number">{{ number ?? '-' }}</option>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button [disabled]="filtersForm.invalid" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Filter' | translate }}</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

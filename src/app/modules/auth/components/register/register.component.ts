@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { Observable, OperatorFunction, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { LoginService } from 'src/app/core/service/login/login.service';
 import { passwordRegex} from '../../constants/password-regex.constant';
-import {sailingLicensesEng, sailingLicensesPl } from '../../constants/sailing-licenses.constant';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthDictionaryService } from '../../services/auth-dictionary.service';
 
 @Component({
   selector: 'app-auth-register',
@@ -18,39 +18,25 @@ export class RegisterComponent {
   firstPage = true;
   loading = false;
 
+  sailingLicenses$ = this.dictionaryService.getSailingLicensesDictionary();
+
   registerForm: FormGroup = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     clubStatus: [''],
-    sailingLicense: ['', Validators.required],
+    sailingLicense: [null, Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.pattern(passwordRegex)]],
     repeatPassword: ['', Validators.required]
   });
-
-  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
-		text$.pipe(
-			debounceTime(200),
-			distinctUntilChanged(),
-			map((term) => {
-        if (term.length < 2)
-          return [];
-        else {
-          if (this.translate.currentLang === 'pl')
-            return sailingLicensesPl.filter((v) => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10);
-          else
-            return sailingLicensesEng.filter((v) => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10);
-        }
-      }
-			),
-		);
 
   constructor(
     public location: Location,
     private router: Router,
     private fb: NonNullableFormBuilder,
     private loginService: LoginService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private dictionaryService: AuthDictionaryService,
   ) {}
 
   get formControls() {

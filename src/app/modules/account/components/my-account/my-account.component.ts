@@ -15,13 +15,15 @@ import { AccountService } from "../../service/account.service";
     loading = false;
     editMode = false;
     id = this.loginService.getUserInfo().value?.id ?? '';
+    sailingLicenses$ = this.service.getSailingLicensesDictionary();
 
     myAccountForm: FormGroup = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phone: ['', Validators.pattern(phoneRegex)],
       clubStatus: [''],
-      sailingLicense: ['', Validators.required],
+      sailingLicenseName: ['', Validators.required],
+      sailingLicenseId: [null, Validators.required],
     });
   
     get formControls() {
@@ -56,9 +58,9 @@ import { AccountService } from "../../service/account.service";
 
       this.loading = true;
       
-      const {firstName, lastName, phone, clubStatus, sailingLicense} = this.myAccountForm.value;
+      const {firstName, lastName, phone, clubStatus, sailingLicenseId} = this.myAccountForm.value;
       const id = this.id;
-      this.service.editAccount({id, firstName, lastName, phone, clubStatus, sailingLicense}).subscribe({
+      this.service.editAccount({id, firstName, lastName, phone, clubStatus, sailingLicenseId}).subscribe({
         next: (result) => {
           this.loginService.setUserInfo(firstName, lastName, id);
           this.myAccountForm.patchValue(result);

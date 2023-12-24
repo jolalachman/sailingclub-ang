@@ -1,4 +1,8 @@
 {
     "none": "-",
-    "AVAILABLE": "available"
+    "AVAILABLE": "available",
+    "RESERVED_LONG_TERM": "reserved long term",
+    "IN_REPAIR": "in repair", 
+    "MALFUNCTION": "malfunction",
+    "IN_USE": "in use"
 }

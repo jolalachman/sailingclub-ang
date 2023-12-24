@@ -8,7 +8,7 @@
                 <div class="input-group" id="inputPickup">
                     <input
                         class="form-control"
-                        placeholder="yyyy-mm-dd"
+                        placeholder="dd-mm-yyyy"
                         [minDate]="getCurrentDate()"
                         ngbDatepicker
                         #di="ngbDatepicker"
@@ -40,7 +40,7 @@
                 <div class="input-group" id="inputDropoff">
                     <input
                         class="form-control"
-                        placeholder="yyyy-mm-dd"
+                        placeholder="dd-mm-yyyy"
                         name="dp"
                         [minDate]="getMinDate()"
                         ngbDatepicker
@@ -48,6 +48,11 @@
                         formControlName="inputDropoff"
                     />
                     <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
+                </div>
+                <div *ngIf="formControls['inputDropoff'].invalid && (formControls['inputDropoff'].dirty || formControls['inputDropoff'].touched)">
+                    <div *ngIf="formControls['inputDropoff'].errors">
+                        <label class="error-message"> {{'Incorrect date' | translate}} </label>
+                    </div>
                 </div>
             </div>
             <div class="form-item">

@@ -49,7 +49,7 @@
                     <div class="form-row">
                         <label for="sailingLicense" class="my-account-form-label">{{ 'Sailing qualifications' | translate }}</label>
                         <span class="form-span" id="sailingLicense">
-                            {{ myAccountForm.get('sailingLicense')?.value }}
+                            {{ myAccountForm.get('sailingLicenseName')?.value | translate }}
                         </span>
                     </div>
                     <div class="form-link">
@@ -90,11 +90,23 @@
                         <label for="clubStatus" class="my-account-form-label">{{ 'Club status' | translate }}</label>
                         <input type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
                     </div>
-                    <div class="form-row">
+                    <div class="form-row" *ngIf="sailingLicenses$ | async as sailingLicenses">
                         <label for="sailingLicense" class="my-account-form-label">{{ 'Sailing qualifications' | translate }}</label>
-                        <input type="text" class="form-control" id="sailingLicense" required formControlName="sailingLicense">
-                        <div *ngIf="formControls['sailingLicense'].invalid && (formControls['sailingLicense'].dirty || formControls['sailingLicense'].touched)">
-                            <div *ngIf="formControls['sailingLicense'].errors?.['required']">
+                        <select
+                            class="form-select"
+                            id="sailingLicense"
+                            required
+                            formControlName="sailingLicenseId"
+                        >
+                            <option *ngFor="let sailingLicense of sailingLicenses" [value]="sailingLicense.id">
+                                {{ sailingLicense.name | translate }}
+                            </option>
+                            <option disabled *ngIf="sailingLicenses.length === 0">
+                                {{ 'There are no sailing licences'  | translate }}
+                            </option>
+                        </select>
+                        <div *ngIf="formControls['sailingLicenseId'].invalid && (formControls['sailingLicenseId'].dirty || formControls['sailingLicenseId'].touched)">
+                            <div *ngIf="formControls['sailingLicenseId'].errors?.['required']">
                                 <label class="error-message"> {{'This field is required' | translate}} </label>
                             </div>
                         </div>

@@ -1,0 +1,39 @@
+<div class="record" (clickEvent)="handleClick(record?.id)" clickEmitter>
+    <div class="record-pic">
+        <img [src]="record?.photo">
+    </div>
+    <div class="record-content">
+        <div class="record-header">
+            <div class="record-name">
+                {{record?.yachtName ?? 'none' | translate}}
+            </div>
+        </div>
+        <div class="record-main">
+            <div class="record-pickupDate">{{"Pick up datetime:" | translate }}
+                <span class="record-value">
+                    {{record?.pickupDate | customDateFormat }}
+                </span>
+            </div>
+            <div class="record-dropoffDate">{{"Drop off datetime:" | translate }}
+                <span class="record-value">
+                    {{record?.dropoffDate | customDateFormat }}
+                </span>
+            </div>
+            <div class="record-clientInfo">{{"Club member:" | translate }}
+                <span class="record-value">
+                    {{record?.clientInfo}}
+                </span>
+            </div>
+            <div *ngIf="record?.clientInfo !== record?.reservingPerson" class="record-clientInfo">{{"Reserving person:" | translate }}
+                <span class="record-value">
+                    {{record?.reservingPerson}}
+                </span>
+            </div>
+            <div class="record-clientInfo">{{"Current status:" | translate }}
+                <span class="record-value" [class.confirmed]="record?.currentStatus === 'CONFIRMED'">
+                    {{record?.currentStatus ?? '-' | translate}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

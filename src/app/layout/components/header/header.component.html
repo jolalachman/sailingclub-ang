@@ -1,8 +1,8 @@
 <div class="bg-light app-navbar">
     <div class="left-header">
       <div ngbDropdown placement="bottom-start" data-toggle="dropdown" *ngIf="isLoggedIn">
-        <button type="button" class="btn sail-secondary-button btn-sm" ngbDropdownToggle>
-          <i class="bi bi-list header-icon"></i>
+        <button type="button" class="btn sail-secondary-button btn-sm" ngbDropdownToggle style="background-color: transparent;">
+          <span class="navbar-brand">{{ 'Silesian Yacht Club' | translate }}</span>
         </button>
         <div ngbDropdownMenu>
           <a ngbDropdownItem class="align-center option-list" *ngFor="let option of arrayOptions" [routerLink]="[option.path]">
@@ -11,7 +11,6 @@
           </a>
         </div>
       </div>
-      <a class="navbar-brand" href="#">{{ 'Silesian Yacht Club' | translate }}</a>
     </div>
     <div class="app-navbar-options">  
       <div ngbDropdown placement="bottom-end" data-toggle="dropdown">

@@ -17,13 +17,9 @@ export class YachtsListEffect {
     load$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(YachtsListActions.load),
-            concatLatestFrom(() =>
-                this.store.select(YachtsListSelector.selectFilters),
-            ),
-            mergeMap(([action, query]) => of({...query, ...action.filters})),
-            switchMap(filters =>
-                this.service.all(filters).pipe(
-                    map(model => YachtsListActions.loadSuccess({model, filters})),
+            mergeMap(() =>
+                this.service.all().pipe(
+                    map(model => YachtsListActions.loadSuccess({model})),
                     catchError(error => of(YachtsListActions.loadFailure({error}))),
                 )
             ),

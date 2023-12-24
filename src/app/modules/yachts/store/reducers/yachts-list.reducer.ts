@@ -1,13 +1,11 @@
 import { createFeatureSelector, createReducer, on } from '@ngrx/store';
 import * as AppState from '../../../../core/state/app.state';
-import { FiltersModel, PaginationOptions, SortOptions, YachtShortDataModel, YachtsPageModel } from "../../models/yacht.model";
+import { FiltersModel, PaginationOptions, SortOptions, YachtsPageModel } from "../../models/yacht.model";
 import { YachtsListActions } from '../actions';
 
 export const STATE_KEY = 'yachts-list';
 
-export const defaultFilters: FiltersModel = {
-    filter: 1,
-};
+export const defaultFilters: FiltersModel[] = [];
 
 export const defaultPaging: PaginationOptions = {
     skip: 0,
@@ -20,7 +18,7 @@ export const defaultSorting: SortOptions = {
 
 export interface YachtsListState {
     result: YachtsPageModel | null;
-    filters: FiltersModel;
+    filters: FiltersModel[];
     paging: PaginationOptions;
     sorting: SortOptions;
     error?: string;
@@ -56,11 +54,10 @@ export const reducers = createReducer<YachtsListState>(
         };
     }),
 
-    on(YachtsListActions.loadSuccess, (state, {model, filters}): YachtsListState => {
+    on(YachtsListActions.loadSuccess, (state, {model}): YachtsListState => {
         return {
             ...state,
             result: model,
-            filters: filters,
             loading: false,
         };
     }),
@@ -85,10 +82,16 @@ export const reducers = createReducer<YachtsListState>(
     }),
 
     on(YachtsListActions.sorting, (state, {s: sorting}): YachtsListState => {
-        const { paging } = state;
         return {
             ...state,
             sorting,
+        };
+    }),
+
+    on(YachtsListActions.filters, (state, {f: filters}): YachtsListState => {
+        return {
+            ...state,
+            filters,
         };
     }),
 );

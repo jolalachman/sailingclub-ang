@@ -45,6 +45,7 @@ export class YachtDetailsModule {
     protected localStorageService: LocalStorageService,
   ) {
     const language = this.localStorageService.get(LANGUAGE_KEY);
-    this.translate.setDefaultLang(language ?? 'pl');
+    const browserLang = translate.getBrowserLang();
+    this.translate.setDefaultLang(language ?? browserLang ?? 'pl');
   }
  }

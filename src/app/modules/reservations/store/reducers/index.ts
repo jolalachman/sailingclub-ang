@@ -1,0 +1,1 @@
+export * as ReservationsListReducer from './reservations-list.reducer'

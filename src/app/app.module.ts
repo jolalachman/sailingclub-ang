@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { CoreModule } from './core/core.module';
@@ -13,6 +13,8 @@ import { StoreModule } from '@ngrx/store';
 import { LayoutModule } from './layout/layout.module';
 import { HomeModule } from './modules/home/home.module';
 import { EffectsModule } from '@ngrx/effects';
+import { registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
 
 export function InitializeAppLanguage(appLanguage: LanguageService) {
   return () => appLanguage.load();
@@ -22,9 +24,11 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/shared/', '.json');
 }
 
+registerLocaleData(localePl);
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +59,11 @@ export function createTranslateLoader(http: HttpClient) {
       deps: [LanguageService],
       multi: true,
     },
+    {
+      provide: LOCALE_ID,
+      deps: [LanguageService],
+      useFactory: (languageService: LanguageService) => languageService.currentLang
+    }
   ],
   bootstrap: [AppComponent]
 })

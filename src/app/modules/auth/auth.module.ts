@@ -50,4 +50,4 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       const browserLang = translate.getBrowserLang();
       this.translate.setDefaultLang(language ?? browserLang ?? 'pl');
     }
-   }
+  }

@@ -51,7 +51,6 @@ export class LanguageService {
       this.saveLanguage(this.defaultLanguage);
       return;
     }
-
     this.saveLanguage(language);
     window.location.reload();
   }

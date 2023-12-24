@@ -8,21 +8,35 @@
                 {{record?.name ?? 'none' | translate}}
             </div>
         </div>
-        <div class="record-main">
-            <div class="record-type">{{"Type:" | translate }}
-                <span class="record-value">
-                    {{record?.type ?? 'none' | translate}}
-                </span>
+        <div style="display: flex; justify-content: space-between; gap: 50px;">
+            <div class="record-main">
+                <div class="record-type">{{"Type:" | translate }}
+                    <span class="record-value">
+                        {{record?.type ?? 'none' | translate}}
+                    </span>
+                </div>
+                <div class="record-registration">{{"Registration number:" | translate }}
+                    <span class="record-value">
+                        {{record?.registrationNumber ?? 'none' | translate}}
+                    </span>
+                </div>
+                <div class="record-status">{{"Current status:" | translate }}
+                    <span class="record-value" [class.available]="record?.currentStatus === 'AVAILABLE'">
+                        {{record?.currentStatus ?? 'none' | translate}}
+                    </span>
+                </div>
             </div>
-            <div class="record-registration">{{"Registration number:" | translate }}
-                <span class="record-value">
-                    {{record?.registrationNumber ?? 'none' | translate}}
-                </span>
-            </div>
-            <div class="record-status">{{"Current status:" | translate }}
-                <span class="record-value" [class.available]="record?.currentStatus === 'AVAILABLE'">
-                    {{record?.currentStatus ?? 'none' | translate}}
-                </span>
+            <div class="record-main">
+                <div class="record-cabinNum">{{"Cabin number:" | translate }}
+                    <span class="record-value">
+                        {{ record?.cabinNum ?? '-' }}
+                    </span>
+                </div>
+                <div class="record-cabinNum">{{"Max. people:" | translate }}
+                    <span class="record-value">
+                        {{ record?.peopleNum ?? '-' }}
+                    </span>
+                </div>
             </div>
         </div>
     </div>

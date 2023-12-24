@@ -1,0 +1,166 @@
+:host {
+    .reservations {
+        &-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            background: url('../../../../../assets/backgrounds/nature-2608800_1280.jpg') no-repeat;
+            background-color: aqua;
+            background-size: cover;
+        }
+
+        &-page {
+            display: flex;
+            flex-direction: column;
+            padding: 40px 50px 0 50px;
+            gap: 10px;
+        }
+
+        &-main-container {
+            display: flex;
+            width: 100%;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        &-container {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 10px;
+            height: calc(100vh - 200px);
+        }
+
+        &-modify {
+            flex: 0;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .form-control {
+                width: 200px;
+            }
+
+            .item {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .section{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .dropdown-opt {
+                display: flex;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .search {
+                display: flex;
+                flex-direction: row;
+                gap: 5px;
+            }
+
+            .search-clear {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                background-color: lightsteelblue;
+                border-radius:  0px 6px 6px 0px;
+            }
+
+            .input-container {
+                position: relative;
+                display: inline-block;
+            }
+        }
+
+        &-pagination {
+            color: #000;
+            font-family: Inter;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+
+            flex: 0;
+            align-self: center;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        &-page-sizes {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        &-results {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+        }
+
+        &-subheader {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            .subheader-icon {
+                color: #FFF;
+                font-size: 30px;
+            }
+        }
+
+        .calendar-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .dropdown-toggle {
+            background-color: #0040E4;
+            border-color: #0040E4;
+        }
+    }
+}
+
+.my-subheader {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+.my-modify {
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+}
+
+ngb-pagination ::ng-deep ul > li.active > a {
+    background-color: #0040E4 !important;
+    border-color: #0040E4 !important;
+}

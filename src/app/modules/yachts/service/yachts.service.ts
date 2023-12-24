@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environment/environment";
 import { ApiService } from "src/app/core/service/api/api.service";
-import { FiltersModel, YachtShortDataModel, YachtsPageModel } from "../models/yacht.model";
+import { FiltersModel, YachtsPageModel } from "../models/yacht.model";
 
 export type YachtRequest = {
     name: string;
@@ -33,7 +33,7 @@ export class YachtsService extends ApiService {
         super();
     }
 
-    all(filters: FiltersModel): Observable<YachtsPageModel> {
+    all(): Observable<YachtsPageModel> {
         const url = `${environment.apiUrl}${'v1'}/${'yachts'}`;
         return this.http.get<YachtsPageModel>(url, {headers: this.getHeaders()});
     }

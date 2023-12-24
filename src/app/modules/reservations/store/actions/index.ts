@@ -1,0 +1,1 @@
+export * as ReservationsListActions from './reservations-list.action';

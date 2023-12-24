@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ReservationsComponent } from './reservations.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
 
 const routes: Routes = [
   {

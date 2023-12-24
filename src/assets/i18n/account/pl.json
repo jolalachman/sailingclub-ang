@@ -17,5 +17,10 @@
     "Hasło powinno zawierać przynajmniej: 8 znaków, wielką literę, małą literę, cyfrę i jeden z następujących znaków specjalnych: @$!%*?&",
     "New password is the same as the old one": "Nowe hasło jest takie same jak stare",
     "Passwords are different": "Hasła się różnią",
-    "Incorrect old password": "Niepoprawne stare hasło"
+    "Incorrect old password": "Niepoprawne stare hasło",
+    "NONE": "Brak",
+    "SAILOR": "Żeglarz",
+    "MARITIME_HELMSMAN": "Sternik morski",
+    "CAPTAIN": "Kapitan",
+    "There are no sailing licences": "Brak uprawnień żeglarskich"
 }

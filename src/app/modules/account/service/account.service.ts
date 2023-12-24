@@ -10,7 +10,8 @@ export type UserResponse = {
     lastName: string;
     phone: string;
     clubStatus: string;
-    sailingLicense: string;
+    sailingLicenseName: string;
+    sailingLicenseId: string;
 }
 export type UserRequest = {
     id: string
@@ -18,13 +19,18 @@ export type UserRequest = {
     lastName: string;
     phone: string;
     clubStatus: string;
-    sailingLicense: string;
+    sailingLicenseId: number;
 }
 
 export type ChangePasswordRequest = {
     id: string;
     oldPassword: string;
     newPassword: string;
+}
+
+export type DictionaryModel = {
+    id: number;
+    name: string;
 }
 
 @Injectable({
@@ -48,5 +54,10 @@ export class AccountService extends ApiService {
     changePassword(data: ChangePasswordRequest): Observable<boolean> {
         const url = `${environment.apiUrl}${'v1'}/${'user'}/${'changePassword'}`;
         return this.http.post<boolean>(url, data, {headers: this.getHeaders()});
+    }
+
+    getSailingLicensesDictionary(): Observable<DictionaryModel[]> {
+        const url = `${environment.apiUrl}${'v1'}/${'auth'}/${'sailingLicenses'}`;
+        return this.http.get<DictionaryModel[]>(url, {headers: this.getHeaders()});
     }
 }

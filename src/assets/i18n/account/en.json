@@ -1,1 +1,6 @@
-{}
+{
+    "NONE": "None",
+    "SAILOR": "Sailor",
+    "MARITIME_HELMSMAN": "Maritime helmsman",
+    "CAPTAIN": "Captain"
+}

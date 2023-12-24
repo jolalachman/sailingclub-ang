@@ -1,13 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CABINS, PEOPLE, TIMES } from './constants/searchForm.constant';
 import { Subscription } from 'rxjs';
+import { MyNgbDateParserFormatter } from './formaters/my-ngb-date-parser.formatter';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  providers: [{provide: NgbDateParserFormatter, useClass: MyNgbDateParserFormatter}]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   pickupTimes = TIMES;

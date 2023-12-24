@@ -1,0 +1,113 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{"Add reservation" | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="add-yacht-form" [formGroup]="addReservationForm">
+        <div class="form-row">
+            <label for="inputPickup" class="add-yacht-form-label">{{ 'Pick up date' | translate }}</label>
+            <div class="input-group" id="inputPickup">
+                <input
+                    class="form-control"
+                    placeholder="dd-mm-yyyy"
+                    [minDate]="getCurrentDate()"
+                    ngbDatepicker
+                    #di="ngbDatepicker"
+                    required
+                    formControlName="pickupDate"
+                />
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="di.toggle()" type="button"></button>
+            </div>
+            <div *ngIf="formControls['pickupDate'].invalid && (formControls['pickupDate'].dirty || formControls['pickupDate'].touched)">
+                <div *ngIf="formControls['pickupDate'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="pickupTime" class="add-yacht-form-label">{{ 'Approx. pick up time' | translate }}</label>
+            <select
+                class="form-select"
+                id="pickupTime"
+                formControlName="pickupTime"
+            >
+                <option *ngFor="let time of pickupTimes" [value]="time">
+                    {{ time | timeFormat }}
+                </option>
+            </select>
+        </div>
+        <div class="form-row">
+            <label for="dropoffDate" class="add-yacht-form-label">{{ 'Drop off date' | translate }}</label>
+            <div class="input-group" id="dropoffDate">
+                <input
+                    class="form-control"
+                    placeholder="dd-mm-yyyy"
+                    name="dp"
+                    [minDate]="getMinDate()"
+                    ngbDatepicker
+                    #dp="ngbDatepicker"
+                    formControlName="dropoffDate"
+                />
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
+            </div>
+            <div *ngIf="formControls['dropoffDate'].invalid && (formControls['dropoffDate'].dirty || formControls['dropoffDate'].touched)">
+                <div *ngIf="formControls['dropoffDate'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="dropoffTime" class="add-yacht-form-label">{{ 'Approx. drop off time' | translate }}</label>
+            <select
+                class="form-select"
+                id="dropoffTime"
+                formControlName="dropoffTime"
+            >
+                <option *ngFor="let time of dropoffTimes" [value]="time">{{ time | timeFormat }}</option>
+            </select>
+        </div>
+        <div class="form-row" *ngIf="yachts$ | async as yachts">
+            <label for="yachtId" class="add-yacht-form-label">{{ 'Yacht' | translate }}</label>
+            <select
+                class="form-select"
+                id="yachtId"
+                formControlName="yachtId"
+            >
+                <option *ngFor="let yacht of yachts" [value]="yacht.id">
+                    {{ yacht.name }}
+                </option>
+                <option disabled *ngIf="yachts.length === 0">
+                    {{ 'There are no yachts'  | translate }}
+                </option>
+            </select>
+            <div *ngIf="formControls['yachtId'].invalid && (formControls['yachtId'].dirty || formControls['yachtId'].touched)">
+                <div *ngIf="formControls['yachtId'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="users$ | async as users">
+            <label for="userId" class="add-yacht-form-label">{{ 'Club member' | translate }}</label>
+            <select
+                class="form-select"
+                id="userId"
+                formControlName="userId"
+            >
+                <option *ngFor="let user of users" [value]="user.id">
+                    {{ user.name }}
+                </option>
+                <option disabled *ngIf="users.length === 0">
+                    {{ 'There are no club members'  | translate }}
+                </option>
+            </select>
+            <div *ngIf="formControls['userId'].invalid && (formControls['userId'].dirty || formControls['userId'].touched)">
+                <div *ngIf="formControls['userId'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer" *ngIf="userInfo$ | async as userInfo">
+    <button [disabled]="addReservationForm.invalid || loading" type="submit" class="btn sail-dialog-button btn-lg form-button" (click)="addYacht(userInfo.firstName, userInfo.lastName)">{{"Add" | translate}}</button>
+</div>
