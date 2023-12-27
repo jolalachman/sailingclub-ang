@@ -9,6 +9,7 @@ export type LoginResponse = {
     firstName: string;
     lastName: string;
     id: string;
+    permission: string;
 }
 
 export type TokenResponse = {
@@ -23,6 +24,16 @@ export type LoginRequest = {
 export type RegisterRequest = {
     firstName: string;
     lastName: string;
+    clubStatus: string;
+    sailingLicense: number;
+    email: string;
+    password: string;
+}
+
+export type RegisterByAdminRequest = {
+    firstName: string;
+    lastName: string;
+    role: string;
     clubStatus: string;
     sailingLicense: number;
     email: string;
@@ -53,6 +64,11 @@ export class AuthService extends ApiService {
 
     register(data: RegisterRequest): Observable<TokenResponse> {
         const url = `${environment.apiUrl}${'v1'}/${'auth'}/${'register'}`;
+        return this.http.post<TokenResponse>(url, data, {headers: this.getHeaders()});
+    }
+
+    registerByAdmin(data: RegisterByAdminRequest): Observable<TokenResponse> {
+        const url = `${environment.apiUrl}${'v1'}/${'auth'}/${'register'}/${'admin'}`;
         return this.http.post<TokenResponse>(url, data, {headers: this.getHeaders()});
     }
 

@@ -22,6 +22,7 @@
     "IN_REPAIR": "w naprawie", 
     "MALFUNCTION": "awaria",
     "IN_USE": "w użytku",
+    "DEACTIVATED": "dezaktywowany",
     "Sort": "Sortuj",
     "Manage list": "Zarządzaj listą",
     "Search": "Szukaj",
@@ -51,5 +52,10 @@
     "Microwave:": "Mikrofalówka:",
     "Prices": "Ceny",
     "Daily price:": "Cena za dzień:",
-    "Hourly price:": "Cena za godzinę:"
+    "Hourly price:": "Cena za godzinę:",
+    "Reservations": "Rezerwacje",
+    "Reserve yacht": "Zarezerwuj jacht",
+    "Reported notices": "Zgłoszone uwagi",
+    "History of statuses": "Historia statusów",
+    "Change status": "Zmień status"
 }

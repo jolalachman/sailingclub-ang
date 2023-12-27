@@ -14,7 +14,8 @@ export class HeaderComponent {
     { text: 'Search yacht', path: '/home', icon: 'bi-search' },
     { text: 'Yachts', path: '/yachts', icon: 'bi-life-preserver' },
     { text: 'All reservations', path: '/reservations', icon: 'bi-book' }, 
-    { text: 'Club members', path: '/club-members', icon: 'bi-people' }, 
+    { text: 'Club members', path: '/club-members', icon: 'bi-people' },
+    { text: 'All users', path: '/users', icon: 'bi-people' },
     { text: 'Reported notices', path: '/notices', icon: 'bi-exclamation-circle' }, 
   ];
 
@@ -46,6 +47,6 @@ export class HeaderComponent {
   }
 
   createUserInitials(firstName: string, lastName: string) {
-    return firstName.charAt(0) + '' + lastName.charAt(0);
+    return firstName.charAt(0) + '' + (lastName.charAt(0) === '-' ? '' : lastName.charAt(0));
   }
 }

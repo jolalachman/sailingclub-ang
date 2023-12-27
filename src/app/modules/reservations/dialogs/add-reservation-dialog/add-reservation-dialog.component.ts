@@ -3,7 +3,7 @@ import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { NgbActiveModal, NgbDateParserFormatter, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { ReservationsService } from "../../service/reservations.service";
 import { LoginService } from "src/app/core/service/login/login.service";
-import { TIMES } from "src/app/modules/home/constants/searchForm.constant";
+import { ADD_TIMES, PEOPLE } from "src/app/modules/home/constants/searchForm.constant";
 import { Subscription } from "rxjs";
 import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-date-parser.formatter";
 
@@ -15,11 +15,12 @@ import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-
   })
   export class AddReservationDialogComponent implements OnInit, OnDestroy {
     @Output() reservationAdded: EventEmitter<boolean> = new EventEmitter<boolean>;
-    pickupTimes = TIMES;
-    dropoffTimes = TIMES;
+    pickupTimes = ADD_TIMES;
+    dropoffTimes = ADD_TIMES;
     activeModal = inject(NgbActiveModal);
     formSubscription = Subscription.EMPTY;
     loading = false;
+    numOfPeople = PEOPLE.filter(x => (x !== null));
 
     userInfo$ = this.loginService.userInfo.asObservable();
     yachts$ = this.reservationService.getYachtsDictionary();
@@ -27,10 +28,11 @@ import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-
 
     addReservationForm: FormGroup = this.fb.group({
       pickupDate: [null, Validators.required],
-      pickupTime: [null],
+      pickupTime: [null, Validators.required],
       dropoffDate: [null, Validators.required],
-      dropoffTime: [null],
-      userId: [1, Validators.required],
+      dropoffTime: [null, Validators.required],
+      peopleNumber: [null, Validators.required],
+      userId: [null, Validators.required],
       yachtId: [null, Validators.required],
     });
   
@@ -71,13 +73,13 @@ import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-
             }
             else {
               if (pickupDate?.year === dropoffDate?.year && pickupDate?.month === dropoffDate?.month && pickupDate?.day === dropoffDate?.day) {
-                this.dropoffTimes = TIMES.filter(num => num === null || num > +pickupTime )
+                this.dropoffTimes = ADD_TIMES.filter(num => num > +pickupTime )
                 if (control.value !== null && (+pickupTime >= +dropoffTime || Number.isNaN(+pickupTime))) {
                   control.patchValue(null);
                 }
               }
               else {
-                this.dropoffTimes = TIMES;
+                this.dropoffTimes = ADD_TIMES;
               }
             }
           }
@@ -121,6 +123,7 @@ import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-
         pickupTime,
         dropoffDate,
         dropoffTime,
+        peopleNumber,
         userId,
         yachtId,
       } = this.addReservationForm.value;
@@ -150,6 +153,7 @@ import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-
       this.reservationService.addReservation({
         pickup,
         dropoff,
+        peopleNumber,
         reservingPerson,
         userId,
         yachtId,

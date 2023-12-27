@@ -37,13 +37,13 @@
                     <div class="form-row">
                         <label for="phone" class="my-account-form-label">{{ 'Phone number' | translate }}</label>
                         <span class="form-span" id="phone">
-                            {{ myAccountForm.get('phone')?.value }}
+                            {{ myAccountForm.get('phone')?.value ?? '-' }}
                         </span>
                     </div>
                     <div class="form-row">
                         <label for="clubStatus" class="my-account-form-label">{{ 'Club status' | translate }}</label>
                         <span class="form-span" id="clubStatus">
-                            {{ myAccountForm.get('clubStatus')?.value }}
+                            {{ myAccountForm.get('clubStatus')?.value  ?? '-'}}
                         </span>
                     </div>
                     <div class="form-row">

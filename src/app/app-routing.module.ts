@@ -69,6 +69,46 @@ const routes: Routes = [
         m => m.ReservationDetailsModule,
       ),
   },
+  {
+    path: 'club-members',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./modules/club-members/club-members.module').then(
+        m => m.ClubMembersModule,
+      ),
+  },
+  {
+    path: 'notices',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./modules/notices/notices.module').then(
+        m => m.NoticesModule,
+      ),
+  },
+  {
+    path: 'my-reservations',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./modules/my-reservations/my-reservations.module').then(
+        m => m.MyReservationsModule,
+      ),
+  },
+  {
+    path: 'users',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./modules/users/users.module').then(
+        m => m.UsersModule,
+      ),
+  },
+  {
+    path: 'user-details/:userId',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./modules/user-details/user-details.module').then(
+        m => m.UserDetailsModule,
+      ),
+  },
 ];
 
 @NgModule({

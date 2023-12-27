@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{"Deactivate yacht" | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <div class="add-yacht-form-label">
+        {{"Are you sure that you want deactivate this yacht? The action is irreversible." | translate}}
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn sail-secondary-dialog-button btn-lg form-button" (click)="activeModal.dismiss('Cancel')">{{"Cancel" | translate}}</button>
+    <button class="btn sail-dialog-button btn-lg form-button" (click)="deactivateYacht()">{{"Yes" | translate}}</button>
+</div>

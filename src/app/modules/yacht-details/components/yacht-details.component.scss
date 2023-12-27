@@ -20,8 +20,9 @@
         }
 
         &-main-container {
+            align-self: center;
             display: flex;
-            width: 100%;
+            width: 70%;
             gap: 15px;
             padding: 10px;
             min-height: calc(100vh - 200px);
@@ -40,13 +41,21 @@
             }
         }
 
+        .calendar-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
         .record {   
             &-options {
                 display: flex;
                 gap: 10px;
+                align-items: center;
+                height: fit-content;
             }
             &-description-value {
-                width: 400px;
+                width: 100%;
                 overflow-x: hidden;
                 overflow-y: auto;
                 word-wrap: break-word;
@@ -92,8 +101,9 @@
     
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
-                
+                gap: 20px;
+                width: 100%;
+            
             }
     
             &-value {
@@ -110,12 +120,48 @@
                 flex-direction: column;
                 gap: 50px;
                 flex: 1;
-                padding: 0px 20px;
+                margin-left: 30px;
+                width: 70%;
             }
-    
-            .available {
-                color: green;
+
+            &-links {
+                display: flex;
+                flex-direction: column;
+                margin: 20px 5px;
+                gap: 10px;
+                color: #FF7E59;
+                font-family: Inter;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                cursor: pointer;
             }
+
+            &-header {
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+            }
+            &-calendar {
+                flex: 1;
+                padding: 0 30px;
+            }
+        }
+        .available {
+            color: green;
+        }
+        .reserved {
+            color: violet;
+        }
+        .in-repair {
+            color: orange;
+        }
+        .malfunction {
+            color: red;
+        }
+        .in-use {
+            color: violet;
         }
     }
 }
@@ -137,5 +183,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

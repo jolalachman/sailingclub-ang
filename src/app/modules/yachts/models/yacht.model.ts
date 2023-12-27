@@ -18,6 +18,14 @@ export type YachtReservation = {
     reservingPerson: string,
 };
 
+export type YachtDetailsReservation = {
+    id: number;
+    pickupDate: string,
+    dropoffDate: string,
+    clientInfo: string,
+    currentStatus: string
+};
+
 export type YachtsPageModel = {
     items: YachtShortDataModel[];
     pageInfo: PageInfo;

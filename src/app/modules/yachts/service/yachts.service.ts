@@ -25,6 +25,32 @@ export type YachtRequest = {
     hourlyPrice: number;
 }
 
+export type EditYachtRequest = {
+    id: number;
+    name: string;
+    type: string;
+    registrationNumber: string;
+    description: string;
+    photo: string;
+    length: number;
+    width: number;
+    immersion: number;
+    sailArea: number;
+    maxPeople: number;
+    cabinNumber: number;
+    shower: boolean;
+    wc: boolean;
+    microwave: boolean;
+    radio: boolean;
+    dailyPrice: number;
+    hourlyPrice: number;
+}
+
+export type ChangeStatusRequest = {
+    id: number,
+    status: string;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -41,5 +67,20 @@ export class YachtsService extends ApiService {
     addYacht(yacht: YachtRequest): Observable<boolean> {
         const url = `${environment.apiUrl}${'v1'}/${'yachts'}`;
         return this.http.post<boolean>(url, yacht, {headers: this.getHeaders()});
+    }
+
+    editYacht(yacht: EditYachtRequest): Observable<boolean> {
+        const url = `${environment.apiUrl}${'v1'}/${'yacht'}`;
+        return this.http.post<boolean>(url, yacht, {headers: this.getHeaders()});
+    }
+
+    deactivateYacht(yachtId: number): Observable<boolean> {
+        const url = `${environment.apiUrl}${'v1'}/${'yacht'}/${'deactivate'}?yachtId=${yachtId}`;
+        return this.http.post<boolean>(url, {headers: this.getHeaders()});
+    }
+
+    changeYachtStatus(changeStatus: ChangeStatusRequest): Observable<boolean> {
+        const url = `${environment.apiUrl}${'v1'}/${'yacht'}/${'change-status'}`;
+        return this.http.post<boolean>(url, changeStatus, {headers: this.getHeaders()});
     }
 }

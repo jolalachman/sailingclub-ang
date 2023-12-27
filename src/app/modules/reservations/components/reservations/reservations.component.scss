@@ -1,5 +1,11 @@
 :host {
     .reservations {
+        .calendar-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
         &-background-image {
             position: absolute;
             top: 0;
@@ -22,7 +28,7 @@
         &-main-container {
             display: flex;
             width: 100%;
-            gap: 10px;
+            gap: 30px;
             justify-content: space-between;
         }
 
@@ -34,7 +40,7 @@
             flex-direction: column;
             gap: 15px;
             padding: 10px;
-            height: calc(100vh - 200px);
+            min-height: calc(100vh - 200px);
         }
 
         &-modify {
@@ -45,11 +51,9 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-
             .form-control {
                 width: 200px;
             }
-
             .item {
                 display: flex;
                 flex-direction: column;
@@ -86,6 +90,11 @@
                 position: relative;
                 display: inline-block;
             }
+
+            .input-group {
+                width: 250px;
+            }
+              
         }
 
         &-pagination {
@@ -128,10 +137,39 @@
             }
         }
 
-        .calendar-buttons {
+        &-form {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
+            flex-direction: column;
+
+            gap: 20px;
+
+            .form-item {
+                display: flex;
+                flex-direction: column;
+                padding: 0 50px;
+                gap: 10px;
+            }
+
+            .form-button {
+                width: fit-content;
+                padding-right: 30px;
+                padding-left: 30px;
+                float: right;
+                font-size: 16px;
+            }
+
+            input.ng-touched.ng-invalid {
+                border-color: red;
+            }
+
+            .error-message {
+                color: #F00;
+                font-family: Inter;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }            
         }
 
         .dropdown-toggle {
@@ -163,4 +201,14 @@
 ngb-pagination ::ng-deep ul > li.active > a {
     background-color: #0040E4 !important;
     border-color: #0040E4 !important;
+}
+
+.reservations-form-link {
+    color: #FF7E59;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
 }

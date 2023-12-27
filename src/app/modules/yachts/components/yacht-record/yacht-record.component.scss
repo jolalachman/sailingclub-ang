@@ -63,5 +63,17 @@
         .available {
             color: green;
         }
+        .reserved {
+            color: violet;
+        }
+        .in-repair {
+            color: orange;
+        }
+        .malfunction {
+            color: red;
+        }
+        .in-use {
+            color: violet;
+        }
     }
 }

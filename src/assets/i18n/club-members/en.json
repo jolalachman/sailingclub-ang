@@ -1,0 +1,11 @@
+{
+    "NONE": "None",
+    "SAILOR": "Sailor",
+    "MARITIME_HELMSMAN": "Maritime helmsman",
+    "CAPTAIN": "Captain",
+    "CANDIDATE": "Candidate",
+    "MAT": "Mat",
+    "BOSMAN": "Bosman",
+    "ADMIN": "Admin",
+    "DEACTIVATED": "Deactivated"
+}

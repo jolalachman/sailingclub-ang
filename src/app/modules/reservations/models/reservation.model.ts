@@ -18,7 +18,7 @@ export type ReservationsPageModel = {
 
 export type FiltersModel = {
     field: string
-    value: Date | string | number;
+    value: Date | string | number | null;
 };
 
 export type PageInfo = {

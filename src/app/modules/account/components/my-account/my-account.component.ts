@@ -15,6 +15,7 @@ import { AccountService } from "../../service/account.service";
     loading = false;
     editMode = false;
     id = this.loginService.getUserInfo().value?.id ?? '';
+    permission = this.loginService.getUserInfo().value?.permission ?? '';
     sailingLicenses$ = this.service.getSailingLicensesDictionary();
 
     myAccountForm: FormGroup = this.fb.group({
@@ -50,7 +51,7 @@ import { AccountService } from "../../service/account.service";
     }
 
     createUserInitials(firstName: string, lastName: string) {
-      return firstName.charAt(0) + '' + lastName.charAt(0);
+      return firstName.charAt(0) + '' + (lastName.charAt(0) === '-' ? '' : lastName.charAt(0));
     }
 
     editMyAccount() {
@@ -60,9 +61,10 @@ import { AccountService } from "../../service/account.service";
       
       const {firstName, lastName, phone, clubStatus, sailingLicenseId} = this.myAccountForm.value;
       const id = this.id;
+      const permission = this.permission;
       this.service.editAccount({id, firstName, lastName, phone, clubStatus, sailingLicenseId}).subscribe({
         next: (result) => {
-          this.loginService.setUserInfo(firstName, lastName, id);
+          this.loginService.setUserInfo(firstName, lastName, id, permission);
           this.myAccountForm.patchValue(result);
           this.loading = false;
           this.editMode=false;

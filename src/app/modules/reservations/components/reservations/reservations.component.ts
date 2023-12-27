@@ -1,12 +1,14 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { CalendarEvent } from 'angular-calendar';
 import { ReservationsFacade } from '../../facade/reservations.facade';
 import { AddReservationDialogComponent } from '../../dialogs/add-reservation-dialog/add-reservation-dialog.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription, take } from 'rxjs';
-import { Router } from '@angular/router';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription, map, take } from 'rxjs';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { RESERVATION_STATUSES } from '../../constants/reservation-statuses.constant';
+import { TIMES } from 'src/app/modules/home/constants/searchForm.constant';
+import { ReservationsService } from '../../service/reservations.service';
 
 @Component({
   selector: 'app-reservations',
@@ -25,10 +27,36 @@ export class ReservationsComponent implements OnInit, OnDestroy {
   filters$ = this.facade.filters$;
   pageSizes = [5, 10, 20];
   private dialogSubscription: Subscription = Subscription.EMPTY;
+  formSubscription = Subscription.EMPTY;
+  paramsSubscription = Subscription.EMPTY;
+  calendarFormSubscription = Subscription.EMPTY;
+  reservationStatuses = RESERVATION_STATUSES;
+  pickupTimes = TIMES;
+  dropoffTimes = TIMES;
+  yachts$ = this.reservationService.getYachtsDictionary().pipe(
+    map(x => [null, ...x])
+  );
+
+  viewCalendarForm: FormGroup = this.fb.group({
+    viewCalendarDate: [null],
+  });
 
   searchForm: FormGroup = this.fb.group({
     value: ['', Validators.required],
   });
+
+  filtersForm: FormGroup = this.fb.group({
+    yacht: [null],
+    status: [null],
+    inputPickup: [null],
+    inputPickupTime: [null],
+    inputDropoff: [null],
+    inputDropoffTime: [null],
+  });
+
+  get formControls() {
+    return this.filtersForm.controls;
+  }
 
   constructor(
     public location: Location,
@@ -36,18 +64,141 @@ export class ReservationsComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private router: Router,
     private fb: NonNullableFormBuilder,
+    private route: ActivatedRoute,
+    private reservationService: ReservationsService,
     ) {}
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.viewCalendarForm.patchValue({
+      viewCalendarDate: this.getCurrentDate(),
+    })
     this.filters$.pipe(take(1)).subscribe((x) => {
       const searchValue = x.find(y => y.field === 'name')?.value;
       this.searchForm.patchValue({value: searchValue});
     })
+    this.formSubscription = this.filtersForm.valueChanges.subscribe((form) => {
+      const {
+        inputPickup,
+        inputPickupTime,
+        inputDropoff,
+        inputDropoffTime
+      } = form;
+
+      const pickupTimeControl = this.filtersForm.get('inputPickupTime');
+      if(pickupTimeControl && pickupTimeControl.enabled && !inputPickup) {
+        pickupTimeControl.disable();
+        if (pickupTimeControl.value !== null) {
+          pickupTimeControl.patchValue(null);
+        }
+      }
+      else if(pickupTimeControl && pickupTimeControl.disabled && inputPickup) {
+        pickupTimeControl.enable();
+      }
+
+      const control = this.filtersForm.get('inputDropoffTime');
+      if(control) {
+        if(control.enabled) {
+          if (!inputDropoff) {
+            control.disable();
+            if (control.value !== null) {
+              control.patchValue(null);
+            }
+          }
+          else {
+            if (inputPickup?.year === inputDropoff?.year && inputPickup?.month === inputDropoff?.month && inputPickup?.day === inputDropoff?.day) {
+              this.dropoffTimes = TIMES.filter(num => num === null || num > +inputPickupTime )
+              if (control.value !== null && (+inputPickupTime >= +inputDropoffTime || Number.isNaN(+inputPickupTime))) {
+                control.patchValue(null);
+              }
+            }
+            else {
+              this.dropoffTimes = TIMES;
+            }
+          }
+        }
+        else if(control.disabled && inputDropoff) {
+          control.enable();
+        }
+      }
+    });
+
+    this.calendarFormSubscription = this.viewCalendarForm.valueChanges.subscribe(form => {
+      const { viewCalendarDate } = form;
+      this.viewDate = this.getDate(viewCalendarDate);
+    });
+
+    // this.paramsSubscription = this.route.queryParams.subscribe(params => {
+    //   this.filtersForm.patchValue({
+    //     inputPickup: params['pickup'] ? this.getDateObj(new Date(params['pickup'])) : null,
+    //     inputPickupTime: params['pickupTime'],
+    //     inputDropoff: params['dropoff'] ? this.getDateObj(new Date(params['dropoff'])) : null,
+    //     inputDropoffTime: params['dropoffTime'],
+    //   });
+
+    //   const inputPickupDateTime = params['pickup']
+    //   ? new Date(
+    //     params['pickup'],
+    //     params['pickupTime'] === 'null' || params['pickupTime'] === null || params['pickupTime'] === undefined
+    //     ? 0
+    //     : parseInt(params['pickupTime'])
+    //   )
+    //   : null;
+
+    // const inputDropoffDateTime = params['dropoff']
+    //   ? new Date(
+    //     params['dropoff'],
+    //     params['dropoffTime'] === 'null' || params['dropoffTime'] === null || params['dropoffTime'] === undefined
+    //     ? 0
+    //     : parseInt(params['dropoffTime'])
+    //     )
+    //   : null;
+
+    //   this.facade.filterChange([
+    //     {field: 'pickup', value: inputPickupDateTime},
+    //     {field: 'dropoff', value: inputDropoffDateTime},
+    //     {field: 'cabin', value: parseInt(params['cabin'])},
+    //     {field: 'people', value: parseInt(params['people'])}
+    //   ]);
+    // });
   }
 
   ngOnDestroy(): void {
     this.dialogSubscription.unsubscribe();
+    this.formSubscription.unsubscribe();
+    this.paramsSubscription.unsubscribe();
+    this.calendarFormSubscription.unsubscribe();
+  }
+
+  getCurrentDate(): NgbDateStruct {
+    const today = new Date();
+    return {
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+      day: today.getDate()
+    };
+  }
+
+  getMinDate(): NgbDateStruct {
+    const currentDate = this.getCurrentDate();
+    const pickUpDate = this.filtersForm.get('inputPickup')?.value;
+    return pickUpDate ?? currentDate;
+  }
+
+  getDateObj(date: Date): NgbDateStruct {
+    return {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()
+    };
+  }
+
+  getDate(dateObj: NgbDateStruct) {
+    return new Date(
+      dateObj?.year,
+      dateObj?.month - 1,
+      dateObj?.day
+      );
   }
 
   openAddReservationDialog() {
@@ -79,10 +230,77 @@ export class ReservationsComponent implements OnInit, OnDestroy {
 
   clearSearch() {
     this.searchForm.patchValue({value: ''});
+    this.filter();
     this.facade.filterChange([{field: 'name', value: ''}]);
   }
-  search() {
+
+  filter() {
     const {value} = this.searchForm.value
-    this.facade.filterChange([{field: 'name', value: value}]);
+    const {
+      yacht,
+      status,
+      inputPickup,
+      inputPickupTime,
+      inputDropoff,
+      inputDropoffTime
+    } = this.filtersForm.value;
+
+    const inputPickupDateTime = inputPickup
+      ? new Date(
+      inputPickup?.year,
+      inputPickup?.month - 1,
+      inputPickup?.day,
+      inputPickupTime === 'null' || inputPickupTime === null || inputPickupTime === undefined
+        ? 0
+        : parseInt(inputPickupTime)
+      )
+      : null;
+
+    const inputDropoffDateTime = inputDropoff 
+      ? new Date(
+        inputDropoff.year,
+        inputDropoff.month - 1,
+        inputDropoff.day,
+        inputDropoffTime === 'null' || inputDropoffTime === null || inputDropoffTime === undefined
+          ? 0
+          : parseInt(inputDropoffTime)
+        )
+      : null;
+    this.facade.filterChange([
+      {field: 'yacht', value: yacht},
+      {field: 'status', value: status},
+      {field: 'pickup', value: inputPickupDateTime},
+      {field: 'dropoff', value: inputDropoffDateTime},
+      {field: 'name', value: value},
+    ]);
+
+    // const queryParams: NavigationExtras = {
+    //   queryParams: {
+    //     pickup: inputPickup ? this.getDate(inputPickup) : null,
+    //     pickupTime: inputPickupTime,
+    //     dropoff: inputDropoff ? this.getDate(inputDropoff) : null,
+    //     dropoffTime: inputDropoffTime,
+    //   },
+    //   replaceUrl: true
+    // };
+    // this.router.navigate([], queryParams);
+  }
+
+  clearFilters() {
+    this.filtersForm.patchValue({
+      yacht: null,
+      status: null,
+      inputPickup: null,
+      inputPickupTime: null,
+      inputDropoff: null,
+      inputDropoffTime: null,
+    });
+    const {value} = this.searchForm.value;
+    this.facade.filterChange([{field: 'name', value: value},]);
+    // const queryParams: NavigationExtras = {
+    //   queryParams: {},
+    //   replaceUrl: true
+    // };
+    // this.router.navigate([], queryParams);
   }
 }

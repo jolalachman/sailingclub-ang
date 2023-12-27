@@ -47,7 +47,7 @@
                 <div class="section">
                     <form [formGroup]="searchForm" class="search">
                         <div class="input-container">
-                            <input formControlName="value" type="text" class="form-control" style="width: 250px" placeholder="{{'Search' | translate}}" (input)="search()">
+                            <input formControlName="value" type="text" class="form-control" style="width: 250px" placeholder="{{'Search' | translate}}" (input)="filter()">
                             <button [hidden]="searchForm.invalid" class="btn sail-icon-button search-clear" (click)="clearSearch()">
                                 <i class="bi bi-x"></i>
                             </button>

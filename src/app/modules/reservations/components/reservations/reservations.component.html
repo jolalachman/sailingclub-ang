@@ -4,7 +4,7 @@
         <div class="reservations-subheader">
             <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
             <p class="my-subheader">
-                {{ 'Reservations' | translate }}
+                {{ 'All reservations' | translate }}
             </p>
         </div>
         <div class="reservations-main-container">
@@ -47,6 +47,18 @@
                         [view]="'week'">
                             <i class="bi bi-arrow-left"></i>
                         </button>
+                        <form [formGroup]="viewCalendarForm">
+                            <div class="input-group" id="inputPickup">
+                                <input
+                                    class="form-control"
+                                    placeholder="dd-mm-yyyy"
+                                    ngbDatepicker
+                                    #di="ngbDatepicker"
+                                    formControlName="viewCalendarDate"
+                                />
+                                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="di.toggle()" type="button"></button>
+                            </div>
+                        </form>
                         <button
                         class="btn sail-secondary-button btn-md"
                         mwlCalendarNextView
@@ -77,16 +89,13 @@
                     </button>
                 </div>
                 <div class="section">
-                    <form [formGroup]="searchForm" class="search" (submit)="search()">
+                    <form [formGroup]="searchForm" class="search">
                         <div class="input-container">
-                            <input formControlName="value" type="text" class="form-control">
+                            <input formControlName="value" type="text" class="form-control" style="width: 250px" placeholder="{{'Search' | translate}}" (input)="filter()">
                             <button [hidden]="searchForm.invalid" class="btn sail-icon-button search-clear" (click)="clearSearch()">
                                 <i class="bi bi-x"></i>
                             </button>
                         </div>
-                        <button [disabled]="searchForm.invalid" type="submit" class="btn sail-primary-button btn-sm" style="border-radius: 6px;">
-                            {{'Search' | translate}}
-                        </button>
                     </form>
                 </div>
                 <div class="section" *ngIf="!viewCalendar">
@@ -132,6 +141,96 @@
                             </button>
                         </div>
                     </div>
+                </div>
+                <div class="section" *ngIf="filters$ | async as filters">
+                    <form class="reservations-form" [formGroup]="filtersForm" (submit)="filter()">
+                        <div class="section" *ngIf="yachts$ | async as yachts">
+                            <span class="reservations-form-link" style="margin-left: auto;" (click)="clearFilters()">
+                                {{ "Clear filters" | translate }}
+                            </span>
+                            <label for="status" class="form-label">{{ 'Yacht' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="yacht"
+                                formControlName="yacht"
+                            >
+                                <option *ngFor="let yacht of yachts" [value]="yacht?.id ?? null">
+                                    {{ yacht?.name ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="section">
+                            <label for="status" class="form-label">{{ 'Status' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="status"
+                                formControlName="status"
+                            >
+                                <option *ngFor="let status of reservationStatuses" [value]="status">
+                                    {{ status ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="section">
+                            <label for="inputPickup" class="form-label">{{ 'Pick up date' | translate }}</label>
+                            <div class="input-group" id="inputPickup">
+                                <input
+                                    class="form-control"
+                                    placeholder="dd-mm-yyyy"
+                                    [minDate]="getCurrentDate()"
+                                    ngbDatepicker
+                                    #di="ngbDatepicker"
+                                    formControlName="inputPickup"
+                                />
+                                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="di.toggle()" type="button"></button>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <label for="inputPickupTime" class="form-label">{{ 'Approx. pick up time' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="inputPickupTime"
+                                formControlName="inputPickupTime"
+                            >
+                                <option *ngFor="let time of pickupTimes" [value]="time">
+                                    {{ time | timeFormat }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="section">
+                            <label for="inputDropoff" class="form-label">{{ 'Drop off date' | translate }}</label>
+                            <div class="input-group" id="inputDropoff">
+                                <input
+                                    class="form-control"
+                                    placeholder="dd-mm-yyyy"
+                                    name="dp"
+                                    [minDate]="getMinDate()"
+                                    ngbDatepicker
+                                    #dp="ngbDatepicker"
+                                    formControlName="inputDropoff"
+                                />
+                                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
+                            </div>
+                            <div *ngIf="formControls['inputDropoff'].invalid && (formControls['inputDropoff'].dirty || formControls['inputDropoff'].touched)">
+                                <div *ngIf="formControls['inputDropoff'].errors">
+                                    <label class="error-message"> {{'Incorrect date' | translate}} </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <label for="inputDropoffTime" class="form-label">{{ 'Approx. drop off time' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="inputDropoffTime"
+                                formControlName="inputDropoffTime"
+                            >
+                                <option *ngFor="let time of dropoffTimes" [value]="time">{{ time | timeFormat }}</option>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button [disabled]="filtersForm.invalid" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Filter' | translate }}</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

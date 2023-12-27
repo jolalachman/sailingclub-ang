@@ -73,12 +73,12 @@ export class YachtsFacade {
 
             const typeValue = filters.find(x => x.field === 'type')?.value;
             if (typeValue && typeof typeValue === 'string' && typeValue !== 'null') {
-                filteredItems = filteredItems.filter(x => x.type === typeValue);
+                filteredItems = filteredItems.filter(x => x.type.toLowerCase() === typeValue.toLowerCase());
             }
 
             const statusValue = filters.find(x => x.field === 'status')?.value;
             if (statusValue && typeof statusValue === 'string' && statusValue !== 'null') {
-                filteredItems = filteredItems.filter(x => x.currentStatus.toLowerCase() === statusValue);
+                filteredItems = filteredItems.filter(x => x.currentStatus.toLowerCase() === statusValue.toLowerCase());
             }
 
             return {pageSize, skip, items: filteredItems, sort, totalCount: filteredItems.length};

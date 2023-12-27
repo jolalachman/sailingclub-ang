@@ -86,6 +86,26 @@
     line-height: normal;
 }
 
+.sail-secondary-dialog-button {
+    background-color: #717171;
+    color: white;
+    border-radius: 20px;
+
+    &:hover, .btn-check:checked + &,
+    :not(.btn-check) + &:active,
+    &:first-child:active,
+    &.active,
+    &.show {
+        background-color: #717171;
+        color: white;
+    }
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
 .user-button {
     background-color: #0040E4;
     border-radius: 50%;

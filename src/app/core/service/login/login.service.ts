@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { LocalStorageService } from "../storage/local-storage.service";
 import { BehaviorSubject, Observable, tap } from "rxjs";
-import { AuthService, LoginRequest, LoginResponse, RecoverPasswordRequest, RegisterRequest, ResetPasswordRequest, TokenResponse } from "../api/auth.service";
+import { AuthService, LoginRequest, LoginResponse, RecoverPasswordRequest, RegisterByAdminRequest, RegisterRequest, ResetPasswordRequest, TokenResponse } from "../api/auth.service";
 import { JWT_TOKEN, USER_INFO } from "../storage/local-storage.constant";
 import { UserActions } from "../../state/actions";
 import { Store } from '@ngrx/store';
@@ -18,6 +18,7 @@ export class LoginService {
         firstName: string;
         lastName: string;
         id: string;
+        permission: string;
     } | null>(null);
 
     get jwtToken(): string | null {
@@ -49,7 +50,7 @@ export class LoginService {
             tap((token) => {
                 this.storage.set([
                     {key: JWT_TOKEN, value: token.auth_token},
-                    {key: USER_INFO, value: token.firstName + ' ' + token.lastName + ' ' + token.id }]);
+                    {key: USER_INFO, value: token.firstName + ' ' + token.lastName + ' ' + token.id + ' ' + token.permission}]);
                 this.updateUserInfo();
             })
         );
@@ -57,6 +58,10 @@ export class LoginService {
 
     register(data: RegisterRequest): Observable<TokenResponse> {
         return this.authService.register(data);
+    }
+
+    registerByAdmin(data: RegisterByAdminRequest): Observable<TokenResponse> {
+        return this.authService.registerByAdmin(data);
     }
 
     activateAccount(data: TokenResponse): Observable<boolean> {
@@ -83,12 +88,13 @@ export class LoginService {
         const firstName = userInfo[0];
         const lastName = userInfo[1];
         const id = userInfo[2];
-        this.userInfo.next({firstName, lastName, id});
+        const permission = userInfo[3];
+        this.userInfo.next({firstName, lastName, id, permission});
     }
 
-    setUserInfo(firstName: string, lastName: string, id: string) {
+    setUserInfo(firstName: string, lastName: string, id: string, permission: string) {
         this.storage.set([
-            {key: USER_INFO, value: firstName + ' ' + lastName + ' ' + id }]);
+            {key: USER_INFO, value: firstName + ' ' + lastName + ' ' + id + ' ' + permission }]);
         this.updateUserInfo();
     }
 }

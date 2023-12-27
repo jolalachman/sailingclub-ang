@@ -1,0 +1,69 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{"Edit user" | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="edit-user-form" [formGroup]="editUserForm">
+        <div class="form-row">
+            <label for="firstName" class="edit-user-form-label">{{ 'First name' | translate }}</label>
+            <input type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
+            <div *ngIf="formControls['firstName'].invalid && (formControls['firstName'].dirty || formControls['firstName'].touched)">
+                <div *ngIf="formControls['firstName'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="lastName" class="edit-user-form-label">{{ 'Last name' | translate }}</label>
+            <input type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
+            <div *ngIf="formControls['lastName'].invalid && (formControls['lastName'].dirty || formControls['lastName'].touched)">
+                <div *ngIf="formControls['lastName'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" *ngIf="user?.roleName !== 'ADMIN'">
+            <label for="role" class="edit-user-form-label">{{ 'Role' | translate }}</label>
+            <select
+                class="form-select"
+                id="role"
+                required
+                formControlName="role"
+            >
+                <option *ngFor="let role of userRoles" [value]="role">
+                    {{ role ?? '-' | translate }}
+                </option>
+            </select>
+            <div *ngIf="formControls['role'].invalid && (formControls['role'].dirty || formControls['role'].touched)">
+                <div *ngIf="formControls['role'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="clubStatus" class="edit-user-form-label">{{ 'Club status' | translate }}</label>
+            <input type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
+        </div>
+        <div class="form-row">
+            <label for="sailingLicense" class="edit-user-form-label">{{ 'Sailing qualifications' | translate }}</label>
+            <select
+                class="form-select"
+                id="sailingLicense"
+                required
+                formControlName="sailingLicense"
+            >
+                <option *ngFor="let sailingLicense of sailingLicences" [value]="sailingLicense">
+                    {{ sailingLicense ?? '-' | translate }}
+                </option>
+            </select>
+            <div *ngIf="formControls['sailingLicense'].invalid && (formControls['sailingLicense'].dirty || formControls['sailingLicense'].touched)">
+                <div *ngIf="formControls['sailingLicense'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button [disabled]="editUserForm.invalid || loading" type="submit" class="btn sail-dialog-button btn-lg form-button" (click)="editUser()">{{"Edit" | translate}}</button>
+</div>

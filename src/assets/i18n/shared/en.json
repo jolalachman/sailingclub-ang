@@ -1,5 +1,17 @@
 {
-    "home works!": "it works!",
+    "AVAILABLE": "available",
+    "RESERVED_LONG_TERM": "reserved long term",
+    "IN_REPAIR": "in repair", 
+    "MALFUNCTION": "malfunction",
+    "IN_USE": "in use",
     "pl": "Polish",
-    "en": "English"
+    "en": "English",
+    "NONE": "None",
+    "SAILOR": "Sailor",
+    "MARITIME_HELMSMAN": "Maritime helmsman",
+    "CAPTAIN": "Captain",
+    "CANDIDATE": "Candidate",
+    "MAT": "Mat",
+    "BOSMAN": "Bosman",
+    "ADMIN": "Admin"
 }

@@ -1,0 +1,50 @@
+<div class="record" (clickEvent)="handleClick(record?.id)" clickEmitter>
+    <div class="record-pic">
+        <i class="bi bi-person-circle"></i>
+    </div>
+    <div class="record-content">
+        <div class="record-header">
+            <div class="record-name">
+                {{record?.firstName + " " + (record?.lastName === '-' ? '' : record?.lastName) }}
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; gap: 50px;">
+            <div class="record-main">
+                <div class="record-email">{{"Email:" | translate }}
+                    <span class="record-value">
+                        {{record?.email}}
+                    </span>
+                </div>
+                <div class="record-phone">{{"Phone number:" | translate }}
+                    <span class="record-value">
+                        {{record?.phone ?? '-'}}
+                    </span>
+                </div>
+                <div class="record-role">{{"Role:" | translate }}
+                    <span class="record-value"
+                    [class.candidate]="record?.roleName === 'CANDIDATE'"
+                    [class.admin]="record?.roleName === 'ADMIN'"
+                    [class.sailor]="record?.roleName === 'SAILOR'"
+                    [class.mat]="record?.roleName === 'MAT'"
+                    [class.bosman]="record?.roleName === 'BOSMAN'"
+                    [class.deactivated]="record?.roleName === 'DEACTIVATED'"
+                    >
+                        {{record?.roleName ?? '-' | translate}}
+                    </span>
+                </div>
+            </div>
+            <div class="record-main">
+                <div class="record-club-status">{{"Club status:" | translate }}
+                    <span class="record-value">
+                        {{ record?.clubStatus ?? '-' | translate }}
+                    </span>
+                </div>
+                <div class="record-sailing-license">{{"Sailing licence:" | translate }}
+                    <span class="record-value">
+                        {{ record?.sailingLicenseName ?? '-' | translate }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

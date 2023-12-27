@@ -8,6 +8,7 @@ import { FiltersModel, ReservationsPageModel } from "../models/reservation.model
 export type ReservationRequest = {
     pickup: string;
     dropoff: string;
+    peopleNumber: number;
     reservingPerson: string;
     userId: number;
     yachtId: number;
@@ -33,6 +34,11 @@ export class ReservationsService extends ApiService {
 
     addReservation(reservation: ReservationRequest): Observable<boolean> {
         const url = `${environment.apiUrl}${'v1'}/${'reservations'}`;
+        return this.http.post<boolean>(url, reservation, {headers: this.getHeaders()});
+    }
+
+    addYachtReservation(reservation: ReservationRequest): Observable<boolean> {
+        const url = `${environment.apiUrl}${'v1'}/${'reservations'}/${'add'}`;
         return this.http.post<boolean>(url, reservation, {headers: this.getHeaders()});
     }
 

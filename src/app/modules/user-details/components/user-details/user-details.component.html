@@ -1,0 +1,116 @@
+<div class="user-details">
+    <div class="user-details-background-image"></div>
+    <div class="user-details-page">
+        <div class="user-details-subheader">
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
+            <p class="my-subheader">
+                {{ 'User details' | translate }}
+            </p>
+        </div>
+        <div class="user-details-main-container" *ngIf="user$ | async as user">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="record-pic">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <div class="record-links">
+                    <a>{{"Reported notices" | translate}}</a>
+                    <a *ngIf="user.roleName === 'CANDIDATE'" (click)="validateCandidate(user.id)">{{"Validate candidate" | translate}}</a>
+                </div>
+            </div>
+            <div class="record-content">
+                <div class="record-header">
+                    <div class="record-name">
+                        {{user?.firstName + " " + (user?.lastName === '-' ? '' : user?.lastName) }}
+                    </div>
+                    <div class="record-options">
+                        <button class="btn sail-icon-button" (click)="editUser(user)">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button *ngIf="user.roleName!=='ADMIN'" class="btn sail-icon-button" (click)="deactivateUser(user.id)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="record-main">
+                    <div class="record-email">{{"Email:" | translate }}
+                        <span class="record-value">
+                            {{user?.email}}
+                        </span>
+                    </div>
+                    <div class="record-phone">{{"Phone number:" | translate }}
+                        <span class="record-value">
+                            {{user?.phone ?? '-' | translate}}
+                        </span>
+                    </div>
+                    <div class="record-role">{{"Role:" | translate }}
+                        <span class="record-value"
+                        [class.candidate]="user?.roleName === 'CANDIDATE'"
+                        [class.admin]="user?.roleName === 'ADMIN'"
+                        [class.sailor]="user?.roleName === 'SAILOR'"
+                        [class.mat]="user?.roleName === 'MAT'"
+                        [class.bosman]="user?.roleName === 'BOSMAN'"
+                        [class.deactivated]="user?.roleName === 'DEACTIVATED'"
+                        >
+                            {{user?.roleName ?? '-' | translate}}
+                        </span>
+                    </div>
+                    <div class="record-club-status">{{"Club status:" | translate }}
+                        <span class="record-value">
+                            {{user?.clubStatus ?? '-' | translate}}
+                        </span>
+                    </div>
+                    <div class="record-sailing-licence">{{"Sailing licence:" | translate }}
+                        <span class="record-value">
+                            {{user?.sailingLicenseName ?? '-' | translate}}
+                        </span>
+                    </div>
+                    <div *ngIf="reservationCalendar$ | async as reservationCalendar">
+                        <div class="user-details-form-title" style="margin-bottom: 20px;" (click)="isCollapsed5=!isCollapsed5">
+                            {{"Reservations" | translate}}
+                            <i class="bi" [class.bi-chevron-up]="!isCollapsed5" [class.bi-chevron-down]="isCollapsed5"></i>
+                        </div>
+                        <div class="record-calendar" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed5">
+                            <div class="calendar-buttons">
+                                <button
+                                class="btn sail-secondary-button btn-md"
+                                mwlCalendarPreviousView
+                                [(viewDate)]="viewDate"
+                                [view]="'week'">
+                                    <i class="bi bi-arrow-left"></i>
+                                </button>
+                                <form [formGroup]="viewCalendarForm">
+                                    <div class="input-group" id="inputPickup">
+                                        <input
+                                            class="form-control"
+                                            placeholder="dd-mm-yyyy"
+                                            ngbDatepicker
+                                            #di="ngbDatepicker"
+                                            formControlName="viewCalendarDate"
+                                        />
+                                        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="di.toggle()" type="button"></button>
+                                    </div>
+                                </form>
+                                <button
+                                class="btn sail-secondary-button btn-md"
+                                mwlCalendarNextView
+                                [(viewDate)]="viewDate"
+                                [view]="'week'">
+                                    <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                            <mwl-calendar-week-view
+                            [viewDate]="viewDate"
+                            [weekStartsOn]="1"
+                            [dayStartHour]="4"
+                            [dayEndHour]="22"
+                            [hourSegments]="1"
+                            [events]="reservationCalendar"
+                            (eventClicked)="handleClick($event.event.meta)">
+                            </mwl-calendar-week-view>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,7 +21,13 @@
                     </span>
                 </div>
                 <div class="record-status">{{"Current status:" | translate }}
-                    <span class="record-value" [class.available]="record?.currentStatus === 'AVAILABLE'">
+                    <span class="record-value"
+                    [class.available]="record?.currentStatus === 'AVAILABLE'"
+                    [class.reserved]="record?.currentStatus === 'RESERVED_LONG_TERM'"
+                    [class.in-repair]="record?.currentStatus === 'IN_REPAIR'"
+                    [class.malfunction]="record?.currentStatus === 'MALFUNCTION'"
+                    [class.in-use]="record?.currentStatus === 'IN_USE'"
+                    >
                         {{record?.currentStatus ?? 'none' | translate}}
                     </span>
                 </div>

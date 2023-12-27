@@ -30,11 +30,17 @@
                 class="form-select"
                 id="pickupTime"
                 formControlName="pickupTime"
+                required
             >
                 <option *ngFor="let time of pickupTimes" [value]="time">
                     {{ time | timeFormat }}
                 </option>
             </select>
+            <div *ngIf="formControls['pickupTime'].invalid && (formControls['pickupTime'].dirty || formControls['pickupTime'].touched)">
+                <div *ngIf="formControls['pickupTime'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
         </div>
         <div class="form-row">
             <label for="dropoffDate" class="add-yacht-form-label">{{ 'Drop off date' | translate }}</label>
@@ -62,8 +68,25 @@
                 class="form-select"
                 id="dropoffTime"
                 formControlName="dropoffTime"
+                required
             >
                 <option *ngFor="let time of dropoffTimes" [value]="time">{{ time | timeFormat }}</option>
+            </select>
+            <div *ngIf="formControls['dropoffTime'].invalid && (formControls['dropoffTime'].dirty || formControls['dropoffTime'].touched)">
+                <div *ngIf="formControls['dropoffTime'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="peopleNumber" class="form-label">{{ 'Number of people' | translate }}</label>
+            <select
+                class="form-select"
+                id="peopleNumber"
+                formControlName="peopleNumber"
+                required
+            >
+                <option *ngFor="let number of numOfPeople" [value]="number">{{ number ?? '-' }}</option>
             </select>
         </div>
         <div class="form-row" *ngIf="yachts$ | async as yachts">

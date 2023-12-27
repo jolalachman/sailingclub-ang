@@ -1,0 +1,115 @@
+<div class="users">
+    <div class="users-background-image"></div>
+    <div class="users-page">
+        <div class="users-subheader">
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
+            <p class="my-subheader">
+                {{ 'All users' | translate }}
+            </p>
+        </div>
+        <div class="users-main-container">
+            <div class="users-container" *ngIf="userList$ | async as userList">
+                <div class="users-results">
+                    <div *ngFor="let record of userList.data">
+                        <app-user-record
+                            [record]="record">
+                        </app-user-record>
+                    </div>
+                    <span class="my-modify" *ngIf="userList.totalCount===0" style="align-self: center; margin-top: auto; margin-bottom: auto;">
+                        {{ 'There are no users' | translate}}
+                    </span>
+                </div>
+                <div class="users-pagination" *ngIf="paging$ | async as paging">
+                    <ngb-pagination class="ngb-pagination" style="height: 38px" [collectionSize]="userList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
+                    <div class="users-page-sizes">
+                        <span> {{ "Page size:" | translate }}</span>
+                        <div ngbDropdown data-toggle="dropdown">
+                            <button style="width: 60px;" type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+                                {{paging.pageSize}}
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem
+                                *ngFor="let pageSize of pageSizes" (click)="pageSizeChange(pageSize)">
+                                    {{pageSize}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="users-modify">
+                <div class="section" style="flex-direction: row; gap: 10px; justify-content: space-between; align-items: center;">
+                    <span class="my-modify"> {{"Manage list" | translate }}</span>
+                    <button class="btn sail-icon-button" (click)="openAddUserDialog()">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                </div>
+                <div class="section">
+                    <form [formGroup]="searchForm" class="search">
+                        <div class="input-container">
+                            <input formControlName="value" type="text" class="form-control" style="width: 250px" placeholder="{{'Search' | translate}}" (input)="filter()">
+                            <button [hidden]="searchForm.invalid" class="btn sail-icon-button search-clear" (click)="clearSearch()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="section" *ngIf="sort$ | async as sort">
+                    <div ngbDropdown data-toggle="dropdown">
+                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
+                            {{"Sort" | translate}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange(undefined)">
+                                -
+                                <i class="bi bi-check" [hidden]="sort.dir !== undefined"></i>
+                            </button>
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('asc')">
+                                A - Z
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'asc'"></i>
+                            </button>
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('desc')">
+                                Z - A
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'desc'"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" *ngIf="filters$ | async as filters">
+                    <form class="users-form" [formGroup]="filtersForm" (submit)="filter()">
+                        <div class="section">
+                            <span class="users-form-link" style="margin-left: auto;" (click)="clearFilters()">
+                                {{ "Clear filters" | translate }}
+                            </span>
+                            <label for="role" class="form-label">{{ 'Role' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="role"
+                                formControlName="role"
+                            >
+                                <option *ngFor="let role of userRoles" [value]="role">
+                                    {{ role ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="section">
+                            <label for="sailing-licence" class="form-label">{{ 'Sailing licence' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="sailing-licence"
+                                formControlName="sailingLicence"
+                            >
+                                <option *ngFor="let sailingLicence of sailingLicences" [value]="sailingLicence">
+                                    {{ sailingLicence ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button [disabled]="filtersForm.invalid" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Filter' | translate }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

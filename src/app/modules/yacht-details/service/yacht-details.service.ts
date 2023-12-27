@@ -3,9 +3,10 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environment/environment";
 import { ApiService } from "src/app/core/service/api/api.service";
-import { YachtReservation } from "../../yachts/models/yacht.model";
+import { YachtDetailsReservation, YachtReservation } from "../../yachts/models/yacht.model";
 
 export type YachtModel = {
+    id: number;
     name: string;
     type: string;
     registrationNumber: string;
@@ -26,7 +27,7 @@ export type YachtModel = {
         microwave: boolean;
         radio: boolean;
     }
-    reservations: YachtReservation[];
+    reservations: YachtDetailsReservation[];
     dailyPrice: number;
     hourlyPrice: number;
 }

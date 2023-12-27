@@ -7,7 +7,6 @@ import { Subscription, take } from 'rxjs';
 import { YACHT_TYPES } from '../../constants/yacht-types.constant';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CABINS, PEOPLE, TIMES } from 'src/app/modules/home/constants/searchForm.constant';
-import { FiltersModel } from '../../models/yacht.model';
 import { YACHT_STATUSES } from '../../constants/yacht-statuses.constant';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
@@ -144,7 +143,6 @@ export class YachtsComponent implements OnInit, OnDestroy {
         }
       }
     });
-
     this.paramsSubscription = this.route.queryParams.subscribe(params => {
       this.filtersForm.patchValue({
         inputPickup: params['pickup'] ? this.getDateObj(new Date(params['pickup'])) : null,
@@ -180,7 +178,6 @@ export class YachtsComponent implements OnInit, OnDestroy {
         {field: 'people', value: parseInt(params['people'])}
       ]);
     });
-
   }
 
   ngOnDestroy(): void {
@@ -201,8 +198,6 @@ export class YachtsComponent implements OnInit, OnDestroy {
     this.facade.sortChange({dir: value});
   }
 
-  filtersChange(value: any) {}
-
   openAddYachtDialog() {
     const modalRef = this.modalService.open(AddYachtDialogComponent, { size: 'lg' });
     const addYachtDialogInstance = modalRef.componentInstance;
@@ -218,10 +213,6 @@ export class YachtsComponent implements OnInit, OnDestroy {
     this.facade.filterChange([{field: 'name', value: ''}]);
   }
 
-  search() {
-    const {value} = this.searchForm.value
-    this.facade.filterChange([{field: 'name', value: value}]);
-  }
   filter() {
     const {value} = this.searchForm.value
     const {

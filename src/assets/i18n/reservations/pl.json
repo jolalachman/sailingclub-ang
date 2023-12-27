@@ -1,5 +1,5 @@
 {
-    "Reservations": "Rezerwacje",
+    "All reservations": "Wszystkie rezerwacje",
     "Add yacht": "Dodaj jacht",
     "Sort": "Sortuj",
     "Manage list": "Zarządzaj listą",
@@ -17,6 +17,9 @@
     "Club member:": "Członek klubu:",
     "Current status:": "Aktualny status:",
     "CONFIRMED": "Potwierdzono",
+    "PENDING": "Oczekuje na zatwierdzenie",
+    "DECLINED": "Odrzucono",
+    "CANCELLED": "Anulowano",
     "There are no club members": "Brak członków klubu",
     "There are no yachts": "Brak jachtów",
     "Yacht": "Jacht",
@@ -24,5 +27,11 @@
     "There are no reservations": "Brak rezerwacji",
     "en-US": "pl-PL",
     "Previous week": "Poprzedni tydzień",
-    "Next week": "Następny tydzień"
+    "Next week": "Następny tydzień",
+    "Filter": "Filtruj",
+    "Clear filters": "Wyczyść filtry",
+    "Pick up date": "Data odbioru",
+    "Approx. pick up time": "Przybliżona godzina odbioru",
+    "Drop off date": "Data zwrotu",
+    "Approx. drop off time": "Przybliżona godzina zwrotu"
 }
