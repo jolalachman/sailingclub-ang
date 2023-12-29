@@ -38,8 +38,11 @@
                     </span>
                 </div>
                 <div class="record-clientInfo">{{"Current status:" | translate }}
-                    <span class="record-value" [class.confirmed]="record?.currentStatus === 'CONFIRMED'">
-                        {{record?.currentStatus ?? '-' | translate}}
+                    <span class="record-value"
+                    [class.confirmed]="record?.currentStatus?.name === 'CONFIRMED'"
+                    [class.rejected]="record?.currentStatus?.name === 'REJECTED'"
+                    [class.pending]="record?.currentStatus?.name === 'PENDING'">
+                        {{record?.currentStatus?.name ?? '-' | translate}}
                     </span>
                 </div>
                 <div class="record-peopleNumber">{{"People number:" | translate }}

@@ -2,7 +2,8 @@ import { ChangeDetectorRef, Component, EventEmitter, Output, inject } from "@ang
 import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { YachtsService } from "../../service/yachts.service";
-import { YACHT_TYPES } from "../../constants/yacht-types.constant";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
+import { map } from "rxjs";
 
 @Component({
     selector: 'app-add-yacht',
@@ -11,13 +12,13 @@ import { YACHT_TYPES } from "../../constants/yacht-types.constant";
   })
   export class AddYachtDialogComponent {
     @Output() yachtAdded: EventEmitter<boolean> = new EventEmitter<boolean>;
-    yachtTypes = YACHT_TYPES;
+    yachtTypes$ = this.dictionaryService.getYachtTypesDictionary();
     activeModal = inject(NgbActiveModal);
     loading = false;
 
     addYachtForm: FormGroup = this.fb.group({
       name: ['', Validators.required],
-      type: [null],
+      type: [null, Validators.required],
       registrationNumber: ['', Validators.required],
       description: [''],
       photo: [null],
@@ -38,7 +39,8 @@ import { YACHT_TYPES } from "../../constants/yacht-types.constant";
     constructor(
       private fb: NonNullableFormBuilder,
       private cd: ChangeDetectorRef,
-      private yachtService: YachtsService
+      private yachtService: YachtsService,
+      private dictionaryService: DictionaryService
     ) {}
   
     get formControls() {

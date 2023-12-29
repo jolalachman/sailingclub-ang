@@ -13,8 +13,8 @@
                     <i class="bi bi-person-circle"></i>
                 </div>
                 <div class="record-links">
-                    <a *ngIf="user.roleName !== 'CANDIDATE' && user.roleName !== 'ADMIN'" (click)="goToUserNotices(user.id)">{{"Reported notices" | translate}}</a>
-                    <a *ngIf="user.roleName === 'CANDIDATE'" (click)="validateCandidate(user.id)">{{"Validate candidate" | translate}}</a>
+                    <a *ngIf="user.role.name!== 'CANDIDATE' && user.role.name !== 'ADMIN'" (click)="goToUserNotices(user.id)">{{"Reported notices" | translate}}</a>
+                    <a *ngIf="user.role.name === 'CANDIDATE'" (click)="validateCandidate(user.id)">{{"Validate candidate" | translate}}</a>
                 </div>
             </div>
             <div class="record-content">
@@ -22,11 +22,11 @@
                     <div class="record-name">
                         {{user?.firstName + " " + (user?.lastName === '-' ? '' : user?.lastName) }}
                     </div>
-                    <div class="record-options" *ngIf="user.roleName !== 'DEACTIVATED'">
+                    <div class="record-options" *ngIf="user.role.name !== 'DEACTIVATED'">
                         <button class="btn sail-icon-button" (click)="editUser(user)">
                             <i class="bi bi-pencil"></i>
                         </button>
-                        <button *ngIf="user.roleName!=='ADMIN'" class="btn sail-icon-button" (click)="deactivateUser(user.id)">
+                        <button *ngIf="user.role.name!=='ADMIN'" class="btn sail-icon-button" (click)="deactivateUser(user.id)">
                             <i class="bi bi-trash"></i>
                         </button>
                     </div>
@@ -44,14 +44,14 @@
                     </div>
                     <div class="record-role">{{"Role:" | translate }}
                         <span class="record-value"
-                        [class.candidate]="user?.roleName === 'CANDIDATE'"
-                        [class.admin]="user?.roleName === 'ADMIN'"
-                        [class.sailor]="user?.roleName === 'SAILOR'"
-                        [class.mat]="user?.roleName === 'MAT'"
-                        [class.bosman]="user?.roleName === 'BOSMAN'"
-                        [class.deactivated]="user?.roleName === 'DEACTIVATED'"
+                        [class.candidate]="user?.role?.name === 'CANDIDATE'"
+                        [class.admin]="user?.role?.name === 'ADMIN'"
+                        [class.sailor]="user?.role?.name === 'SAILOR'"
+                        [class.mat]="user?.role?.name === 'MAT'"
+                        [class.bosman]="user?.role?.name === 'BOSMAN'"
+                        [class.deactivated]="user?.role?.name === 'DEACTIVATED'"
                         >
-                            {{user?.roleName ?? '-' | translate}}
+                            {{user?.role?.name ?? '-' | translate}}
                         </span>
                     </div>
                     <div class="record-club-status">{{"Club status:" | translate }}
@@ -61,7 +61,7 @@
                     </div>
                     <div class="record-sailing-licence">{{"Sailing licence:" | translate }}
                         <span class="record-value">
-                            {{user?.sailingLicenseName ?? '-' | translate}}
+                            {{user?.sailingLicense?.name ?? '-' | translate}}
                         </span>
                     </div>
                     <div *ngIf="reservationCalendar$ | async as reservationCalendar">

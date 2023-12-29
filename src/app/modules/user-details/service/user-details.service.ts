@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "src/environment/environment";
 import { ApiService } from "src/app/core/service/api/api.service";
 import { UserDetailsReservation } from "../../users/models/user.model";
+import { DictionaryModel } from "src/app/shared/service/dictionary.service";
 
 export type UserModel = {
     id: number;
@@ -11,9 +12,9 @@ export type UserModel = {
     lastName: string;
     email: string;
     phone: string;
-    roleName: string;
+    role: DictionaryModel;
     clubStatus: string;
-    sailingLicenseName: string;
+    sailingLicense: DictionaryModel;
     reservations: UserDetailsReservation[];
 }
 
@@ -21,9 +22,9 @@ export type EditUserRequest = {
     id: number;
     firstName: string,
     lastName: string,
-    role: string,
+    role: number,
     clubStatus: string,
-    sailingLicense: string,
+    sailingLicense: number,
 }
 
 @Injectable({

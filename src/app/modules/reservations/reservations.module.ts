@@ -22,9 +22,9 @@ import { StoreModule } from '@ngrx/store';
 import { ReservationsListReducer } from './store/reducers';
 import { ReservationRecordComponent } from './components/reservation-record/reservation-record.component';
 import { AddReservationDialogComponent } from './dialogs/add-reservation-dialog/add-reservation-dialog.component';
-import { CustomDateFormatPipe } from './pipes/dateformat.pipe';
 import { HomeModule } from '../home/home.module';
 import { YachtsModule } from '../yachts/yachts.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -40,8 +40,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ReservationsComponent,
     ReservationRecordComponent,
     AddReservationDialogComponent,
-    routedComponents,
-    CustomDateFormatPipe,
+    routedComponents
   ],
   imports: [
     CommonModule,
@@ -54,8 +53,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ReactiveFormsModule,
     NgbDatepickerModule,
     NgbTimepickerModule,
-    HomeModule,
-    YachtsModule,
+    SharedModule,
 
 
     // translation module
@@ -74,9 +72,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       ReservationsListReducer.STATE_KEY,
       ReservationsListReducer.reducers,
     ),
-  ],
-  exports: [
-    CustomDateFormatPipe,
   ]
 })
 export class ReservationsModule {

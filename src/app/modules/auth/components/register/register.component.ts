@@ -7,7 +7,7 @@ import { Observable, OperatorFunction, debounceTime, distinctUntilChanged, map }
 import { LoginService } from 'src/app/core/service/login/login.service';
 import { passwordRegex} from '../../constants/password-regex.constant';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthDictionaryService } from '../../services/auth-dictionary.service';
+import { DictionaryService } from 'src/app/shared/service/dictionary.service';
 
 @Component({
   selector: 'app-auth-register',
@@ -35,8 +35,7 @@ export class RegisterComponent {
     private router: Router,
     private fb: NonNullableFormBuilder,
     private loginService: LoginService,
-    private translate: TranslateService,
-    private dictionaryService: AuthDictionaryService,
+    private dictionaryService: DictionaryService,
   ) {}
 
   get formControls() {

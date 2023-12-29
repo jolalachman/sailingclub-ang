@@ -16,6 +16,7 @@ import { DeactivateYachtDialogComponent } from "./dialogs/deactivate-yacht-dialo
 import { ChangeYachtStatusDialogComponent } from "./dialogs/change-yacht-status-dialog/change-yacht-status-dialog.component";
 import { AddYachtReservationDialogComponent } from "./dialogs/add-yacht-reservation-dialog/add-yacht-reservation-dialog.component";
 import { HomeModule } from "../home/home.module";
+import { SharedModule } from "src/app/shared/shared.module";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
@@ -43,7 +44,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NgbCollapseModule,
     ReactiveFormsModule,
     NgbDatepickerModule,
-    HomeModule,
+    SharedModule,
 
     // translation module
     TranslateModule.forChild({

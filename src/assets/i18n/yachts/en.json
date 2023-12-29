@@ -5,5 +5,8 @@
     "IN_REPAIR": "in repair", 
     "MALFUNCTION": "malfunction",
     "IN_USE": "in use",
-    "DEACTIVATED": "deactivated"
+    "DEACTIVATED": "deactivated",
+    "SAILING": "sail",
+    "MOTOR": "motor",
+    "SAIL_MOTOR": "sail-motor"
 }

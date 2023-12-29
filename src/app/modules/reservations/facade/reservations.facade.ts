@@ -78,7 +78,7 @@ export class ReservationsFacade {
 
             const statusValue = filters.find(x => x.field === 'status')?.value;
             if (statusValue && typeof statusValue === 'string' && statusValue !== 'null') {
-                filteredItems = filteredItems.filter(x => x.currentStatus.toLowerCase() === statusValue.toLowerCase());
+                filteredItems = filteredItems.filter(x => x.currentStatus.id.toString().toLowerCase() === statusValue.toLowerCase());
             }
 
             const clubMemberValue = filters.find(x => x.field === 'club-member')?.value;
@@ -132,8 +132,8 @@ export class ReservationsFacade {
                 start: new Date(item.pickupDate),
                 end: new Date(item.dropoffDate),
                 color: {
-                    primary: item.currentStatus === 'PENDING' ? "#c0c0c0" : CALENDAR_COLORS[item.yachtId % CALENDAR_COLORS.length],
-                    secondary: item.currentStatus === 'PENDING' ? "#c0c0c0" : CALENDAR_COLORS[item.yachtId % CALENDAR_COLORS.length],
+                    primary: this.getColor(item.currentStatus.name, item.yachtId),
+                    secondary: this.getColor(item.currentStatus.name, item.yachtId),
                 },
                 meta: item.id
             }));
@@ -162,5 +162,13 @@ export class ReservationsFacade {
         this.store.dispatch(
             ReservationsListActions.filters({f: value})
         );
+    }
+
+    getColor(statusName: string, yachtId: number): string {
+        if (statusName === 'PENDING')
+        {
+            return "lightgray";
+        }
+        return CALENDAR_COLORS[yachtId % CALENDAR_COLORS.length];
     }
 }

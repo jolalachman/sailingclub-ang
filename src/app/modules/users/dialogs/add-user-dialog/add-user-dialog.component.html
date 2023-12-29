@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-row">
+        <div class="form-row" *ngIf="userRoles$ | async as userRoles">
             <label for="role" class="add-user-form-label">{{ 'Role' | translate }}</label>
             <select
                 class="form-select"
@@ -30,8 +30,8 @@
                 required
                 formControlName="role"
             >
-                <option *ngFor="let role of userRoles" [value]="role">
-                    {{ role ?? '-' | translate }}
+                <option *ngFor="let role of userRoles" [value]="role?.id">
+                    {{ role?.name ?? '-' | translate }}
                 </option>
             </select>
             <div *ngIf="formControls['role'].invalid && (formControls['role'].dirty || formControls['role'].touched)">

@@ -4,13 +4,14 @@ import { Observable } from "rxjs";
 import { environment } from "src/environment/environment";
 import { ApiService } from "src/app/core/service/api/api.service";
 import { YachtDetailsReservation, YachtReservation } from "../../yachts/models/yacht.model";
+import { DictionaryModel } from "src/app/shared/service/dictionary.service";
 
 export type YachtModel = {
     id: number;
     name: string;
-    type: string;
+    type: DictionaryModel;
     registrationNumber: string;
-    currentStatus: string;
+    currentStatus: DictionaryModel;
     photo: string;
     description: string;
     technicalData: {

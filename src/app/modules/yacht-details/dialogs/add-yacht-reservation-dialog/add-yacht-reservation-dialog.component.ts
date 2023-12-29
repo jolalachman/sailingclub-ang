@@ -6,6 +6,7 @@ import { ADD_TIMES, PEOPLE } from "src/app/modules/home/constants/searchForm.con
 import { Subscription } from "rxjs";
 import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-date-parser.formatter";
 import { ReservationsService } from "src/app/modules/reservations/service/reservations.service";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
 
 @Component({
     selector: 'app-add-yacht-reservation',
@@ -24,7 +25,7 @@ import { ReservationsService } from "src/app/modules/reservations/service/reserv
     numOfPeople = PEOPLE.filter(x => (x !== null));
 
     userInfo$ = this.loginService.userInfo.asObservable();
-    users$ = this.reservationService.getUsersDictionary();
+    users$ = this.dictionaryService.getUsersDictionary();
 
     addReservationForm: FormGroup = this.fb.group({
       pickupDate: [null, Validators.required],
@@ -38,6 +39,7 @@ import { ReservationsService } from "src/app/modules/reservations/service/reserv
     constructor(
       private fb: NonNullableFormBuilder,
       private reservationService: ReservationsService,
+      private dictionaryService: DictionaryService,
       private loginService: LoginService,
     ) {}
 
@@ -126,7 +128,7 @@ import { ReservationsService } from "src/app/modules/reservations/service/reserv
       return pickUpDate ?? currentDate;
     }
 
-    reserveYacht(firstName: string, lastName: string, id: string) {
+    reserveYacht(id: string) {
       if (this.addReservationForm.invalid) return;
 
       this.loading = true;
@@ -162,12 +164,12 @@ import { ReservationsService } from "src/app/modules/reservations/service/reserv
 
       const pickup = pickupDateTime.toISOString();
       const dropoff = dropoffDateTime.toISOString();
-      const reservingPerson = firstName + " " + lastName;
+      const reservingPersonId = id;
       
       this.reservationService.addYachtReservation({
         pickup,
         dropoff,
-        reservingPerson,
+        reservingPersonId,
         peopleNumber,
         userId,
         yachtId,

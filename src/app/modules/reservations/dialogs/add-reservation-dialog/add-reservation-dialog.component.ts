@@ -6,6 +6,7 @@ import { LoginService } from "src/app/core/service/login/login.service";
 import { ADD_TIMES, PEOPLE } from "src/app/modules/home/constants/searchForm.constant";
 import { Subscription } from "rxjs";
 import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-date-parser.formatter";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
 
 @Component({
     selector: 'app-add-reservation',
@@ -23,8 +24,8 @@ import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-
     numOfPeople = PEOPLE.filter(x => (x !== null));
 
     userInfo$ = this.loginService.userInfo.asObservable();
-    yachts$ = this.reservationService.getYachtsDictionary();
-    users$ = this.reservationService.getUsersDictionary();
+    yachts$ = this.dictionaryService.getYachtsDictionary();
+    users$ = this.dictionaryService.getUsersDictionary();
 
     addReservationForm: FormGroup = this.fb.group({
       pickupDate: [null, Validators.required],
@@ -39,6 +40,7 @@ import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-
     constructor(
       private fb: NonNullableFormBuilder,
       private reservationService: ReservationsService,
+      private dictionaryService: DictionaryService,
       private loginService: LoginService,
     ) {}
 
@@ -123,7 +125,7 @@ import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-
       return pickUpDate ?? currentDate;
     }
 
-    addYacht(firstName: string, lastName: string) {
+    addYacht(id: string) {
       if (this.addReservationForm.invalid) return;
 
       this.loading = true;
@@ -158,13 +160,13 @@ import { MyNgbDateParserFormatter } from "src/app/modules/home/formaters/my-ngb-
 
       const pickup = pickupDateTime.toISOString();
       const dropoff = dropoffDateTime.toISOString();
-      const reservingPerson = firstName + " " + lastName;
+      const reservingPersonId = id;
       
       this.reservationService.addReservation({
         pickup,
         dropoff,
         peopleNumber,
-        reservingPerson,
+        reservingPersonId,
         userId,
         yachtId,
       }).subscribe({

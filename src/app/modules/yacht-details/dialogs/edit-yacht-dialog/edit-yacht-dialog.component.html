@@ -15,15 +15,15 @@
                     </div>
                 </div>
             </div>
-            <div class="form-row">
+            <div class="form-row" *ngIf="yachtTypes$ | async as yachtTypes">
                 <label for="type" class="add-yacht-form-label">{{ 'Type' | translate }}</label>
                 <select
                     class="form-select"
                     id="type"
                     formControlName="type"
                 >
-                    <option *ngFor="let type of yachtTypes" [value]="type">
-                        {{ type ?? '-' | translate }}
+                    <option *ngFor="let type of yachtTypes" [value]="type?.id">
+                        {{ type?.name ?? '-' | translate }}
                     </option>
                 </select>
             </div>

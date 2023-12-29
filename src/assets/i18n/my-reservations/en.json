@@ -1,0 +1,9 @@
+{
+    "CONFIRMED": "Confirmed",
+    "PENDING": "Pending",
+    "DECLINED": "Declined",
+    "CANCELLED": "Cancelled",
+    "COMPLETED": "Completed",
+    "REJECTED": "Rejected"
+
+}

@@ -1,4 +1,4 @@
-import { DictionaryModel } from "../../auth/services/auth-dictionary.service";
+import { DictionaryModel } from "src/app/shared/service/dictionary.service";
 
 export type ReportedNoticeShortDataModel = {
     id: number;

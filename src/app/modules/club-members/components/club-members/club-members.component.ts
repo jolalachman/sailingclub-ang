@@ -1,11 +1,9 @@
 import { Location } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Subscription, take } from "rxjs";
-import { SAILING_LICENCES } from "src/app/modules/users/constants/sailing-licences.constant";
-import { USER_ROLES } from "src/app/modules/users/constants/user-roles.constant";
+import { map, take } from "rxjs";
 import { ClubMembersFacade } from "../../facade/club-members.facade";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
 
 @Component({
   selector: 'app-club-members',
@@ -17,13 +15,18 @@ export class ClubMembersComponent implements OnInit {
   constructor(
     private facade: ClubMembersFacade,
     public location: Location,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder,
+    private dictionaryService: DictionaryService,
   //   private route: ActivatedRoute,
   //   private router: Router,
     ) {}
   pageSizes = [5, 10, 20];
-  userRoles = USER_ROLES.filter(x => x !== 'ADMIN');
-  sailingLicences = SAILING_LICENCES;
+  userRoles$ = this.dictionaryService.getUserRolesDictionary().pipe(
+    map(x => [null, ...x].filter(y => y?.name !== 'ADMIN'))
+  );
+  sailingLicence$ = this.dictionaryService.getSailingLicensesDictionary().pipe(
+    map(x => [null, ...x])
+  );
   // paramsSubscription = Subscription.EMPTY;
 
   filtersForm: FormGroup = this.fb.group({

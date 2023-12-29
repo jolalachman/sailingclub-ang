@@ -12,9 +12,9 @@ import { UsersListEffect } from "./store/effects";
 import { StoreModule } from "@ngrx/store";
 import { UsersListReducer } from "./store/reducers";
 import { UserRecordComponent } from "./components/user-record/user-record.component";
-import { YachtsModule } from "../yachts/yachts.module";
 import { NgbDropdownModule, NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
 import { AddUserDialogComponent } from "./dialogs/add-user-dialog/add-user-dialog.component";
+import { SharedModule } from "src/app/shared/shared.module";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
@@ -35,10 +35,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     UsersRoutingModule,
     FormsModule,
     JsonPipe,
-    YachtsModule,
     NgbPaginationModule,
     NgbDropdownModule,
     ReactiveFormsModule,
+    SharedModule,
 
     // translation module
     TranslateModule.forChild({

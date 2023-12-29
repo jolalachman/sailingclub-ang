@@ -2,6 +2,8 @@
     "CONFIRMED": "Confirmed",
     "PENDING": "Pending",
     "DECLINED": "Declined",
-    "CANCELLED": "Cancelled"
+    "CANCELLED": "Cancelled",
+    "COMPLETED": "Completed",
+    "REJECTED": "Rejected"
 
 }

@@ -3,9 +3,9 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ReportedNoticesFacade } from "../../facade/reported-notices.facade";
 import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Subscription, map, take } from "rxjs";
-import { ReservationsService } from "src/app/modules/reservations/service/reservations.service";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
 
 @Component({
   selector: 'app-notices',
@@ -34,16 +34,16 @@ export class NoticesComponent implements OnInit, OnDestroy {
   paging$ = this.facade.paging$;
   sort$ = this.facade.sort$;
   filters$ = this.facade.filters$;
-  yachts$ = this.reservationService.getAllYachtsDictionary().pipe(
+  yachts$ = this.dictionaryService.getAllYachtsDictionary().pipe(
     map(x => [null, ...x])
   );
-  reservations$ = this.reservationService.getAllReservationsDictionary().pipe(
+  reservations$ = this.dictionaryService.getAllReservationsDictionary().pipe(
     map(x => [null, ...x])
   );
-  clubMembers$ = this.reservationService.getUsersDictionary().pipe(
+  clubMembers$ = this.dictionaryService.getUsersDictionary().pipe(
     map(x => [null, ...x])
   );
-  currentStatuses$ = this.reservationService.getNoticeStatusesDictionary().pipe(
+  currentStatuses$ = this.dictionaryService.getNoticeStatusesDictionary().pipe(
     map(x => [null, ...x])
   );
 
@@ -51,7 +51,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
     public location: Location,
     private facade: ReportedNoticesFacade,
     private fb: NonNullableFormBuilder,
-    private reservationService: ReservationsService,
+    private dictionaryService: DictionaryService,
     private route: ActivatedRoute,
     private router: Router,
   ) {}

@@ -77,27 +77,27 @@
                 </span>
                 <div class="section" *ngIf="filters$ | async as filters" style="flex: 1; overflow-y: auto;">
                     <form class="club-members-form" [formGroup]="filtersForm">
-                        <div class="section">
+                        <div class="section" *ngIf="userRoles$ | async as userRoles">
                             <label for="role" class="form-label">{{ 'Role' | translate }}</label>
                             <select
                                 class="form-select"
                                 id="role"
                                 formControlName="role"
                             >
-                                <option *ngFor="let role of userRoles" [value]="role">
-                                    {{ role ?? '-' | translate }}
+                                <option *ngFor="let role of userRoles" [value]="role?.id">
+                                    {{ role?.name ?? '-' | translate }}
                                 </option>
                             </select>
                         </div>
-                        <div class="section">
+                        <div class="section" *ngIf="sailingLicence$ | async as sailingLicences">
                             <label for="sailing-licence" class="form-label">{{ 'Sailing licence' | translate }}</label>
                             <select
                                 class="form-select"
                                 id="sailing-licence"
                                 formControlName="sailingLicence"
                             >
-                                <option *ngFor="let sailingLicence of sailingLicences" [value]="sailingLicence">
-                                    {{ sailingLicence ?? '-' | translate }}
+                                <option *ngFor="let sailingLicence of sailingLicences" [value]="sailingLicence?.id">
+                                    {{ sailingLicence?.name ?? '-' | translate }}
                                 </option>
                             </select>
                         </div>

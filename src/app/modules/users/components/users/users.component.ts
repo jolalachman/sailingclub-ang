@@ -3,11 +3,9 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { UsersFacade } from "../../facade/users.facade";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AddUserDialogComponent } from "../../dialogs/add-user-dialog/add-user-dialog.component";
-import { Subscription, take } from "rxjs";
+import { Subscription, map, take } from "rxjs";
 import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
-import { AuthDictionaryService } from "src/app/modules/auth/services/auth-dictionary.service";
-import { USER_ROLES } from "../../constants/user-roles.constant";
-import { SAILING_LICENCES } from "../../constants/sailing-licences.constant";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
 
 @Component({
   selector: 'app-users',
@@ -20,13 +18,18 @@ export class UsersComponent implements OnInit, OnDestroy {
     private facade: UsersFacade,
     public location: Location,
     private modalService: NgbModal,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder,
+    private dictionaryService: DictionaryService,
   //   private route: ActivatedRoute,
   //   private router: Router,
     ) {}
   pageSizes = [5, 10, 20];
-  userRoles = USER_ROLES;
-  sailingLicences = SAILING_LICENCES;
+  userRoles$ = this.dictionaryService.getUserRolesDictionary().pipe(
+    map(x => [null, ...x])
+  );
+  sailingLicence$ = this.dictionaryService.getSailingLicensesDictionary().pipe(
+    map(x => [null, ...x])
+  );
   dialogSubscription: Subscription = Subscription.EMPTY;
   // paramsSubscription = Subscription.EMPTY;
 

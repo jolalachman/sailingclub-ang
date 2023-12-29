@@ -15,17 +15,23 @@
                     </div>
                 </div>
             </div>
-            <div class="form-row">
+            <div class="form-row" *ngIf="yachtTypes$ | async as yachtTypes">
                 <label for="type" class="add-yacht-form-label">{{ 'Type' | translate }}</label>
                 <select
                     class="form-select"
                     id="type"
                     formControlName="type"
+                    required
                 >
-                    <option *ngFor="let type of yachtTypes" [value]="type">
-                        {{ type ?? '-' | translate }}
+                    <option *ngFor="let type of yachtTypes" [value]="type?.id">
+                        {{ type?.name ?? '-' | translate }}
                     </option>
                 </select>
+                <div *ngIf="formControls['type'].invalid && (formControls['type'].dirty || formControls['type'].touched)">
+                    <div *ngIf="formControls['type'].errors?.['required']">
+                        <label class="error-message"> {{'This field is required' | translate}} </label>
+                    </div>
+                </div>
             </div>
             <div class="form-row">
                 <label for="registrationNumber" class="add-yacht-form-label">{{ 'Registration number' | translate }}</label>

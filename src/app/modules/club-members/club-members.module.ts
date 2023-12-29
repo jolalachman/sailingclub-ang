@@ -14,6 +14,7 @@ import { ClubMembersListReducer } from "./store/reducers";
 import { ClubMembersListEffect } from "./store/effects";
 import { YachtsModule } from "../yachts/yachts.module";
 import { NgbDropdownModule, NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
+import { SharedModule } from "src/app/shared/shared.module";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
@@ -34,7 +35,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     JsonPipe,
     ReactiveFormsModule,
-    YachtsModule,
+    SharedModule,
     NgbPaginationModule,
     NgbDropdownModule,
 

@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnInit, Output, inject } from "@angular/core";
 import { FormGroup, NonNullableFormBuilder } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { NoticeDetailsService, NoticeModel } from "../../service/notice-details.service";
-import { ReservationsService } from "src/app/modules/reservations/service/reservations.service";
 import { map } from "rxjs";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
 
 @Component({
     selector: 'change-notice-status',
@@ -18,7 +18,7 @@ import { map } from "rxjs";
       statusId: [null],
     });
 
-    currentStatuses$ = this.reservationService.getNoticeStatusesDictionary().pipe(
+    currentStatuses$ = this.dictionaryService.getNoticeStatusesDictionary().pipe(
       map(x => [null, ...x])
     );
 
@@ -29,7 +29,7 @@ import { map } from "rxjs";
     constructor(
       private service: NoticeDetailsService,
       private fb: NonNullableFormBuilder,
-      private reservationService: ReservationsService,
+      private dictionaryService: DictionaryService,
       ) {}
     
     ngOnInit(): void {

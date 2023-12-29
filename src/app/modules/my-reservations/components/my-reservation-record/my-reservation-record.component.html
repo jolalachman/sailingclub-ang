@@ -1,0 +1,46 @@
+<div class="record" (clickEvent)="handleClick(record?.id)" clickEmitter>
+    <div class="record-pic">
+        <img [src]="record?.photo">
+    </div>
+    <div class="record-content">
+        <div class="record-header">
+            <div class="record-name">
+                #{{record?.id}}
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; gap: 50px;">
+            <div class="record-main">
+                <div class="record-yacht">{{"Yacht:" | translate }}
+                    <span class="record-value">
+                        {{record?.yachtName ?? 'none' | translate}}
+                    </span>
+                </div>
+                <div class="record-pickupDate">{{"Pick up datetime:" | translate }}
+                    <span class="record-value">
+                        {{record?.pickupDate | customDateFormat }}
+                    </span>
+                </div>
+                <div class="record-dropoffDate">{{"Drop off datetime:" | translate }}
+                    <span class="record-value">
+                        {{record?.dropoffDate | customDateFormat }}
+                    </span>
+                </div>
+            </div>
+            <div class="record-main">
+                <div class="record-clientInfo">{{"Current status:" | translate }}
+                    <span class="record-value"
+                    [class.confirmed]="record?.currentStatus?.name === 'CONFIRMED'"
+                    [class.rejected]="record?.currentStatus?.name === 'REJECTED'"
+                    [class.pending]="record?.currentStatus?.name === 'PENDING'">
+                        {{record?.currentStatus?.name ?? '-' | translate}}
+                    </span>
+                </div>
+                <div class="record-peopleNumber">{{"People number:" | translate }}
+                    <span class="record-value">
+                        {{record?.peopleNumber }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

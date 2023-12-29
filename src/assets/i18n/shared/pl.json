@@ -23,9 +23,9 @@
     "Add yacht": "Dodaj jacht",
     "Name": "Nazwa",
     "Type": "Typ",
-    "sailing": "żaglowy",
-    "motor": "motorowy",
-    "sail-motor": "motorowo-żaglowy",
+    "SAILING": "żaglowy",
+    "MOTOR": "motorowy",
+    "SAIL_MOTOR": "motorowo-żaglowy",
     "Registration number": "Numer rejestracyjny",
     "Description": "Opis",
     "General information": "Ogólne informacje",
@@ -96,6 +96,8 @@
     "Edit notice": "Edytuj uwagę",
     "NEW": "Nowa",
     "OPENED": "Otwarta",
-    "COMPLETED": "Zamknięta"
+    "COMPLETED": "Zamknięta",
+    "My reservations": "Moje rezerwacje",
+    "DEACTIVATED": "Dezaktywowany"
 
 }

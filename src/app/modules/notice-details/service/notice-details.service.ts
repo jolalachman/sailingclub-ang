@@ -3,8 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environment/environment";
 import { ApiService } from "src/app/core/service/api/api.service";
-import { ReportedNoticeShortDataModel } from "../../notices/models/reported-notice.model";
-import { DictionaryModel } from "../../auth/services/auth-dictionary.service";
+import { DictionaryModel } from "src/app/shared/service/dictionary.service";
 
 export type NoticeEditModel = {
     id: number;

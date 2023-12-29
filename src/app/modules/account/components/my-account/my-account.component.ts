@@ -4,6 +4,7 @@ import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { LoginService } from "src/app/core/service/login/login.service";
 import { phoneRegex } from "../../constants/phone-regex.constant";
 import { AccountService } from "../../service/account.service";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
 
 @Component({
     selector: 'app-account-my-account',
@@ -16,7 +17,7 @@ import { AccountService } from "../../service/account.service";
     editMode = false;
     id = this.loginService.getUserInfo().value?.id ?? '';
     permission = this.loginService.getUserInfo().value?.permission ?? '';
-    sailingLicenses$ = this.service.getSailingLicensesDictionary();
+    sailingLicenses$ = this.dictionaryService.getSailingLicensesDictionary();
 
     myAccountForm: FormGroup = this.fb.group({
       firstName: ['', Validators.required],
@@ -35,13 +36,21 @@ import { AccountService } from "../../service/account.service";
       public location: Location,
       private loginService: LoginService,
       private fb: NonNullableFormBuilder,
-      private service: AccountService
+      private service: AccountService,
+      private dictionaryService: DictionaryService,
     ) {}
 
     ngOnInit(): void {
       this.service.getAccount(this.id).subscribe({
         next: (result) => {
-          this.myAccountForm.patchValue(result);
+          this.myAccountForm.patchValue({
+            firstName: result.firstName,
+            lastName: result.lastName,
+            phone: result.phone,
+            clubStatus: result.clubStatus,
+            sailingLicenseName: result.sailingLicense.name,
+            sailingLicenseId: result.sailingLicense.id,
+          });
           this.loading = false;
         },
         error: () => {
@@ -65,7 +74,14 @@ import { AccountService } from "../../service/account.service";
       this.service.editAccount({id, firstName, lastName, phone, clubStatus, sailingLicenseId}).subscribe({
         next: (result) => {
           this.loginService.setUserInfo(firstName, lastName, id, permission);
-          this.myAccountForm.patchValue(result);
+          this.myAccountForm.patchValue({
+            firstName: result.firstName,
+            lastName: result.lastName,
+            phone: result.phone,
+            clubStatus: result.clubStatus,
+            sailingLicenseName: result.sailingLicense.name,
+            sailingLicenseId: result.sailingLicense.id,
+          });
           this.loading = false;
           this.editMode=false;
         },

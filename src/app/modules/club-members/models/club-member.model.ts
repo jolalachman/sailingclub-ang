@@ -1,3 +1,5 @@
+import { DictionaryModel } from "src/app/shared/service/dictionary.service";
+
 export type ClubMemberShortDataModel = {
     id: number;
     firstName: string;
@@ -6,7 +8,7 @@ export type ClubMemberShortDataModel = {
     phone: string;
     roleName: string;
     clubStatus: string;
-    sailingLicenseName: string;
+    sailingLicense: DictionaryModel;
 };
 
 export type ClubMembersPageModel = {

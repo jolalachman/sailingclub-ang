@@ -1,3 +1,5 @@
+import { DictionaryModel } from "src/app/shared/service/dictionary.service";
+
 export type UserShortDataModel = {
     id: number;
     firstName: string;
@@ -6,7 +8,7 @@ export type UserShortDataModel = {
     phone: string;
     roleName: string;
     clubStatus: string;
-    sailingLicenseName: string;
+    sailingLicense: DictionaryModel;
 };
 
 export type UsersPageModel = {

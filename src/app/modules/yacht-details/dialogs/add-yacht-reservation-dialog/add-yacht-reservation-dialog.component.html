@@ -92,5 +92,5 @@
     </form>
 </div>
 <div class="modal-footer" *ngIf="userInfo$ | async as userInfo">
-    <button [disabled]="addReservationForm.invalid || loading" type="submit" class="btn sail-dialog-button btn-lg form-button" (click)="reserveYacht(userInfo.firstName, userInfo.lastName, userInfo.id)">{{"Reserve" | translate}}</button>
+    <button [disabled]="addReservationForm.invalid || loading" type="submit" class="btn sail-dialog-button btn-lg form-button" (click)="reserveYacht(userInfo.id)">{{"Reserve" | translate}}</button>
 </div>

@@ -17,7 +17,7 @@ import { LANGUAGE_KEY } from 'src/app/core/service/language/constants';
 import { JsonPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbAlertModule, NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { TimeFormatPipe } from './pipes/time-format.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -31,8 +31,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [
     HomeComponent,
-    routedComponents,
-    TimeFormatPipe,
+    routedComponents
   ],
   imports: [
     CommonModule,
@@ -44,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NgbTimepickerModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
 
     // translation module
     TranslateModule.forChild({
@@ -54,9 +54,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
       isolate: true,
     }),
-  ],
-  exports: [
-    TimeFormatPipe,
   ]
 })
 export class HomeModule {

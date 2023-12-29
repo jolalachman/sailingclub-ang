@@ -1,3 +1,5 @@
+import { DictionaryModel } from "src/app/shared/service/dictionary.service";
+
 export type ReservationShortDataModel = {
     id: number;
     pickupDate: Date;
@@ -6,7 +8,7 @@ export type ReservationShortDataModel = {
     yachtId: number;
     reservingPerson: string;
     clientInfo: string;
-    currentStatus: string;
+    currentStatus: DictionaryModel;
     photo: string;
     peopleNumber: number;
 };

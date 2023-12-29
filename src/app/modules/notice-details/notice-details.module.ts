@@ -10,6 +10,7 @@ import { NoticeDetailsRoutingModule, routedComponents } from "./notice-details.r
 import { ReservationsModule } from "../reservations/reservations.module";
 import { EditNoticeDialogComponent } from "./dialogs/edit-notice-dialog/edit-notice-dialog.component";
 import { ChangeNoticeStatusDialogComponent } from "./dialogs/change-notice-status-dialog/change-notice-status-dialog.component";
+import { SharedModule } from "src/app/shared/shared.module";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
@@ -30,8 +31,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NoticeDetailsRoutingModule,
     FormsModule,
     JsonPipe,
-    ReservationsModule,
     ReactiveFormsModule,
+    SharedModule,
 
     // translation module
     TranslateModule.forChild({

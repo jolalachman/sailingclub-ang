@@ -49,7 +49,7 @@ export class ClubMembersFacade {
 
             const sailingLicenceValue = filters.find(x => x.field === 'sailingLicence')?.value;
             if (sailingLicenceValue && typeof sailingLicenceValue === 'string' && sailingLicenceValue !== 'null') {
-                filteredItems = filteredItems.filter(x => x.sailingLicenseName.toLowerCase() === sailingLicenceValue.toLowerCase());
+                filteredItems = filteredItems.filter(x => x.sailingLicense.id.toString().toLowerCase() === sailingLicenceValue.toLowerCase());
             }
 
             return {pageSize, skip, items: filteredItems, sort, totalCount: filteredItems.length};

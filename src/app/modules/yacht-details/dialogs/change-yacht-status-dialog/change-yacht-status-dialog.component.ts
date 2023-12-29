@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, inject } from "@angular/core";
 import { FormGroup, NonNullableFormBuilder } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { YACHT_STATUSES } from "src/app/modules/yachts/constants/yacht-statuses.constant";
 import { YachtsService } from "src/app/modules/yachts/service/yachts.service";
 import { YachtModel } from "../../service/yacht-details.service";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
+import { map } from "rxjs";
 
 @Component({
     selector: 'change-yacht-status',
@@ -14,7 +15,9 @@ import { YachtModel } from "../../service/yacht-details.service";
     @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>;
     yacht?: YachtModel;
     activeModal = inject(NgbActiveModal);
-    yachtStatuses = YACHT_STATUSES.filter(x => x!== null);
+    yachtStatuses$ = this.dictionaryService.getYachtStatusesDictionary().pipe(
+      map(x => [null, ...x])
+    );
     statusForm: FormGroup = this.fb.group({
       status: [null],
     });
@@ -25,7 +28,8 @@ import { YachtModel } from "../../service/yacht-details.service";
 
     constructor(
       private yachtService: YachtsService,
-      private fb: NonNullableFormBuilder
+      private fb: NonNullableFormBuilder,
+      private dictionaryService: DictionaryService,
       ) {}
     
     ngOnInit(): void {

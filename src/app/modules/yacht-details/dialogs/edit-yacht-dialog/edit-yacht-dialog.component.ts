@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, inject } from "@angular/core";
 import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { YACHT_TYPES } from "src/app/modules/yachts/constants/yacht-types.constant";
 import { YachtsService } from "src/app/modules/yachts/service/yachts.service";
 import { YachtModel } from "../../service/yacht-details.service";
+import { map } from "rxjs";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
 
 @Component({
     selector: 'edit-add-yacht',
@@ -13,7 +14,9 @@ import { YachtModel } from "../../service/yacht-details.service";
   export class EditYachtDialogComponent implements OnInit {
     @Output() yachtAdded: EventEmitter<boolean> = new EventEmitter<boolean>;
     yacht?: YachtModel;
-    yachtTypes = YACHT_TYPES;
+    yachtTypes$ = this.dictionaryService.getYachtTypesDictionary().pipe(
+      map(x => [null, ...x])
+    );
     activeModal = inject(NgbActiveModal);
     loading = false;
 
@@ -41,14 +44,15 @@ import { YachtModel } from "../../service/yacht-details.service";
     constructor(
       private fb: NonNullableFormBuilder,
       private cd: ChangeDetectorRef,
-      private yachtService: YachtsService
+      private yachtService: YachtsService,
+      private dictionaryService: DictionaryService,
     ) {}
     ngOnInit(): void {
       if (this.yacht) {
         this.addYachtForm.patchValue({
           id: this.yacht.id,
           name: this.yacht.name,
-          type: this.yacht.type,
+          type: this.yacht.type.id,
           registrationNumber: this.yacht.registrationNumber,
           description: this.yacht.description,
           photo: this.yacht.photo,

@@ -12,7 +12,7 @@
             <div class="record-main">
                 <div class="record-type">{{"Type:" | translate }}
                     <span class="record-value">
-                        {{record?.type ?? 'none' | translate}}
+                        {{record?.type?.name ?? 'none' | translate}}
                     </span>
                 </div>
                 <div class="record-registration">{{"Registration number:" | translate }}
@@ -22,13 +22,13 @@
                 </div>
                 <div class="record-status">{{"Current status:" | translate }}
                     <span class="record-value"
-                    [class.available]="record?.currentStatus === 'AVAILABLE'"
-                    [class.reserved]="record?.currentStatus === 'RESERVED_LONG_TERM'"
-                    [class.in-repair]="record?.currentStatus === 'IN_REPAIR'"
-                    [class.malfunction]="record?.currentStatus === 'MALFUNCTION'"
-                    [class.in-use]="record?.currentStatus === 'IN_USE'"
+                    [class.available]="record?.currentStatus?.name === 'AVAILABLE'"
+                    [class.reserved]="record?.currentStatus?.name === 'RESERVED_LONG_TERM'"
+                    [class.in-repair]="record?.currentStatus?.name === 'IN_REPAIR'"
+                    [class.malfunction]="record?.currentStatus?.name === 'MALFUNCTION'"
+                    [class.in-use]="record?.currentStatus?.name === 'IN_USE'"
                     >
-                        {{record?.currentStatus ?? 'none' | translate}}
+                        {{record?.currentStatus?.name ?? 'none' | translate}}
                     </span>
                 </div>
             </div>

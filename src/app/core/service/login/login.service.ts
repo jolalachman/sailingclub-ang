@@ -6,11 +6,6 @@ import { JWT_TOKEN, USER_INFO } from "../storage/local-storage.constant";
 import { UserActions } from "../../state/actions";
 import { Store } from '@ngrx/store';
 
-export type DictionaryModel = {
-    id: number;
-    name: string;
-}
-
 @Injectable({ providedIn: 'root'})
 export class LoginService {
 

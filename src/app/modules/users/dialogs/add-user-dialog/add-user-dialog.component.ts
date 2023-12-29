@@ -4,8 +4,7 @@ import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { LoginService } from "src/app/core/service/login/login.service";
 import { passwordRegex } from "src/app/modules/auth/constants/password-regex.constant";
-import { AuthDictionaryService } from "src/app/modules/auth/services/auth-dictionary.service";
-import { USER_ROLES } from "../../constants/user-roles.constant";
+import { DictionaryService } from "src/app/shared/service/dictionary.service";
 
 @Component({
     selector: 'app-add-user',
@@ -17,7 +16,7 @@ export class AddUserDialogComponent {
   activeModal = inject(NgbActiveModal);
   loading = false;
   sailingLicenses$ = this.dictionaryService.getSailingLicensesDictionary();
-  userRoles = USER_ROLES.filter(x => x !== null);
+  userRoles$ = this.dictionaryService.getUserRolesDictionary();
 
   addUserForm: FormGroup = this.fb.group({
       firstName: ['', Validators.required],
@@ -34,7 +33,7 @@ export class AddUserDialogComponent {
     private fb: NonNullableFormBuilder,
     private cd: ChangeDetectorRef,
     private service: LoginService,
-    private dictionaryService: AuthDictionaryService,
+    private dictionaryService: DictionaryService,
   ) {}
 
   get formControls() {

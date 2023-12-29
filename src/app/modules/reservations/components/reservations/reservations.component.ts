@@ -6,9 +6,9 @@ import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, map, take } from 'rxjs';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { RESERVATION_STATUSES } from '../../constants/reservation-statuses.constant';
 import { TIMES } from 'src/app/modules/home/constants/searchForm.constant';
 import { ReservationsService } from '../../service/reservations.service';
+import { DictionaryService } from 'src/app/shared/service/dictionary.service';
 
 @Component({
   selector: 'app-reservations',
@@ -30,16 +30,18 @@ export class ReservationsComponent implements OnInit, OnDestroy {
   formSubscription = Subscription.EMPTY;
   paramsSubscription = Subscription.EMPTY;
   calendarFormSubscription = Subscription.EMPTY;
-  reservationStatuses = RESERVATION_STATUSES;
+  reservationStatuses$ = this.dictionaryService.getReservationStatusesDictionary().pipe(
+    map(x => [null, ...x])
+  );
   pickupTimes = TIMES;
   dropoffTimes = TIMES;
-  clubMembers$ = this.reservationService.getUsersDictionary().pipe(
+  clubMembers$ = this.dictionaryService.getUsersDictionary().pipe(
     map(x => [null, ...x])
   );
-  reservingUsers$ = this.reservationService.getReservingUsersDictionary().pipe(
+  reservingUsers$ = this.dictionaryService.getReservingUsersDictionary().pipe(
     map(x => [null, ...x])
   );
-  yachts$ = this.reservationService.getAllYachtsDictionary().pipe(
+  yachts$ = this.dictionaryService.getAllYachtsDictionary().pipe(
     map(x => [null, ...x])
   );
 
@@ -74,6 +76,7 @@ export class ReservationsComponent implements OnInit, OnDestroy {
     private fb: NonNullableFormBuilder,
     private route: ActivatedRoute,
     private reservationService: ReservationsService,
+    private dictionaryService: DictionaryService,
     ) {}
 
   ngOnInit(): void {

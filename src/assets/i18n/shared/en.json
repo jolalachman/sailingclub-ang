@@ -16,5 +16,9 @@
     "ADMIN": "Admin",
     "NEW": "New",
     "OPENED": "Opened",
-    "COMPLETED": "Completed"
+    "COMPLETED": "Completed",
+    "DEACTIVATED": "Deactivated",
+    "SAILING": "sail",
+    "MOTOR": "motor",
+    "SAIL_MOTOR": "sail-motor"
 }

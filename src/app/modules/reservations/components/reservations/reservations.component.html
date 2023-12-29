@@ -185,15 +185,15 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="section">
+                        <div class="section" *ngIf="reservationStatuses$ | async as reservationStatuses">
                             <label for="status" class="form-label">{{ 'Status' | translate }}</label>
                             <select
                                 class="form-select"
                                 id="status"
                                 formControlName="status"
                             >
-                                <option *ngFor="let status of reservationStatuses" [value]="status">
-                                    {{ status ?? '-' | translate }}
+                                <option *ngFor="let status of reservationStatuses" [value]="status?.id">
+                                    {{ status?.name ?? '-' | translate }}
                                 </option>
                             </select>
                         </div>

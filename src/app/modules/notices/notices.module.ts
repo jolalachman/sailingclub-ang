@@ -16,6 +16,7 @@ import { NgbDatepickerModule, NgbDropdownModule, NgbPaginationModule } from "@ng
 import { NoticeRecordComponent } from "./components/notice-record/notice-record.component";
 import { ReservationsComponent } from "../reservations/components/reservations/reservations.component";
 import { ReservationsModule } from "../reservations/reservations.module";
+import { SharedModule } from "src/app/shared/shared.module";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
@@ -36,10 +37,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     JsonPipe,
     ReactiveFormsModule,
-    YachtsModule,
+    SharedModule,
     NgbPaginationModule,
     NgbDropdownModule,
-    ReservationsModule,
     NgbDatepickerModule,
 
     // translation module

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserShortDataModel } from 'src/app/modules/users/models/user.model';
+import { ClubMemberShortDataModel } from '../../models/club-member.model';
 
 @Component({
   selector: 'app-club-member-record',
@@ -8,7 +8,7 @@ import { UserShortDataModel } from 'src/app/modules/users/models/user.model';
   styleUrls: ['./club-member-record.component.scss']
 })
 export class ClubMemberRecordComponent {
-    @Input() record?: UserShortDataModel;
+    @Input() record?: ClubMemberShortDataModel;
 
     constructor(private router: Router) {}
 

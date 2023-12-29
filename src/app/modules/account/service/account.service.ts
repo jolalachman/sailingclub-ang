@@ -1,17 +1,17 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environment/environment";
 import { ApiService } from "src/app/core/service/api/api.service";
 import { LoginService } from "src/app/core/service/login/login.service";
+import { DictionaryModel } from "src/app/shared/service/dictionary.service";
 
 export type UserResponse = {
     firstName: string;
     lastName: string;
     phone: string;
     clubStatus: string;
-    sailingLicenseName: string;
-    sailingLicenseId: string;
+    sailingLicense: DictionaryModel;
 }
 export type UserRequest = {
     id: string
@@ -26,11 +26,6 @@ export type ChangePasswordRequest = {
     id: string;
     oldPassword: string;
     newPassword: string;
-}
-
-export type DictionaryModel = {
-    id: number;
-    name: string;
 }
 
 @Injectable({
@@ -54,10 +49,5 @@ export class AccountService extends ApiService {
     changePassword(data: ChangePasswordRequest): Observable<boolean> {
         const url = `${environment.apiUrl}${'v1'}/${'user'}/${'changePassword'}`;
         return this.http.post<boolean>(url, data, {headers: this.getHeaders()});
-    }
-
-    getSailingLicensesDictionary(): Observable<DictionaryModel[]> {
-        const url = `${environment.apiUrl}${'v1'}/${'auth'}/${'sailingLicenses'}`;
-        return this.http.get<DictionaryModel[]>(url, {headers: this.getHeaders()});
     }
 }

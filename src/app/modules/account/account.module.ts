@@ -8,6 +8,7 @@ import { LocalStorageService } from "src/app/core/service/storage/local-storage.
 import { AccountRoutingModule, routedComponents } from "./account.routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbToastModule } from "@ng-bootstrap/ng-bootstrap";
+import { SharedModule } from "src/app/shared/shared.module";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(
@@ -28,6 +29,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       NgbToastModule,
       FormsModule,
       ReactiveFormsModule,
+      SharedModule,
   
       // translation module
       TranslateModule.forChild({

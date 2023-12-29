@@ -14,7 +14,7 @@
                 </div>
                 <div class="record-links">
                     <a (click)="goToYachtNotices(yacht.id)">{{"Reported notices" | translate}}</a>
-                    <a *ngIf="yacht.currentStatus !== 'DEACTIVATED'" (click)="changeYachtStatus(yacht)">{{"Change status" | translate}}</a>
+                    <a *ngIf="yacht.currentStatus.name !== 'DEACTIVATED'" (click)="changeYachtStatus(yacht)">{{"Change status" | translate}}</a>
                     <a>{{"History of statuses" | translate}}</a>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     <div class="record-name">
                         {{yacht?.name ?? 'none' | translate}}
                     </div>
-                    <div class="record-options" *ngIf="yacht.currentStatus !== 'DEACTIVATED'">
+                    <div class="record-options" *ngIf="yacht.currentStatus.name !== 'DEACTIVATED'">
                         <button class="btn sail-icon-button" (click)="editYacht(yacht)">
                             <i class="bi bi-pencil"></i>
                         </button>
@@ -45,7 +45,7 @@
                     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" style="width: 100%">
                         <div class="record-type">{{"Type:" | translate }}
                             <span class="record-value">
-                                {{yacht?.type ?? 'none' | translate}}
+                                {{yacht?.type?.name ?? 'none' | translate}}
                             </span>
                         </div>
                         <div class="record-registration">{{"Registration number:" | translate }}
@@ -55,13 +55,13 @@
                         </div>
                         <div class="record-status">{{"Current status:" | translate }}
                             <span class="record-value"
-                             [class.available]="yacht?.currentStatus === 'AVAILABLE'"
-                             [class.reserved]="yacht?.currentStatus === 'RESERVED_LONG_TERM'"
-                             [class.in-repair]="yacht?.currentStatus === 'IN_REPAIR'"
-                             [class.malfunction]="yacht?.currentStatus === 'MALFUNCTION'"
-                             [class.in-use]="yacht?.currentStatus === 'IN_USE'"
+                             [class.available]="yacht?.currentStatus?.name === 'AVAILABLE'"
+                             [class.reserved]="yacht?.currentStatus?.name === 'RESERVED_LONG_TERM'"
+                             [class.in-repair]="yacht?.currentStatus?.name === 'IN_REPAIR'"
+                             [class.malfunction]="yacht?.currentStatus?.name === 'MALFUNCTION'"
+                             [class.in-use]="yacht?.currentStatus?.name === 'IN_USE'"
                              >
-                                {{yacht?.currentStatus ?? 'none' | translate}}
+                                {{yacht?.currentStatus?.name ?? 'none' | translate}}
                             </span>
                         </div>
                         <div class="record-description" style="width: 100%">{{"Description:" | translate }}

@@ -7,7 +7,7 @@ import { FiltersModel, YachtsPageModel } from "../models/yacht.model";
 
 export type YachtRequest = {
     name: string;
-    type: string;
+    type: number;
     registrationNumber: string;
     description: string;
     photo: string;

@@ -22,16 +22,17 @@
                 </div>
             </div>
         </div>
-        <div class="form-row" *ngIf="user?.roleName !== 'ADMIN'">
+        <div class="form-row" *ngIf="user?.role?.name !== 'ADMIN'" >
             <label for="role" class="edit-user-form-label">{{ 'Role' | translate }}</label>
             <select
                 class="form-select"
                 id="role"
                 required
                 formControlName="role"
+                *ngIf="userRoles$ | async as userRoles"
             >
-                <option *ngFor="let role of userRoles" [value]="role">
-                    {{ role ?? '-' | translate }}
+                <option *ngFor="let role of userRoles" [value]="role?.id">
+                    {{ role?.name ?? '-' | translate }}
                 </option>
             </select>
             <div *ngIf="formControls['role'].invalid && (formControls['role'].dirty || formControls['role'].touched)">
@@ -44,7 +45,7 @@
             <label for="clubStatus" class="edit-user-form-label">{{ 'Club status' | translate }}</label>
             <input type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
         </div>
-        <div class="form-row">
+        <div class="form-row" *ngIf="sailingLicence$ | async as sailingLicences">
             <label for="sailingLicense" class="edit-user-form-label">{{ 'Sailing qualifications' | translate }}</label>
             <select
                 class="form-select"
@@ -52,8 +53,8 @@
                 required
                 formControlName="sailingLicense"
             >
-                <option *ngFor="let sailingLicense of sailingLicences" [value]="sailingLicense">
-                    {{ sailingLicense ?? '-' | translate }}
+                <option *ngFor="let sailingLicense of sailingLicences" [value]="sailingLicense?.id">
+                    {{ sailingLicense?.name ?? '-' | translate }}
                 </option>
             </select>
             <div *ngIf="formControls['sailingLicense'].invalid && (formControls['sailingLicense'].dirty || formControls['sailingLicense'].touched)">

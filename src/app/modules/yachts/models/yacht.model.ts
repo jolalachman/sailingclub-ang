@@ -1,9 +1,11 @@
+import { DictionaryModel } from "src/app/shared/service/dictionary.service";
+
 export type YachtShortDataModel = {
     id: number;
     name: string;
-    type: string;
+    type: DictionaryModel;
     registrationNumber: string;
-    currentStatus: string;
+    currentStatus: DictionaryModel;
     photo: string;
     cabinNum: number;
     peopleNum: number;

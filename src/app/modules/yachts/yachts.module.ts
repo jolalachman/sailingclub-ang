@@ -19,9 +19,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { YachtsListReducer } from './store/reducers';
 import { YachtsListEffect } from './store/effects';
 import { NgbActiveModal, NgbDatepickerModule, NgbDropdownModule, NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { ClickEmitterDirective } from './directives/click.directive';
 import { AddYachtDialogComponent } from './dialogs/add-yacht-dialog/add-yacht-dialog.component';
 import { HomeModule } from '../home/home.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -37,7 +37,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     YachtsComponent,
     YachtRecordComponent,
     AddYachtDialogComponent,
-    ClickEmitterDirective,
     routedComponents
   ],
   imports: [
@@ -48,8 +47,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NgbPaginationModule,
     NgbDropdownModule,
     ReactiveFormsModule,
-    NgbDatepickerModule, 
-    HomeModule,
+    NgbDatepickerModule,
+    SharedModule,
 
 
     // translation module
@@ -68,9 +67,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       YachtsListReducer.STATE_KEY,
       YachtsListReducer.reducers,
     ),
-  ],
-  exports: [
-    ClickEmitterDirective,
   ]
 })
 export class YachtsModule {
