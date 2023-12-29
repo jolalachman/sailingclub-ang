@@ -1,0 +1,150 @@
+<div class="notices">
+    <div class="notices-background-image"></div>
+    <div class="notices-page">
+        <div class="notices-subheader">
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
+            <p class="my-subheader">
+                {{ 'Reported notices' | translate }}
+            </p>
+        </div>
+        
+        <div class="notices-main-container">
+            <div class="notices-container" *ngIf="reportedNoticesList$ | async as reportedNoticesList">
+                <div class="notices-results">
+                    <div *ngFor="let record of reportedNoticesList.data">
+                        <app-notice-record
+                            [record]="record">
+                        </app-notice-record>
+                    </div>
+                    <span class="my-modify" *ngIf="reportedNoticesList.totalCount===0" style="align-self: center; margin-top: auto; margin-bottom: auto;">
+                        {{ 'There are no reported notices' | translate}}
+                    </span>
+                </div>
+                <div class="notices-pagination" *ngIf="paging$ | async as paging">
+                    <ngb-pagination class="ngb-pagination" style="height: 38px" [collectionSize]="reportedNoticesList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
+                    <div class="notices-page-sizes">
+                        <span> {{ "Page size:" | translate }}</span>
+                        <div ngbDropdown data-toggle="dropdown">
+                            <button style="width: 60px;" type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+                                {{paging.pageSize}}
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem
+                                *ngFor="let pageSize of pageSizes" (click)="pageSizeChange(pageSize)">
+                                    {{pageSize}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="notices-modify">
+                <div class="section" style="flex-direction: row; gap: 10px; justify-content: space-between; align-items: center;">
+                    <span class="my-modify"> {{"Manage list" | translate }}</span>
+                </div>
+                <div class="section">
+                    <form [formGroup]="searchForm" class="search">
+                        <div class="input-container">
+                            <input formControlName="value" type="text" class="form-control" style="width: 250px" placeholder="{{'Search' | translate}}" (input)="filter()">
+                            <button [hidden]="searchForm.invalid" class="btn sail-icon-button search-clear" (click)="clearSearch()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="section" *ngIf="sort$ | async as sort" style="padding-bottom: 10px; border-bottom: solid 1px #717171;">
+                    <div ngbDropdown data-toggle="dropdown">
+                        <button type="button" style="float: right;" class="btn sail-primary-button btn-md" id="dropdownBasic1" ngbDropdownToggle>
+                            {{"Sort" | translate}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange(undefined)">
+                                -
+                                <i class="bi bi-check" [hidden]="sort.dir !== undefined"></i>
+                            </button>
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('asc')">
+                                {{"Newest" | translate}}
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'asc'"></i>
+                            </button>
+                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('desc')">
+                                {{"Oldest" | translate}}
+                                <i class="bi bi-check" [hidden]="sort.dir !== 'desc'"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <span class="notices-form-link" style="margin-left: auto;" (click)="clearFilters()">
+                    {{ "Clear filters" | translate }}
+                </span>
+                <div class="section" *ngIf="filters$ | async as filters" style="flex: 1; overflow-y: auto;">
+                    <form class="notices-form" [formGroup]="filtersForm">
+                        <div class="section" *ngIf="yachts$ | async as yachts">
+                            <label for="yacht" class="form-label">{{ 'Yacht' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="yacht"
+                                formControlName="yacht"
+                            >
+                                <option *ngFor="let yacht of yachts" [value]="yacht?.id">
+                                    {{ yacht?.name ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="section" *ngIf="reservations$ | async as reservations">
+                            <label for="reservationId" class="form-label">{{ 'Reservation' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="reservationId"
+                                formControlName="reservationId"
+                            >
+                                <option *ngFor="let reservation of reservations" [value]="reservation?.id">
+                                    {{ reservation?.name ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="section" *ngIf="currentStatuses$ | async as currentStatuses">
+                            <label for="currentStatus" class="form-label">{{ 'Current status' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="currentStatus"
+                                formControlName="currentStatus"
+                            >
+                                <option *ngFor="let currentStatus of currentStatuses" [value]="currentStatus?.id">
+                                    {{ currentStatus?.name ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="section">
+                            <label for="reportedAt" class="form-label">{{ 'Reported date' | translate }}</label>
+                            <div class="input-group" id="inputPickup">
+                                <input
+                                    class="form-control"
+                                    placeholder="dd-mm-yyyy"
+                                    ngbDatepicker
+                                    #di="ngbDatepicker"
+                                    formControlName="reportedAt"
+                                />
+                                <button class="btn btn-outline-secondary bi bi-calendar3 btn-sm" (click)="di.toggle()" type="button"></button>
+                            </div>
+                        </div>
+                        <div class="section" *ngIf="clubMembers$ | async as clubMembers">
+                            <label for="clubMember" class="form-label">{{ 'Reported by' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="clubMember"
+                                formControlName="clubMember"
+                            >
+                                <option *ngFor="let clubMember of clubMembers" [value]="clubMember?.id">
+                                    {{ clubMember?.name ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-buttons">
+                    <button (click)="filter()" [disabled]="filtersForm.invalid" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Filter' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

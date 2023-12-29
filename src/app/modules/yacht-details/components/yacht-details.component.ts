@@ -70,7 +70,6 @@ export class YachtDetailsComponent implements OnInit, OnDestroy {
 
   reservationCalendar$: Observable<CalendarEvent[]> = this.yacht$.pipe(
     map(yacht => {
-      console.log(yacht.reservations);
         const startEndArray = yacht.reservations.map((item: YachtDetailsReservation) => ({
             title: item.clientInfo,
             start: new Date(item.pickupDate),
@@ -118,7 +117,7 @@ export class YachtDetailsComponent implements OnInit, OnDestroy {
     deactivateYachtDialogInstance.yachtId = yachtId;
   
     this.deactivateDialogSubscription = deactivateYachtDialogInstance.yachtDeactivated.subscribe((x: boolean) => {
-      this.router.navigate(['yachts'])
+      this.refreshToken.next(x);
     });
   }
   changeYachtStatus(yacht: YachtModel) {

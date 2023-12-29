@@ -74,6 +74,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       ReservationsListReducer.STATE_KEY,
       ReservationsListReducer.reducers,
     ),
+  ],
+  exports: [
+    CustomDateFormatPipe,
   ]
 })
 export class ReservationsModule {

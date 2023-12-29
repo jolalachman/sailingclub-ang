@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { NoticesComponent } from "./components/notices.component";
+import { NoticesComponent } from "./components/notices/notices.component";
 
 const routes: Routes = [
   {

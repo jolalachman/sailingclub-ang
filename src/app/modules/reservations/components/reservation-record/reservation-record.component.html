@@ -5,34 +5,48 @@
     <div class="record-content">
         <div class="record-header">
             <div class="record-name">
-                {{record?.yachtName ?? 'none' | translate}}
+                #{{record?.id}}
             </div>
         </div>
-        <div class="record-main">
-            <div class="record-pickupDate">{{"Pick up datetime:" | translate }}
-                <span class="record-value">
-                    {{record?.pickupDate | customDateFormat }}
-                </span>
+        <div style="display: flex; justify-content: space-between; gap: 50px;">
+            <div class="record-main">
+                <div class="record-yacht">{{"Yacht:" | translate }}
+                    <span class="record-value">
+                        {{record?.yachtName ?? 'none' | translate}}
+                    </span>
+                </div>
+                <div class="record-pickupDate">{{"Pick up datetime:" | translate }}
+                    <span class="record-value">
+                        {{record?.pickupDate | customDateFormat }}
+                    </span>
+                </div>
+                <div class="record-dropoffDate">{{"Drop off datetime:" | translate }}
+                    <span class="record-value">
+                        {{record?.dropoffDate | customDateFormat }}
+                    </span>
+                </div>
+                <div class="record-clientInfo">{{"Club member:" | translate }}
+                    <span class="record-value">
+                        {{record?.clientInfo}}
+                    </span>
+                </div>
             </div>
-            <div class="record-dropoffDate">{{"Drop off datetime:" | translate }}
-                <span class="record-value">
-                    {{record?.dropoffDate | customDateFormat }}
-                </span>
-            </div>
-            <div class="record-clientInfo">{{"Club member:" | translate }}
-                <span class="record-value">
-                    {{record?.clientInfo}}
-                </span>
-            </div>
-            <div *ngIf="record?.clientInfo !== record?.reservingPerson" class="record-clientInfo">{{"Reserving person:" | translate }}
-                <span class="record-value">
-                    {{record?.reservingPerson}}
-                </span>
-            </div>
-            <div class="record-clientInfo">{{"Current status:" | translate }}
-                <span class="record-value" [class.confirmed]="record?.currentStatus === 'CONFIRMED'">
-                    {{record?.currentStatus ?? '-' | translate}}
-                </span>
+            <div class="record-main">
+                <div *ngIf="record?.clientInfo !== record?.reservingPerson" class="record-clientInfo">{{"Reserving person:" | translate }}
+                    <span class="record-value">
+                        {{record?.reservingPerson}}
+                    </span>
+                </div>
+                <div class="record-clientInfo">{{"Current status:" | translate }}
+                    <span class="record-value" [class.confirmed]="record?.currentStatus === 'CONFIRMED'">
+                        {{record?.currentStatus ?? '-' | translate}}
+                    </span>
+                </div>
+                <div class="record-peopleNumber">{{"People number:" | translate }}
+                    <span class="record-value">
+                        {{record?.peopleNumber }}
+                    </span>
+                </div>
             </div>
         </div>
     </div>

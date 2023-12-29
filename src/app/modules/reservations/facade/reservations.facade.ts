@@ -81,6 +81,16 @@ export class ReservationsFacade {
                 filteredItems = filteredItems.filter(x => x.currentStatus.toLowerCase() === statusValue.toLowerCase());
             }
 
+            const clubMemberValue = filters.find(x => x.field === 'club-member')?.value;
+            if (clubMemberValue && typeof clubMemberValue === 'string' && clubMemberValue !== 'null') {
+                filteredItems = filteredItems.filter(x => x.clientInfo.toLowerCase() === clubMemberValue.toLowerCase());
+            }
+
+            const reservingUserValue = filters.find(x => x.field === 'reserving-user')?.value;
+            if (reservingUserValue && typeof reservingUserValue === 'string' && reservingUserValue !== 'null') {
+                filteredItems = filteredItems.filter(x => x.reservingPerson.toLowerCase() === reservingUserValue.toLowerCase());
+            }
+
             return {pageSize, skip, items: filteredItems, sort, totalCount: filteredItems.length};
         }),
         map(({pageSize, skip, items, sort, totalCount}) => {
@@ -118,7 +128,7 @@ export class ReservationsFacade {
     reservationCalendar$: Observable<CalendarEvent[]> = this.reservationList$.pipe(
         map(items => {
             const startEndArray = items.data.map((item: ReservationShortDataModel) => ({
-                title: item.yachtName + " - " + item.clientInfo,
+                title: '#'+item.id + ' - ' + item.yachtName,
                 start: new Date(item.pickupDate),
                 end: new Date(item.dropoffDate),
                 color: {

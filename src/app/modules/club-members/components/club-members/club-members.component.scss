@@ -15,7 +15,7 @@
         &-page {
             display: flex;
             flex-direction: column;
-            padding: 40px 50px 0 50px;
+            padding: 40px 50px;
             gap: 10px;
         }
 
@@ -24,6 +24,7 @@
             width: 100%;
             gap: 30px;
             justify-content: space-between;
+            height: calc(100vh - 200px);
         }
 
         &-container {
@@ -34,17 +35,16 @@
             flex-direction: column;
             gap: 15px;
             padding: 10px;
-            min-height: calc(100vh - 200px);
         }
 
         &-modify {
             flex: 0;
             background-color: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 10px;
             .form-control {
                 width: 200px;
             }
@@ -134,22 +134,14 @@
         &-form {
             display: flex;
             flex-direction: column;
-
-            gap: 20px;
+            gap: 10px;
+            padding: 10px 3px 0px 1px;
 
             .form-item {
                 display: flex;
                 flex-direction: column;
                 padding: 0 50px;
                 gap: 10px;
-            }
-
-            .form-button {
-                width: fit-content;
-                padding-right: 30px;
-                padding-left: 30px;
-                float: right;
-                font-size: 16px;
             }
 
             input.ng-touched.ng-invalid {
@@ -163,7 +155,7 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
-            }            
+            }   
         }
 
         .dropdown-toggle {
@@ -171,6 +163,10 @@
             border-color: #0040E4;
         }
     }
+}
+
+.form-button {
+    float: right;
 }
 
 .my-subheader {
@@ -185,7 +181,7 @@
 
 .my-modify {
     font-family: Inter;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -197,15 +193,6 @@ ngb-pagination ::ng-deep ul > li.active > a {
     border-color: #0040E4 !important;
 }
 
-.form-label {
-    color: #000;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
 .club-members-form-link {
     color: #FF7E59;
     font-family: Inter;
@@ -215,3 +202,36 @@ ngb-pagination ::ng-deep ul > li.active > a {
     line-height: normal;
     cursor: pointer;
 }
+
+.form-label {
+    color: #000;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.form-label, .form-select, .form-control {
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    line-height: normal;
+}
+
+.section::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  .section::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+  }
+  
+  .section::-webkit-scrollbar-thumb {
+    background: #888; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .section::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Hovered thumb color */
+  }

@@ -61,6 +61,7 @@ export class YachtsFacade {
             }
 
             const dropoffValue = filters.find(x => x.field === 'dropoff')?.value;
+            
             if (dropoffValue && typeof dropoffValue === 'object') {
                 filteredItems = filteredItems.filter(x => {
                     return !(x.reservations.find(y => {
@@ -71,9 +72,19 @@ export class YachtsFacade {
                 });
             }
 
+            if (dropoffValue && typeof dropoffValue === 'object' && pickupValue && typeof pickupValue === 'object') {
+                filteredItems = filteredItems.filter(x => {
+                    return !(x.reservations.find(y => {
+                        const yDate = new Date(y.pickup);
+                        const zDate = new Date(y.dropoff);
+                        return pickupValue.getTime() <= yDate.getTime() && zDate.getTime() <= dropoffValue.getTime()
+                    }))
+                });
+            }
+
             const typeValue = filters.find(x => x.field === 'type')?.value;
             if (typeValue && typeof typeValue === 'string' && typeValue !== 'null') {
-                filteredItems = filteredItems.filter(x => x.type.toLowerCase() === typeValue.toLowerCase());
+                filteredItems = filteredItems.filter(x => x.type?.toLowerCase() === typeValue.toLowerCase());
             }
 
             const statusValue = filters.find(x => x.field === 'status')?.value;

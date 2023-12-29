@@ -54,9 +54,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="section" *ngIf="sort$ | async as sort">
+                <div class="section" *ngIf="sort$ | async as sort" style="padding-bottom: 10px; border-bottom: solid 1px #717171;">
                     <div ngbDropdown data-toggle="dropdown">
-                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
+                        <button type="button" style="float: right;" class="btn sail-primary-button btn-md" id="dropdownBasic1" ngbDropdownToggle>
                             {{"Sort" | translate}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -75,12 +75,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="section" *ngIf="filters$ | async as filters">
-                    <form class="users-form" [formGroup]="filtersForm" (submit)="filter()">
+                <span class="users-form-link" style="margin-left: auto;" (click)="clearFilters()">
+                    {{ "Clear filters" | translate }}
+                </span>
+                <div class="section" *ngIf="filters$ | async as filters" style="flex: 1; overflow-y: auto;">
+                    <form class="users-form" [formGroup]="filtersForm">
                         <div class="section">
-                            <span class="users-form-link" style="margin-left: auto;" (click)="clearFilters()">
-                                {{ "Clear filters" | translate }}
-                            </span>
                             <label for="role" class="form-label">{{ 'Role' | translate }}</label>
                             <select
                                 class="form-select"
@@ -104,10 +104,10 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="form-buttons">
-                            <button [disabled]="filtersForm.invalid" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Filter' | translate }}</button>
-                        </div>
                     </form>
+                </div>
+                <div class="form-buttons">
+                    <button (click)="filter()" [disabled]="filtersForm.invalid" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Filter' | translate }}</button>
                 </div>
             </div>
         </div>

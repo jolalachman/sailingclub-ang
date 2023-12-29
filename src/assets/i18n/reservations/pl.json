@@ -14,6 +14,7 @@
     "Pick up datetime:": "Data i czas odbioru:",
     "Drop off datetime:": "Data i czas zwrotu:",
     "Reserving person:": "Osoba rezerwująca:",
+    "Reserving person": "Osoba rezerwująca",
     "Club member:": "Członek klubu:",
     "Current status:": "Aktualny status:",
     "CONFIRMED": "Potwierdzono",
@@ -33,5 +34,7 @@
     "Pick up date": "Data odbioru",
     "Approx. pick up time": "Przybliżona godzina odbioru",
     "Drop off date": "Data zwrotu",
-    "Approx. drop off time": "Przybliżona godzina zwrotu"
+    "Approx. drop off time": "Przybliżona godzina zwrotu",
+    "People number:": "Liczba osób:",
+    "Yacht:": "Jacht:"
 }

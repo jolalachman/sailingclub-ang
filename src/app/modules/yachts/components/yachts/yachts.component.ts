@@ -146,30 +146,31 @@ export class YachtsComponent implements OnInit, OnDestroy {
     this.paramsSubscription = this.route.queryParams.subscribe(params => {
       this.filtersForm.patchValue({
         inputPickup: params['pickup'] ? this.getDateObj(new Date(params['pickup'])) : null,
-        inputPickupTime: params['pickupTime'],
+        inputPickupTime: params['pickupTime'] ?? null,
         inputDropoff: params['dropoff'] ? this.getDateObj(new Date(params['dropoff'])) : null,
-        inputDropoffTime: params['dropoffTime'],
-        cabinInput: params['cabin'],
-        peopleInput: params['people'],
+        inputDropoffTime: params['dropoffTime'] ?? null,
+        cabinInput: params['cabin'] ?? null,
+        peopleInput: params['people'] ?? null,
       });
 
       const inputPickupDateTime = params['pickup']
-      ? new Date(
-        params['pickup'],
-        params['pickupTime'] === 'null' || params['pickupTime'] === null || params['pickupTime'] === undefined
-        ? 0
-        : parseInt(params['pickupTime'])
-      )
+      ? new Date(params['pickup'])
       : null;
 
     const inputDropoffDateTime = params['dropoff']
-      ? new Date(
-        params['dropoff'],
-        params['dropoffTime'] === 'null' || params['dropoffTime'] === null || params['dropoffTime'] === undefined
-        ? 0
-        : parseInt(params['dropoffTime'])
-        )
+      ? new Date(params['dropoff'])
       : null;
+
+      const inputPickupTime = params['pickupTime'] === 'null' || params['pickupTime'] === null || params['pickupTime'] === undefined
+        ? 0
+        : parseInt(params['pickupTime']);
+
+      const inputDropoffTime = params['dropoffTime'] === 'null' || params['dropoffTime'] === null || params['dropoffTime'] === undefined
+        ? 0
+        : parseInt(params['dropoffTime']);
+
+      inputPickupDateTime?.setHours(inputPickupTime);
+      inputDropoffDateTime?.setHours(inputDropoffTime);
 
       this.facade.filterChange([
         {field: 'pickup', value: inputPickupDateTime},

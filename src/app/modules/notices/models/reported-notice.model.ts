@@ -1,18 +1,16 @@
-export type ReservationShortDataModel = {
+import { DictionaryModel } from "../../auth/services/auth-dictionary.service";
+
+export type ReportedNoticeShortDataModel = {
     id: number;
-    pickupDate: Date;
-    dropoffDate: Date;
-    yachtName: string;
-    yachtId: number;
-    reservingPerson: string;
-    clientInfo: string;
-    currentStatus: string;
-    photo: string;
-    peopleNumber: number;
+    reportedAt: Date;
+    yacht: DictionaryModel;
+    reservationId: number;
+    clubMember: DictionaryModel;
+    currentStatus: DictionaryModel;
 };
 
-export type ReservationsPageModel = {
-    items: ReservationShortDataModel[];
+export type ReportedNoticesPageModel = {
+    items: ReportedNoticeShortDataModel[];
     pageInfo: PageInfo;
     totalCount: number;
 };

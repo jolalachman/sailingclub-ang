@@ -1,0 +1,1 @@
+export * as ReportedNoticesListReducer from './reported-notices-list.reducer'

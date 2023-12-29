@@ -98,56 +98,58 @@
                         </div>
                     </form>
                 </div>
-                <div class="section" *ngIf="!viewCalendar">
-                    <div ngbDropdown data-toggle="dropdown" *ngIf="sort$ | async as sort">
-                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
-                            {{"Sort" | translate}}
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange(undefined)">
-                                -
-                                <i class="bi bi-check" [hidden]="sort.dir !== undefined"></i>
+                <div class="section-row" style="padding-bottom: 10px; border-bottom: solid 1px #717171;">
+                    <div class="section" *ngIf="!viewCalendar">
+                        <div ngbDropdown data-toggle="dropdown" *ngIf="sort$ | async as sort"  style="display: flex; justify-content: center;">
+                            <button type="button" class="btn sail-primary-button btn-md" id="dropdownBasic1" ngbDropdownToggle>
+                                {{"Sort" | translate}}
                             </button>
-                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('asc')">
-                                A - Z
-                                <i class="bi bi-check" [hidden]="sort.dir !== 'asc'"></i>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button class="dropdown-opt" ngbDropdownItem (click)="sortChange(undefined)">
+                                    -
+                                    <i class="bi bi-check" [hidden]="sort.dir !== undefined"></i>
+                                </button>
+                                <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('asc')">
+                                    A - Z
+                                    <i class="bi bi-check" [hidden]="sort.dir !== 'asc'"></i>
+                                </button>
+                                <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('desc')">
+                                    Z - A
+                                    <i class="bi bi-check" [hidden]="sort.dir !== 'desc'"></i>
+                                </button>
+                                <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('closest')">
+                                    {{ "Closest" | translate}}
+                                    <i class="bi bi-check" [hidden]="sort.dir !== 'closest'"></i>
+                                </button>
+                                <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('furthest')">
+                                    {{ "Furthest" | translate}}
+                                    <i class="bi bi-check" [hidden]="sort.dir !== 'furthest'"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div ngbDropdown data-toggle="dropdown" style="display: flex; justify-content: center;">
+                            <button type="button" class="btn sail-primary-button btn-md" id="dropdownBasic1" ngbDropdownToggle>
+                                {{"View" | translate}}
                             </button>
-                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('desc')">
-                                Z - A
-                                <i class="bi bi-check" [hidden]="sort.dir !== 'desc'"></i>
-                            </button>
-                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('closest')">
-                                {{ "Closest" | translate}}
-                                <i class="bi bi-check" [hidden]="sort.dir !== 'closest'"></i>
-                            </button>
-                            <button class="dropdown-opt" ngbDropdownItem (click)="sortChange('furthest')">
-                                {{ "Furthest" | translate}}
-                                <i class="bi bi-check" [hidden]="sort.dir !== 'furthest'"></i>
-                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem (click)="viewCalendar=false">
+                                    {{ "List" | translate}}
+                                </button>
+                                <button ngbDropdownItem (click)="viewCalendar=true">
+                                    {{ "Calendar" | translate}}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="section">
-                    <div ngbDropdown data-toggle="dropdown">
-                        <button type="button" style="width: 100%;" class="btn sail-primary-button btn-lg" id="dropdownBasic1" ngbDropdownToggle>
-                            {{"View" | translate}}
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem (click)="viewCalendar=false">
-                                {{ "List" | translate}}
-                            </button>
-                            <button ngbDropdownItem (click)="viewCalendar=true">
-                                {{ "Calendar" | translate}}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="section" *ngIf="filters$ | async as filters">
-                    <form class="reservations-form" [formGroup]="filtersForm" (submit)="filter()">
+                <span class="reservations-form-link" style="margin-left: auto;" (click)="clearFilters()">
+                    {{ "Clear filters" | translate }}
+                </span>
+                <div class="section" *ngIf="filters$ | async as filters" style="flex: 1; overflow-y: auto;">
+                    <form class="reservations-form" [formGroup]="filtersForm">
                         <div class="section" *ngIf="yachts$ | async as yachts">
-                            <span class="reservations-form-link" style="margin-left: auto;" (click)="clearFilters()">
-                                {{ "Clear filters" | translate }}
-                            </span>
                             <label for="status" class="form-label">{{ 'Yacht' | translate }}</label>
                             <select
                                 class="form-select"
@@ -156,6 +158,30 @@
                             >
                                 <option *ngFor="let yacht of yachts" [value]="yacht?.id ?? null">
                                     {{ yacht?.name ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="section" *ngIf="clubMembers$ | async as clubMembers">
+                            <label for="clubMember" class="form-label">{{ 'Club member' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="clubMember"
+                                formControlName="clubMember"
+                            >
+                                <option *ngFor="let clubMember of clubMembers" [value]="clubMember?.name ?? null">
+                                    {{ clubMember?.name ?? '-' | translate }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="section" *ngIf="reservingUsers$ | async as reservingUsers">
+                            <label for="reservingUser" class="form-label">{{ 'Reserving person' | translate }}</label>
+                            <select
+                                class="form-select"
+                                id="reservingUser"
+                                formControlName="reservingUser"
+                            >
+                                <option *ngFor="let reservingUser of reservingUsers" [value]="reservingUser?.name ?? null">
+                                    {{ reservingUser?.name ?? '-' | translate }}
                                 </option>
                             </select>
                         </div>
@@ -182,7 +208,7 @@
                                     #di="ngbDatepicker"
                                     formControlName="inputPickup"
                                 />
-                                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="di.toggle()" type="button"></button>
+                                <button class="btn btn-outline-secondary bi bi-calendar3 btn-sm" (click)="di.toggle()" type="button"></button>
                             </div>
                         </div>
                         <div class="section">
@@ -209,7 +235,7 @@
                                     #dp="ngbDatepicker"
                                     formControlName="inputDropoff"
                                 />
-                                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
+                                <button class="btn btn-outline-secondary bi bi-calendar3 btn-sm" (click)="dp.toggle()" type="button"></button>
                             </div>
                             <div *ngIf="formControls['inputDropoff'].invalid && (formControls['inputDropoff'].dirty || formControls['inputDropoff'].touched)">
                                 <div *ngIf="formControls['inputDropoff'].errors">
@@ -227,10 +253,10 @@
                                 <option *ngFor="let time of dropoffTimes" [value]="time">{{ time | timeFormat }}</option>
                             </select>
                         </div>
-                        <div class="form-buttons">
-                            <button [disabled]="filtersForm.invalid" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Filter' | translate }}</button>
-                        </div>
                     </form>
+                </div>
+                <div class="form-buttons">
+                    <button (click)="filter()" [disabled]="filtersForm.invalid" type="submit" class="btn sail-primary-button btn-md form-button">{{ 'Filter' | translate }}</button>
                 </div>
             </div>
         </div>

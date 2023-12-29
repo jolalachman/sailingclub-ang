@@ -1,0 +1,46 @@
+<div class="record" (clickEvent)="handleClick(record?.id)" clickEmitter>
+  <div class="record-pic">
+      <i class="bi bi-exclamation-circle"></i>
+  </div>
+  <div class="record-content">
+      <div class="record-header">
+          <div class="record-name">
+              #{{record?.id }}
+          </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; gap: 50px;">
+          <div class="record-main">
+              <div class="record-yacht">{{"Yacht:" | translate }}
+                  <span class="record-value">
+                      {{record?.yacht?.name ?? '-'}}
+                  </span>
+              </div>
+              <div class="record-reservation">{{"Reservation:" | translate }}
+                <span class="record-value">
+                    {{record?.reservationId ? ('#'+record?.reservationId) : '-'}}
+                </span>
+            </div>
+              <div class="record-status">{{"Current status:" | translate }}
+                  <span class="record-value"
+                  [class.new]="record?.currentStatus?.name === 'NEW'"
+                  [class.opened]="record?.currentStatus?.name === 'OPENED'"
+                  >
+                      {{record?.currentStatus?.name ?? '-' | translate}}
+                  </span>
+              </div>
+          </div>
+          <div class="record-main">
+            <div class="record-date">{{"Reported date:" | translate }}
+                <span class="record-value">
+                    {{record?.reportedAt | customDateFormat }}
+                </span>
+            </div>
+            <div class="record-club-member">{{"Reported by:" | translate }}
+                <span class="record-value">
+                    {{record?.clubMember?.name ?? '-'}}
+                </span>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

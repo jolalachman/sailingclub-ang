@@ -18,7 +18,7 @@ import { ReservationsService } from '../../service/reservations.service';
 })
 export class ReservationsComponent implements OnInit, OnDestroy {
   @ViewChild('addDialog') addDialog?: AddReservationDialogComponent;
-  viewCalendar = false;
+  viewCalendar = true;
   viewDate: Date = new Date();
   reservationList$ = this.facade.reservationList$;
   reservationCalendar$ = this.facade.reservationCalendar$;
@@ -33,7 +33,13 @@ export class ReservationsComponent implements OnInit, OnDestroy {
   reservationStatuses = RESERVATION_STATUSES;
   pickupTimes = TIMES;
   dropoffTimes = TIMES;
-  yachts$ = this.reservationService.getYachtsDictionary().pipe(
+  clubMembers$ = this.reservationService.getUsersDictionary().pipe(
+    map(x => [null, ...x])
+  );
+  reservingUsers$ = this.reservationService.getReservingUsersDictionary().pipe(
+    map(x => [null, ...x])
+  );
+  yachts$ = this.reservationService.getAllYachtsDictionary().pipe(
     map(x => [null, ...x])
   );
 
@@ -47,6 +53,8 @@ export class ReservationsComponent implements OnInit, OnDestroy {
 
   filtersForm: FormGroup = this.fb.group({
     yacht: [null],
+    clubMember: [null],
+    reservingUser: [null],
     status: [null],
     inputPickup: [null],
     inputPickupTime: [null],
@@ -238,6 +246,8 @@ export class ReservationsComponent implements OnInit, OnDestroy {
     const {value} = this.searchForm.value
     const {
       yacht,
+      clubMember,
+      reservingUser,
       status,
       inputPickup,
       inputPickupTime,
@@ -268,6 +278,8 @@ export class ReservationsComponent implements OnInit, OnDestroy {
       : null;
     this.facade.filterChange([
       {field: 'yacht', value: yacht},
+      {field: 'club-member', value: clubMember},
+      {field: 'reserving-user', value: reservingUser},
       {field: 'status', value: status},
       {field: 'pickup', value: inputPickupDateTime},
       {field: 'dropoff', value: inputDropoffDateTime},
@@ -289,6 +301,8 @@ export class ReservationsComponent implements OnInit, OnDestroy {
   clearFilters() {
     this.filtersForm.patchValue({
       yacht: null,
+      clubMember: null,
+      reservingUser: null,
       status: null,
       inputPickup: null,
       inputPickupTime: null,

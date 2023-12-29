@@ -1,0 +1,1 @@
+export * as ReportedNoticesListEffect from './reported-notices-list.effect';

@@ -47,8 +47,33 @@ export class ReservationsService extends ApiService {
         return this.http.get<DictionaryModel[]>(url, {headers: this.getHeaders()});
     }
 
+    getAllYachtsDictionary(): Observable<DictionaryModel[]> {
+        const url = `${environment.apiUrl}${'v1'}/${'dictionary'}/${'all-yachts'}`;
+        return this.http.get<DictionaryModel[]>(url, {headers: this.getHeaders()});
+    }
+
+    getAllReservationsDictionary(): Observable<DictionaryModel[]> {
+        const url = `${environment.apiUrl}${'v1'}/${'dictionary'}/${'all-reservations'}`;
+        return this.http.get<DictionaryModel[]>(url, {headers: this.getHeaders()});
+    }
+
     getUsersDictionary(): Observable<DictionaryModel[]> {
         const url = `${environment.apiUrl}${'v1'}/${'dictionary'}/${'users'}`;
+        return this.http.get<DictionaryModel[]>(url, {headers: this.getHeaders()});
+    }
+
+    getClubMembersDictionary(): Observable<DictionaryModel[]> {
+        const url = `${environment.apiUrl}${'v1'}/${'dictionary'}/${'club-members'}`;
+        return this.http.get<DictionaryModel[]>(url, {headers: this.getHeaders()});
+    }
+
+    getReservingUsersDictionary(): Observable<DictionaryModel[]> {
+        const url = `${environment.apiUrl}${'v1'}/${'dictionary'}/${'reserving-users'}`;
+        return this.http.get<DictionaryModel[]>(url, {headers: this.getHeaders()});
+    }
+
+    getNoticeStatusesDictionary(): Observable<DictionaryModel[]> {
+        const url = `${environment.apiUrl}${'v1'}/${'dictionary'}/${'notice-statuses'}`;
         return this.http.get<DictionaryModel[]>(url, {headers: this.getHeaders()});
     }
 }
