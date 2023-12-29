@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{"Change status" | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="change-status-form" [formGroup]="statusForm">
+        <div class="form-row" *ngIf="currentStatuses$ | async as currentStatuses">
+            <label for="statusId" class="change-status-form-label">{{ 'Status' | translate }}</label>
+            <select
+                class="form-select"
+                id="statusId"
+                formControlName="statusId"
+            >
+                <option *ngFor="let status of currentStatuses" [value]="status?.id">
+                    {{ status?.name ?? '-' | translate }}
+                </option>
+            </select>
+            <div *ngIf="formControls['statusId'].invalid && (formControls['statusId'].dirty || formControls['statusId'].touched)">
+                <div *ngIf="formControls['statusId'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button (click)="changeStatus()"[disabled]="statusForm.invalid" class="btn sail-dialog-button btn-lg form-button">{{"Change" | translate}}</button>
+</div>

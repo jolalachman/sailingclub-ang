@@ -117,6 +117,18 @@ export class YachtsComponent implements OnInit, OnDestroy {
         pickupTimeControl.enable();
       }
 
+      const currentDate = this.getCurrentDate()
+      if(inputPickup?.year === currentDate?.year && inputPickup?.month === currentDate?.month && inputPickup?.day === currentDate?.day)
+      {
+        this.pickupTimes = this.pickupTimes.filter(x => {
+          const currentTime = new Date().getHours();
+          return x === null || x > currentTime
+        })
+      }
+      else {
+        this.pickupTimes = TIMES;
+      }
+
       const control = this.filtersForm.get('inputDropoffTime');
       if(control) {
         if(control.enabled) {
@@ -127,15 +139,13 @@ export class YachtsComponent implements OnInit, OnDestroy {
             }
           }
           else {
-            if (inputPickup?.year === inputDropoff?.year && inputPickup?.month === inputDropoff?.month && inputPickup?.day === inputDropoff?.day) {
-              this.dropoffTimes = TIMES.filter(num => num === null || num > +inputPickupTime )
-              if (control.value !== null && (+inputPickupTime >= +inputDropoffTime || Number.isNaN(+inputPickupTime))) {
-                control.patchValue(null);
+              if (inputPickup?.year === inputDropoff?.year && inputPickup?.month === inputDropoff?.month && inputPickup?.day === inputDropoff?.day) {
+                const minPickupTime = Math.min(...(this.pickupTimes.filter(x => x !== null) as  number[]));
+                this.dropoffTimes = this.dropoffTimes.filter(x => x === null || x > (inputPickupTime ?? minPickupTime));
               }
-            }
-            else {
-              this.dropoffTimes = TIMES;
-            }
+              else {
+                this.dropoffTimes = TIMES;
+              }
           }
         }
         else if(control.disabled && inputDropoff) {

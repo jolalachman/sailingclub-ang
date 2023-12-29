@@ -60,6 +60,18 @@ import { ReservationsService } from "src/app/modules/reservations/service/reserv
         else if(pickupTimeControl && pickupTimeControl.disabled && pickupDate) {
           pickupTimeControl.enable();
         }
+
+        const currentDate = this.getCurrentDate()
+        if(pickupDate?.year === currentDate?.year && pickupDate?.month === currentDate?.month && pickupDate?.day === currentDate?.day)
+        {
+          this.pickupTimes = this.pickupTimes.filter(x => {
+            const currentTime = new Date().getHours();
+            return x === null || x > currentTime
+          })
+        }
+        else {
+          this.pickupTimes = ADD_TIMES;
+        }
   
         const control = this.addReservationForm.get('dropoffTime');
         if(control) {
@@ -72,10 +84,8 @@ import { ReservationsService } from "src/app/modules/reservations/service/reserv
             }
             else {
               if (pickupDate?.year === dropoffDate?.year && pickupDate?.month === dropoffDate?.month && pickupDate?.day === dropoffDate?.day) {
-                this.dropoffTimes = ADD_TIMES.filter(num => num > +pickupTime )
-                if (control.value !== null && (+pickupTime >= +dropoffTime || Number.isNaN(+pickupTime))) {
-                  control.patchValue(null);
-                }
+                const minPickupTime = Math.min(...(this.pickupTimes.filter(x => x !== null) as  number[]));
+                this.dropoffTimes = this.dropoffTimes.filter(x => x === null || x > (pickupTime ?? minPickupTime));
               }
               else {
                 this.dropoffTimes = ADD_TIMES;

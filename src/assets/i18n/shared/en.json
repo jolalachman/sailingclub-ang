@@ -13,5 +13,8 @@
     "CANDIDATE": "Candidate",
     "MAT": "Mat",
     "BOSMAN": "Bosman",
-    "ADMIN": "Admin"
+    "ADMIN": "Admin",
+    "NEW": "New",
+    "OPENED": "Opened",
+    "COMPLETED": "Completed"
 }

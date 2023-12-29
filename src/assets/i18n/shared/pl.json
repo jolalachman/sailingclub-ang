@@ -92,6 +92,10 @@
     "Yacht": "Jacht",
     "Club member": "Członek klubu",
     "There are no yachts": "Brak jachtów",
-    "There are no club members": "Brak członków klubu"
+    "There are no club members": "Brak członków klubu",
+    "Edit notice": "Edytuj uwagę",
+    "NEW": "Nowa",
+    "OPENED": "Otwarta",
+    "COMPLETED": "Zamknięta"
 
 }

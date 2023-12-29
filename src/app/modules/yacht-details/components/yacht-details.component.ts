@@ -144,4 +144,12 @@ export class YachtDetailsComponent implements OnInit, OnDestroy {
       void this.router.navigate(['reservation-details', id])
     }
   }
+
+  goToYachtNotices(yachtId: number) {
+    const queryParams = {
+      yachtId: yachtId
+    }
+
+    this.router.navigate(['/notices'], {queryParams: queryParams});
+  }
 }

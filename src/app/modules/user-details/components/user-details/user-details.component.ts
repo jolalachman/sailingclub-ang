@@ -126,4 +126,11 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   validateCandidate(userId: number) {
     this.service.validateCandidate(userId).subscribe(x => this.refreshToken.next(x));
   }
+
+  goToUserNotices(userId: number) {
+    const queryParams = {
+      userId: userId
+    }
+    this.router.navigate(['/notices'], {queryParams: queryParams});
+  }
 }

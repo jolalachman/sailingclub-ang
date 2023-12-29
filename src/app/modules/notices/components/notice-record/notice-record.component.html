@@ -19,7 +19,7 @@
                 <span class="record-value">
                     {{record?.reservationId ? ('#'+record?.reservationId) : '-'}}
                 </span>
-            </div>
+              </div>
               <div class="record-status">{{"Current status:" | translate }}
                   <span class="record-value"
                   [class.new]="record?.currentStatus?.name === 'NEW'"

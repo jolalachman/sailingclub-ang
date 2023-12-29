@@ -86,6 +86,14 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'notice-details/:noticeId',
+    component: LayoutComponent,
+    loadChildren: () =>
+      import('./modules/notice-details/notice-details.module').then(
+        m => m.NoticeDetailsModule,
+      ),
+  },
+  {
     path: 'my-reservations',
     component: LayoutComponent,
     loadChildren: () =>

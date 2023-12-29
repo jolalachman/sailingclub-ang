@@ -20,7 +20,9 @@ export class YachtsFacade {
 
     yachtList$: Observable<{
         data: YachtShortDataModel[];
-        totalCount: number
+        totalCount: number;
+        availableItems: YachtShortDataModel[];
+        totalCountAvailableItems: number;
     }> = combineLatest([
         this.paging$,
         this.allYachtsList$,
@@ -33,6 +35,7 @@ export class YachtsFacade {
         }),
         map(({pageSize, skip, items, sort, filters, totalCount}) => {
             let filteredItems = items ? [...items] : [];
+            let availableItems: YachtShortDataModel[] = [];
 
             const value = filters.find(x => x.field === 'name')?.value;
             if (value && typeof value === 'string' && value !== 'null') {
@@ -72,16 +75,6 @@ export class YachtsFacade {
                 });
             }
 
-            if (dropoffValue && typeof dropoffValue === 'object' && pickupValue && typeof pickupValue === 'object') {
-                filteredItems = filteredItems.filter(x => {
-                    return !(x.reservations.find(y => {
-                        const yDate = new Date(y.pickup);
-                        const zDate = new Date(y.dropoff);
-                        return pickupValue.getTime() <= yDate.getTime() && zDate.getTime() <= dropoffValue.getTime()
-                    }))
-                });
-            }
-
             const typeValue = filters.find(x => x.field === 'type')?.value;
             if (typeValue && typeof typeValue === 'string' && typeValue !== 'null') {
                 filteredItems = filteredItems.filter(x => x.type?.toLowerCase() === typeValue.toLowerCase());
@@ -92,21 +85,41 @@ export class YachtsFacade {
                 filteredItems = filteredItems.filter(x => x.currentStatus.toLowerCase() === statusValue.toLowerCase());
             }
 
-            return {pageSize, skip, items: filteredItems, sort, totalCount: filteredItems.length};
+            if (dropoffValue && typeof dropoffValue === 'object' && pickupValue && typeof pickupValue === 'object') {
+                availableItems = filteredItems.filter(x => {
+                    return (x.reservations.find(y => {
+                        const yDate = new Date(y.pickup);
+                        const zDate = new Date(y.dropoff);
+                        return pickupValue.getTime() <= yDate.getTime() && zDate.getTime() <= dropoffValue.getTime()
+                    }))
+                });
+                filteredItems = filteredItems.filter(x => {
+                    return !(x.reservations.find(y => {
+                        const yDate = new Date(y.pickup);
+                        const zDate = new Date(y.dropoff);
+                        return pickupValue.getTime() <= yDate.getTime() && zDate.getTime() <= dropoffValue.getTime()
+                    }))
+                });
+            }
+
+            return {pageSize, skip, items: filteredItems, availableItems: availableItems, sort, totalCount: filteredItems.length, totalCountAvailableItems: availableItems.length};
         }),
-        map(({pageSize, skip, items, sort, totalCount}) => {
+        map(({pageSize, skip, items, availableItems, sort, totalCount, totalCountAvailableItems}) => {
             let sortedItems = items ? [...items] : [];
+            let sortedAvailableItems = availableItems ? [...availableItems] : [];
             if (sort.dir === 'asc') {
                 sortedItems.sort((a, b) => (a.name.localeCompare(b.name)));
+                sortedAvailableItems.sort((a, b) => (a.name.localeCompare(b.name)));
             }
             else if (sort.dir === 'desc') {
                 sortedItems.sort((a, b) => (b.name.localeCompare(a.name)));
+                sortedAvailableItems.sort((a, b) => (b.name.localeCompare(a.name)));
             }
 
-            return {pageSize, skip, items: sortedItems, totalCount};
+            return {pageSize, skip, items: sortedItems, availableItems: sortedAvailableItems, totalCount, totalCountAvailableItems};
         }),
-        map(({pageSize, skip, items, totalCount}) => {
-            return {data: items?.slice(skip, skip + pageSize), totalCount: totalCount};
+        map(({pageSize, skip, items, availableItems, totalCount, totalCountAvailableItems}) => {
+            return {data: items?.slice(skip, skip + pageSize), availableItems: availableItems?.slice(skip, skip + pageSize), totalCount: totalCount, totalCountAvailableItems: totalCountAvailableItems};
         }),
     )
 

@@ -114,15 +114,13 @@ export class ReservationsComponent implements OnInit, OnDestroy {
             }
           }
           else {
-            if (inputPickup?.year === inputDropoff?.year && inputPickup?.month === inputDropoff?.month && inputPickup?.day === inputDropoff?.day) {
-              this.dropoffTimes = TIMES.filter(num => num === null || num > +inputPickupTime )
-              if (control.value !== null && (+inputPickupTime >= +inputDropoffTime || Number.isNaN(+inputPickupTime))) {
-                control.patchValue(null);
+              if (inputPickup?.year === inputDropoff?.year && inputPickup?.month === inputDropoff?.month && inputPickup?.day === inputDropoff?.day) {
+                const minPickupTime = Math.min(...(this.pickupTimes.filter(x => x !== null) as  number[]));
+                this.dropoffTimes = this.dropoffTimes.filter(x => x === null || x > (inputPickupTime ?? minPickupTime));
               }
-            }
-            else {
-              this.dropoffTimes = TIMES;
-            }
+              else {
+                this.dropoffTimes = TIMES;
+              }
           }
         }
         else if(control.disabled && inputDropoff) {
@@ -187,10 +185,13 @@ export class ReservationsComponent implements OnInit, OnDestroy {
     };
   }
 
+  getPickupMinDate(): NgbDateStruct {
+    return this.getDateObj(new Date(0));
+  }
+
   getMinDate(): NgbDateStruct {
-    const currentDate = this.getCurrentDate();
     const pickUpDate = this.filtersForm.get('inputPickup')?.value;
-    return pickUpDate ?? currentDate;
+    return pickUpDate ?? this.getPickupMinDate();
   }
 
   getDateObj(date: Date): NgbDateStruct {

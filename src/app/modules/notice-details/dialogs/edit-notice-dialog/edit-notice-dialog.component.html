@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{"Edit notice" | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="edit-notice-form" [formGroup]="editNoticeForm">
+        <div class="form-row">
+            <label for="description" class="edit-notice-form-label">{{ 'Description' | translate }}</label>
+            <textarea rows="3" maxlength="500" class="form-control" id="description" formControlName="description"></textarea>
+            <div *ngIf="formControls['description'].invalid && (formControls['description'].dirty || formControls['description'].touched)">
+                <div *ngIf="formControls['description'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button [disabled]="editNoticeForm.invalid || loading" type="submit" class="btn sail-dialog-button btn-lg form-button" (click)="editNotice()">{{"Edit" | translate}}</button>
+</div>

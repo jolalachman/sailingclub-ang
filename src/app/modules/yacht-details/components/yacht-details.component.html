@@ -13,7 +13,7 @@
                     <img [src]="yacht?.photo">
                 </div>
                 <div class="record-links">
-                    <a>{{"Reported notices" | translate}}</a>
+                    <a (click)="goToYachtNotices(yacht.id)">{{"Reported notices" | translate}}</a>
                     <a *ngIf="yacht.currentStatus !== 'DEACTIVATED'" (click)="changeYachtStatus(yacht)">{{"Change status" | translate}}</a>
                     <a>{{"History of statuses" | translate}}</a>
                 </div>

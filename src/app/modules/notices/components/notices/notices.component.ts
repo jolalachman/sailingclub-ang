@@ -1,10 +1,11 @@
 import { Location } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ReportedNoticesFacade } from "../../facade/reported-notices.facade";
 import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
-import { map, take } from "rxjs";
+import { Subscription, map, take } from "rxjs";
 import { ReservationsService } from "src/app/modules/reservations/service/reservations.service";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
 
 @Component({
   selector: 'app-notices',
@@ -12,8 +13,10 @@ import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./notices.component.scss'],
   providers: [ReportedNoticesFacade]
 })
-export class NoticesComponent {
+export class NoticesComponent implements OnInit, OnDestroy {
   pageSizes = [5, 10, 20];
+
+  paramsSubscription = Subscription.EMPTY;
 
   searchForm: FormGroup = this.fb.group({
     value: ['', Validators.required],
@@ -49,6 +52,8 @@ export class NoticesComponent {
     private facade: ReportedNoticesFacade,
     private fb: NonNullableFormBuilder,
     private reservationService: ReservationsService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +62,21 @@ export class NoticesComponent {
       const searchValue = x.find(y => y.field === 'name')?.value;
       this.searchForm.patchValue({value: searchValue});
     })
+    this.paramsSubscription = this.route.queryParams.subscribe(params => {
+      this.filtersForm.patchValue({
+        yacht: params['yachtId'] ?? null,
+        clubMember: params['userId'] ?? null,
+      });
+
+      this.facade.filterChange([
+        {field: 'yacht', value: params['yachtId'] ?? null},
+        {field: 'clubMember', value: params['userId'] ?? null}
+      ]);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.paramsSubscription.unsubscribe();
   }
 
   pageChange(event: number, currentPageSize: number) {
@@ -69,7 +89,7 @@ export class NoticesComponent {
 
   clearSearch() {
     this.searchForm.patchValue({value: ''});
-    // this.filter();
+    this.filter();
     this.facade.filterChange([{field: 'name', value: ''}]);
   }
 
@@ -102,18 +122,14 @@ export class NoticesComponent {
       {field: 'name', value: value},
     ]);
 
-    // const queryParams: NavigationExtras = {
-    //   queryParams: {
-    //     pickup: inputPickup ? this.getDate(inputPickup) : null,
-    //     pickupTime: inputPickupTime,
-    //     dropoff: inputDropoff ? this.getDate(inputDropoff) : null,
-    //     dropoffTime: inputDropoffTime, 
-    //     cabin: cabinInput, 
-    //     people: peopleInput
-    //   },
-    //   replaceUrl: true
-    // };
-    // this.router.navigate([], queryParams);
+    const queryParams: NavigationExtras = {
+      queryParams: {
+        yachtId: yacht,
+        userId: clubMember
+      },
+      replaceUrl: true
+    };
+    this.router.navigate([], queryParams);
   }
 
   sortChange(value?: string) {
@@ -130,10 +146,10 @@ export class NoticesComponent {
     });
     const {value} = this.searchForm.value;
     this.facade.filterChange([{field: 'name', value: value},]);
-    // const queryParams: NavigationExtras = {
-    //   queryParams: {},
-    //   replaceUrl: true
-    // };
-    // this.router.navigate([], queryParams);
+    const queryParams: NavigationExtras = {
+      queryParams: {},
+      replaceUrl: true
+    };
+    this.router.navigate([], queryParams);
   }
 }

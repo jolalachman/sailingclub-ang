@@ -68,6 +68,11 @@ export class ReportedNoticesFacade {
                 });
             }
 
+            const clubMemberValue = filters.find(x => x.field === 'clubMember')?.value;
+            if (clubMemberValue && typeof clubMemberValue === 'string' && clubMemberValue !== 'null') {
+                filteredItems = filteredItems.filter(x => x.clubMember.id.toString().toLowerCase() === clubMemberValue.toLowerCase());
+            }
+
             return {pageSize, skip, items: filteredItems, sort, totalCount: filteredItems.length};
         }),
         map(({pageSize, skip, items, sort, totalCount}) => {

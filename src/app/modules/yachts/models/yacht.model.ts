@@ -8,7 +8,6 @@ export type YachtShortDataModel = {
     cabinNum: number;
     peopleNum: number;
     reservations: YachtReservation[];
-    closelyAvailable: boolean;
 };
 
 export type YachtReservation = {

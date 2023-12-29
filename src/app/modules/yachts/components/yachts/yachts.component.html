@@ -15,7 +15,17 @@
                             [record]="record">
                         </app-yacht-record>
                     </div>
-                    <span class="my-modify" *ngIf="yachtList.totalCount===0" style="align-self: center; margin-top: auto; margin-bottom: auto;">
+                    <div *ngIf="yachtList.totalCount===0 && yachtList.totalCountAvailableItems!==0">
+                        <div class="my-modify"  style="align-self: center; margin-bottom: 10px;">
+                            {{ 'Available in similair dates' | translate}}
+                        </div>
+                        <div *ngFor="let record of yachtList.availableItems">
+                            <app-yacht-record
+                                [record]="record">
+                            </app-yacht-record>
+                        </div>
+                    </div>
+                    <span class="my-modify" *ngIf="yachtList.totalCount===0 && yachtList.totalCountAvailableItems===0" style="align-self: center; margin-top: auto; margin-bottom: auto;">
                         {{ 'There are no yachts' | translate}}
                     </span>
                 </div>

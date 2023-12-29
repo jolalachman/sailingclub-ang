@@ -17,24 +17,4 @@ export class ReportedNoticesService extends ApiService {
         const url = `${environment.apiUrl}${'v1'}/${'notices'}/${'all'}`;
         return this.http.get<ReportedNoticesPageModel>(url, {headers: this.getHeaders()});
     }
-
-    // addYacht(yacht: YachtRequest): Observable<boolean> {
-    //     const url = `${environment.apiUrl}${'v1'}/${'yachts'}`;
-    //     return this.http.post<boolean>(url, yacht, {headers: this.getHeaders()});
-    // }
-
-    // editYacht(yacht: EditYachtRequest): Observable<boolean> {
-    //     const url = `${environment.apiUrl}${'v1'}/${'yacht'}`;
-    //     return this.http.post<boolean>(url, yacht, {headers: this.getHeaders()});
-    // }
-
-    // deactivateYacht(yachtId: number): Observable<boolean> {
-    //     const url = `${environment.apiUrl}${'v1'}/${'yacht'}/${'deactivate'}?yachtId=${yachtId}`;
-    //     return this.http.post<boolean>(url, {headers: this.getHeaders()});
-    // }
-
-    // changeYachtStatus(changeStatus: ChangeStatusRequest): Observable<boolean> {
-    //     const url = `${environment.apiUrl}${'v1'}/${'yacht'}/${'change-status'}`;
-    //     return this.http.post<boolean>(url, changeStatus, {headers: this.getHeaders()});
-    // }
 }

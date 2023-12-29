@@ -46,41 +46,41 @@ export class ClubMembersComponent implements OnInit {
       const searchValue = x.find(y => y.field === 'name')?.value;
       this.searchForm.patchValue({value: searchValue});
     })
-  //   this.paramsSubscription = this.route.queryParams.subscribe(params => {
-  //     this.filtersForm.patchValue({
-  //       inputPickup: params['pickup'] ? this.getDateObj(new Date(params['pickup'])) : null,
-  //       inputPickupTime: params['pickupTime'],
-  //       inputDropoff: params['dropoff'] ? this.getDateObj(new Date(params['dropoff'])) : null,
-  //       inputDropoffTime: params['dropoffTime'],
-  //       cabinInput: params['cabin'],
-  //       peopleInput: params['people'],
-  //     });
+    // this.paramsSubscription = this.route.queryParams.subscribe(params => {
+    //   this.filtersForm.patchValue({
+    //     inputPickup: params['pickup'] ? this.getDateObj(new Date(params['pickup'])) : null,
+    //     inputPickupTime: params['pickupTime'],
+    //     inputDropoff: params['dropoff'] ? this.getDateObj(new Date(params['dropoff'])) : null,
+    //     inputDropoffTime: params['dropoffTime'],
+    //     cabinInput: params['cabin'],
+    //     peopleInput: params['people'],
+    //   });
 
-  //     const inputPickupDateTime = params['pickup']
-  //     ? new Date(
-  //       params['pickup'],
-  //       params['pickupTime'] === 'null' || params['pickupTime'] === null || params['pickupTime'] === undefined
-  //       ? 0
-  //       : parseInt(params['pickupTime'])
-  //     )
-  //     : null;
+    //   const inputPickupDateTime = params['pickup']
+    //   ? new Date(
+    //     params['pickup'],
+    //     params['pickupTime'] === 'null' || params['pickupTime'] === null || params['pickupTime'] === undefined
+    //     ? 0
+    //     : parseInt(params['pickupTime'])
+    //   )
+    //   : null;
 
-  //   const inputDropoffDateTime = params['dropoff']
-  //     ? new Date(
-  //       params['dropoff'],
-  //       params['dropoffTime'] === 'null' || params['dropoffTime'] === null || params['dropoffTime'] === undefined
-  //       ? 0
-  //       : parseInt(params['dropoffTime'])
-  //       )
-  //     : null;
+    // const inputDropoffDateTime = params['dropoff']
+    //   ? new Date(
+    //     params['dropoff'],
+    //     params['dropoffTime'] === 'null' || params['dropoffTime'] === null || params['dropoffTime'] === undefined
+    //     ? 0
+    //     : parseInt(params['dropoffTime'])
+    //     )
+    //   : null;
 
-  //     this.facade.filterChange([
-  //       {field: 'pickup', value: inputPickupDateTime},
-  //       {field: 'dropoff', value: inputDropoffDateTime},
-  //       {field: 'cabin', value: parseInt(params['cabin'])},
-  //       {field: 'people', value: parseInt(params['people'])}
-  //     ]);
-  //   });
+    //   this.facade.filterChange([
+    //     {field: 'pickup', value: inputPickupDateTime},
+    //     {field: 'dropoff', value: inputDropoffDateTime},
+    //     {field: 'cabin', value: parseInt(params['cabin'])},
+    //     {field: 'people', value: parseInt(params['people'])}
+    //   ]);
+    // });
   }
 
   pageChange(event: number, currentPageSize: number) {
