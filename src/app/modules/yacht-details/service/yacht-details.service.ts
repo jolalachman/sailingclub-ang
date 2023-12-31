@@ -33,6 +33,11 @@ export type YachtModel = {
     hourlyPrice: number;
 }
 
+export type YachtStatusHistoryModel = {
+    statusDate: Date;
+    statusName: string;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -44,5 +49,10 @@ export class YachtDetailsService extends ApiService {
     getYacht(id: number): Observable<YachtModel> {
         const url = `${environment.apiUrl}${'v1'}/${'yacht'}?yachtId=${id}`;
         return this.http.get<YachtModel>(url, {headers: this.getHeaders()});
+    }
+
+    getYachtStatusesHistory(id: number): Observable<YachtStatusHistoryModel[]> {
+        const url = `${environment.apiUrl}${'v1'}/${'yacht'}/${'history'}?yachtId=${id}`;
+        return this.http.get<YachtStatusHistoryModel[]>(url, {headers: this.getHeaders()});
     }
 }

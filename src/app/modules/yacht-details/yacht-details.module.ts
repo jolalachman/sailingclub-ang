@@ -17,6 +17,7 @@ import { ChangeYachtStatusDialogComponent } from "./dialogs/change-yacht-status-
 import { AddYachtReservationDialogComponent } from "./dialogs/add-yacht-reservation-dialog/add-yacht-reservation-dialog.component";
 import { HomeModule } from "../home/home.module";
 import { SharedModule } from "src/app/shared/shared.module";
+import { YachtStatusestDialogComponent } from "./dialogs/yacht-statuses-dialog/yacht-statuses-dialog.component";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DeactivateYachtDialogComponent,
     ChangeYachtStatusDialogComponent,
     AddYachtReservationDialogComponent,
+    YachtStatusestDialogComponent,
     routedComponents,
   ],
   imports: [

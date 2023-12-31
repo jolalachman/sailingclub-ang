@@ -87,7 +87,7 @@
                                 id="role"
                                 formControlName="role"
                             >
-                                <option *ngFor="let role of userRoles" [value]="role?.name">
+                                <option *ngFor="let role of userRoles" [value]="role?.id">
                                     {{ role?.name ?? '-' | translate }}
                                 </option>
                             </select>

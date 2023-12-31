@@ -91,10 +91,17 @@ import { map } from "rxjs";
         microwave,
         radio
       }).subscribe({
-        next: () => {
+        next: (x) => {
           this.loading = false;
-          this.yachtAdded.emit(true);
-          void this.activeModal.close();
+          if (x) {
+            this.yachtAdded.emit(true);
+            void this.activeModal.close();
+          }
+          else {
+            this.addYachtForm.get('registrationNumber')?.setErrors({
+              wrongRegistration: true,
+            })
+          }
         },
         error: () => {
           this.loading = false;

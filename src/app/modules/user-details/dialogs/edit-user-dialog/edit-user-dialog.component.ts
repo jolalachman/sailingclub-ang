@@ -41,7 +41,7 @@ import { DictionaryService } from "src/app/shared/service/dictionary.service";
         this.editUserForm.patchValue({
           firstName: this.user.firstName,
           lastName: this.user.lastName,
-          role: this.user.role.name,
+          role: this.user.role.id,
           clubStatus: this.user.clubStatus,
           sailingLicense: this.user.sailingLicense.id,
         });

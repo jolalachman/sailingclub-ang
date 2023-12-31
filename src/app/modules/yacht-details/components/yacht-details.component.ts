@@ -12,6 +12,7 @@ import { DeactivateYachtDialogComponent } from "../dialogs/deactivate-yacht-dial
 import { ChangeYachtStatusDialogComponent } from "../dialogs/change-yacht-status-dialog/change-yacht-status-dialog.component";
 import { AddYachtReservationDialogComponent } from "../dialogs/add-yacht-reservation-dialog/add-yacht-reservation-dialog.component";
 import { FormGroup, NonNullableFormBuilder } from "@angular/forms";
+import { YachtStatusestDialogComponent } from "../dialogs/yacht-statuses-dialog/yacht-statuses-dialog.component";
 
 @Component({
   selector: 'app-yacht-details',
@@ -151,5 +152,11 @@ export class YachtDetailsComponent implements OnInit, OnDestroy {
     }
 
     this.router.navigate(['/notices'], {queryParams: queryParams});
+  }
+
+  showHistoryStatuses(yachtId: number) {
+    const modalRef = this.modalService.open(YachtStatusestDialogComponent, { size: 'lg' });
+    const yachtStatusesDialogInstance = modalRef.componentInstance;
+    yachtStatusesDialogInstance.statuses$ = this.service.getYachtStatusesHistory(yachtId);
   }
 }

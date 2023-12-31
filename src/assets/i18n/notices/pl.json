@@ -15,14 +15,15 @@
     "Yacht:": "Jacht:",
     "Reported by:": "Zgłoszona przez:",
     "Current status:": "Aktualny status:",
-    "NEW": "Nowa",
-    "OPENED": "Otwarta",
-    "COMPLETED": "Zamknięta",
+    "NEW": "nowa",
+    "OPENED": "otwarta",
+    "COMPLETED": "zamknięta",
     "Reported date:": "Data zgłoszenia:",
     "Filter": "Filtruj",
     "Reservation:": "Rezerwacja:",
     "Clear filters": "Wyczyść filtry",
     "Reported notice details": "Detale zgłoszonej uwagi",
     "Change status": "Zmień status",
-    "Description:": "Opis:"
+    "Description:": "Opis:",
+    "Show completed": "Pokaż zamknięte"
 }

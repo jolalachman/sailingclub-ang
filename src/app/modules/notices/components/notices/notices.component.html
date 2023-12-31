@@ -78,6 +78,10 @@
                 </span>
                 <div class="section" *ngIf="filters$ | async as filters" style="flex: 1; overflow-y: auto;">
                     <form class="notices-form" [formGroup]="filtersForm">
+                        <div class="section" style="flex-direction: row; justify-content: space-between;">
+                            <label for="closed" class="form-label">{{ 'Show completed' | translate }}</label>
+                            <input type="checkbox" class="form-check-input" id="closed" formControlName="showClosed">
+                        </div>
                         <div class="section" *ngIf="yachts$ | async as yachts">
                             <label for="yacht" class="form-label">{{ 'Yacht' | translate }}</label>
                             <select

@@ -1,5 +1,5 @@
 {
-    "NEW": "New",
-    "OPENED": "Opened",
-    "COMPLETED": "Completed"
+    "NEW": "new",
+    "OPENED": "opened",
+    "COMPLETED": "completed"
 }

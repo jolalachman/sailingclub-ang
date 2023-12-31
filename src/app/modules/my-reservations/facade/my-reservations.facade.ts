@@ -34,11 +34,22 @@ export class MyReservationsFacade {
             return {pageSize, skip, items, sort,filters, totalCount};            
         }),
         map(({pageSize, skip, items, sort, filters, totalCount}) => {
+
             const value = filters.find(x => x.field === 'name')?.value;
             let filteredItems = items ? [...items] : [];
             if (value && typeof value === 'string') {
                 filteredItems = filteredItems.filter(x => x.yachtName.toLowerCase().includes(value.toLowerCase()));
             }
+
+            const cancelledValue = filters.find(x => x.field === 'cancelled')?.value;
+            if (!cancelledValue && typeof cancelledValue === 'boolean') {
+                filteredItems = filteredItems.filter(x => x.currentStatus.name !== 'CANCELLED');
+            }
+            const rejectedValue = filters.find(x => x.field === 'rejected')?.value;
+            if (!rejectedValue && typeof rejectedValue === 'boolean') {
+                filteredItems = filteredItems.filter(x => x.currentStatus.name !== 'REJECTED');
+            }
+
             const pickupValue = filters.find(x => x.field === 'pickup')?.value;
             if (pickupValue && typeof pickupValue === 'object') {
                 filteredItems = filteredItems.filter(x => {
@@ -51,7 +62,7 @@ export class MyReservationsFacade {
                             );
                         return (zDate.getTime() === pickupValue.getTime());
                     }
-                    return (yDate.getTime() === pickupValue.getTime());
+                    return (yDate.getTime() >= pickupValue.getTime());
                 });
             }
 
@@ -67,7 +78,7 @@ export class MyReservationsFacade {
                             );
                         return (yDate.getTime() === dropoffValue.getTime());
                     }
-                    return (dropoffValue.getTime() === zDate.getTime());
+                    return (dropoffValue.getTime() >= zDate.getTime());
                 });
             }
 

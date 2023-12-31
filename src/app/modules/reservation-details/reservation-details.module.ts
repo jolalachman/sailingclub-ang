@@ -8,6 +8,8 @@ import { LocalStorageService } from "src/app/core/service/storage/local-storage.
 import { LANGUAGE_KEY } from "src/app/core/service/language/constants";
 import { ReservationDetailsComponent } from "./components/reservation-details/reservation-details.component";
 import { ReservationDetailsRoutingModule, routedComponents } from "./reservation-details.routing.module";
+import { SharedModule } from "src/app/shared/shared.module";
+import { ReservationStatusestDialogComponent } from "./dialogs/reservation-statuses-dialog/reservation-statuses-dialog.component";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
@@ -21,12 +23,14 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [
     ReservationDetailsComponent,
     routedComponents,
+    ReservationStatusestDialogComponent,
   ],
   imports: [
     CommonModule,
     ReservationDetailsRoutingModule,
     FormsModule,
     JsonPipe,
+    SharedModule,
 
     // translation module
     TranslateModule.forChild({

@@ -6,7 +6,7 @@ export type ClubMemberShortDataModel = {
     lastName: string;
     email: string;
     phone: string;
-    roleName: string;
+    role: DictionaryModel;
     clubStatus: string;
     sailingLicense: DictionaryModel;
 };

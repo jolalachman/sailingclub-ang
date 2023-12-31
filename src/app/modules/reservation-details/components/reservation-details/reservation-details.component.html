@@ -1,0 +1,100 @@
+<div class="reservation-details">
+    <div class="reservation-details-background-image"></div>
+    <div class="reservation-details-page">
+        <div class="reservation-details-subheader">
+            <i class="bi bi-arrow-left-circle-fill subheader-icon" (click)="location.back()"></i>
+            <p class="my-subheader">
+                {{ 'Reservation details' | translate }}
+            </p>
+        </div>
+        <div class="reservation-details-main-container" *ngIf="reservation$ | async as reservation">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="record-pic">
+                    <img [src]="reservation?.photo">
+                </div>
+                <div class="record-links">
+                    <a *ngIf="reservation.currentStatus.name !== 'COMPLETED' && reservation.currentStatus.name !== 'CANCELLED' && reservation.currentStatus.name !== 'IN_COMPLETION' && reservation.currentStatus.name !== 'REJECTED'" (click)="cancelReservation()">
+                        {{"Cancel reservation" | translate}}
+                    </a>
+                    <a *ngIf="reservation.canReportNotice" (click)="reportNotice()">
+                        {{"Report notice" | translate}}
+                    </a>
+                    <a (click)="showHistoryStatuses(reservation.id)">{{"History of statuses" | translate}}</a>
+                </div>
+            </div>
+            <div class="record-content">
+                <div class="record-header">
+                    <div class="record-name">
+                        #{{reservation.id}}
+                    </div>
+                    <div class="record-options" *ngIf="reservation.currentStatus.name === 'PENDING'">
+                        <div>
+                            <button class="btn sail-secondary-button btn-lg" style="border-radius: 6px;" (click)="rejectReservation()">
+                                {{'Reject reservation' | translate}}
+                            </button>
+                        </div>
+                        <div>
+                            <button class="btn sail-primary-button btn-lg" style="border-radius: 6px;" (click)="confirmReservation()">
+                                {{'Confirm reservation' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="record-options" *ngIf="reservation.currentStatus.name === 'CONFIRMED'">
+                        <div>
+                            <button class="btn sail-primary-button btn-lg" style="border-radius: 6px;" (click)="giveReservation()">
+                                {{'Give reservation' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="record-options" *ngIf="reservation.currentStatus.name === 'IN_COMPLETION'">
+                        <div>
+                            <button class="btn sail-primary-button btn-lg" style="border-radius: 6px;" (click)="completeReservation()">
+                                {{'Complete reservation' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="record-main">
+                    <div class="record-yacht">{{"Yacht:" | translate }}
+                        <a class="record-value" (click)="router.navigate(['yacht-details/'+reservation.yacht.id])">
+                            {{reservation?.yacht?.name ?? 'none' | translate}}
+                        </a>
+                    </div>
+                    <div class="record-pickupDate">{{"Pick up datetime:" | translate }}
+                        <span class="record-value">
+                            {{reservation?.pickupDate | customDateFormat }}
+                        </span>
+                    </div>
+                    <div class="record-dropoffDate">{{"Drop off datetime:" | translate }}
+                        <span class="record-value">
+                            {{reservation?.dropoffDate | customDateFormat }}
+                        </span>
+                    </div>
+                    <div class="record-clientInfo">{{"Club member:" | translate }}
+                        <a class="record-value" (click)="router.navigate(['user-details/'+reservation.clientInfo.id])">
+                            {{reservation?.clientInfo?.name ?? '-'}}
+                        </a>
+                    </div>
+                    <div *ngIf="reservation?.clientInfo?.id !== reservation?.reservingPerson?.id" class="record-clientInfo">{{"Reserving person:" | translate }}
+                        <a class="record-value" (click)="router.navigate(['user-details/'+reservation.reservingPerson.id])">
+                            {{reservation?.reservingPerson?.name ?? '-'}}
+                        </a>
+                    </div>
+                    <div class="record-clientInfo">{{"Current status:" | translate }}
+                        <span class="record-value"
+                        [class.confirmed]="reservation?.currentStatus?.name === 'CONFIRMED'"
+                        [class.rejected]="reservation?.currentStatus?.name === 'REJECTED'"
+                        [class.pending]="reservation?.currentStatus?.name === 'PENDING'">
+                            {{reservation?.currentStatus?.name ?? '-' | translate}}
+                        </span>
+                    </div>
+                    <div class="record-peopleNumber">{{"People number:" | translate }}
+                        <span class="record-value">
+                            {{reservation?.peopleNumber }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

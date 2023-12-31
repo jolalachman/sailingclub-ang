@@ -1,0 +1,176 @@
+:host {
+    .reservation-details {
+        &-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            background: url('../../../../../assets/backgrounds/nature-2608800_1280.jpg') no-repeat;
+            background-color: aqua;
+            background-size: cover;
+        }
+
+        &-page {
+            display: flex;
+            flex-direction: column;
+            padding: 40px 50px 0 50px;
+            gap: 10px;
+        }
+
+        &-main-container {
+            align-self: center;
+            display: flex;
+            width: 70%;
+            gap: 15px;
+            padding: 10px;
+            min-height: calc(100vh - 200px);
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        &-subheader {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            .subheader-icon {
+                color: #FFF;
+                font-size: 30px;
+            }
+        }
+
+        .calendar-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .record {   
+            &-options {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                height: fit-content;
+            }
+            
+            &-pic {
+                width: 200px;
+                height: 200px;
+                border: solid 1px black;
+                border-radius: 10px;
+                position: relative;
+                overflow: hidden;
+    
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+            }
+    
+            &-name {
+                color: #000;
+                font-family: Inter;
+                font-size: 25px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+            }
+    
+            &-main {
+                color: #000;
+                font-family: Inter;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+    
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                width: 100%;
+            
+            }
+    
+            &-value {
+                color: #717171;
+                font-family: Inter;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+    
+            &-content {
+                display: flex;
+                flex-direction: column;
+                gap: 50px;
+                flex: 1;
+                margin-left: 30px;
+                width: 70%;
+                
+            }
+
+            &-links {
+                display: flex;
+                flex-direction: column;
+                margin: 20px 5px;
+                gap: 10px;
+                color: #FF7E59;
+                font-family: Inter;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                cursor: pointer;
+            }
+
+            &-header {
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+            }
+            &-calendar {
+                flex: 1;
+                padding: 0 30px;
+            }
+        }
+        .confirmed {
+            color: green;
+        }
+
+        .rejected {
+            color: red;
+        }
+
+        .pending {
+            color: orange;
+        }
+    }
+}
+
+.my-subheader {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+.reservation-details-form-title {
+    color: #000;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

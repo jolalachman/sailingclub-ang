@@ -23,6 +23,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
   });
 
   filtersForm: FormGroup = this.fb.group({
+    showClosed: [false],
     reportedAt: [null],
     yacht: [null],
     reservationId: [null],
@@ -44,7 +45,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
     map(x => [null, ...x])
   );
   currentStatuses$ = this.dictionaryService.getNoticeStatusesDictionary().pipe(
-    map(x => [null, ...x])
+    map(x => [null, ...(x.filter(y => (y.name !== 'COMPLETED')))])
   );
 
   constructor(
@@ -73,6 +74,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
         {field: 'clubMember', value: params['userId'] ?? null}
       ]);
     });
+    this.filter();
   }
 
   ngOnDestroy(): void {
@@ -90,7 +92,11 @@ export class NoticesComponent implements OnInit, OnDestroy {
   clearSearch() {
     this.searchForm.patchValue({value: ''});
     this.filter();
-    this.facade.filterChange([{field: 'name', value: ''}]);
+    const {showClosed} = this.filtersForm.value;
+    this.facade.filterChange([
+      {field: 'name', value: ''},
+      {field: 'closed', value: showClosed}
+    ]);
   }
 
   getDate(dateObj: NgbDateStruct) {
@@ -104,6 +110,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
   filter() {
     const {value} = this.searchForm.value
     const {
+      showClosed,
       reportedAt,
       yacht,
       reservationId,
@@ -114,6 +121,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
 
 
     this.facade.filterChange([
+      {field: 'closed', value: showClosed},
       {field: 'reportedAt', value: reportedAt ? this.getDate(reportedAt).toISOString() : null},
       {field: 'yacht', value: yacht},
       {field: 'reservationId', value: reservationId},
@@ -138,6 +146,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
 
   clearFilters() {
     this.filtersForm.patchValue({
+      showClosed: false,
       reportedAt: null,
       yacht: null,
       reservationId: null,
@@ -145,7 +154,11 @@ export class NoticesComponent implements OnInit, OnDestroy {
       currentStatus: null
     });
     const {value} = this.searchForm.value;
-    this.facade.filterChange([{field: 'name', value: value},]);
+    const {showClosed} = this.filtersForm.value;
+    this.facade.filterChange([
+      {field: 'name', value: value},
+      {field: 'closed', value: showClosed}
+    ]);
     const queryParams: NavigationExtras = {
       queryParams: {},
       replaceUrl: true

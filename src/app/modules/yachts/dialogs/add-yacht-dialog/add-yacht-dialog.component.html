@@ -40,6 +40,9 @@
                     <div *ngIf="formControls['registrationNumber'].errors?.['required']">
                         <label class="error-message"> {{'This field is required' | translate}} </label>
                     </div>
+                    <div *ngIf="formControls['registrationNumber'].errors?.['wrongRegistration']">
+                        <label class="error-message"> {{'There is already a yacht with this registration number' | translate}} </label>
+                    </div>
                 </div>
             </div>
             <div class="form-row">

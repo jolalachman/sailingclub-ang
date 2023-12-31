@@ -22,14 +22,14 @@
                 </div>
                 <div class="record-role">{{"Role:" | translate }}
                     <span class="record-value"
-                    [class.candidate]="record?.roleName === 'CANDIDATE'"
-                    [class.admin]="record?.roleName === 'ADMIN'"
-                    [class.sailor]="record?.roleName === 'SAILOR'"
-                    [class.mat]="record?.roleName === 'MAT'"
-                    [class.bosman]="record?.roleName === 'BOSMAN'"
-                    [class.deactivated]="record?.roleName === 'DEACTIVATED'"
+                    [class.candidate]="record?.role?.name === 'CANDIDATE'"
+                    [class.admin]="record?.role?.name === 'ADMIN'"
+                    [class.sailor]="record?.role?.name === 'SAILOR'"
+                    [class.mat]="record?.role?.name === 'MAT'"
+                    [class.bosman]="record?.role?.name === 'BOSMAN'"
+                    [class.deactivated]="record?.role?.name === 'DEACTIVATED'"
                     >
-                        {{record?.roleName ?? '-' | translate}}
+                        {{record?.role?.name ?? '-' | translate}}
                     </span>
                 </div>
             </div>

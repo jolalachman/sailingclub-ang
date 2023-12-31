@@ -44,7 +44,7 @@ export class ClubMembersFacade {
 
             const roleValue = filters.find(x => x.field === 'role')?.value;
             if (roleValue && typeof roleValue === 'string' && roleValue !== 'null') {
-                filteredItems = filteredItems.filter(x => x.roleName.toLowerCase() === roleValue.toLowerCase());
+                filteredItems = filteredItems.filter(x => x.role.id.toString().toLowerCase() === roleValue.toLowerCase());
             }
 
             const sailingLicenceValue = filters.find(x => x.field === 'sailingLicence')?.value;

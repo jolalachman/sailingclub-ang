@@ -15,7 +15,7 @@
                 <div class="record-links">
                     <a (click)="goToYachtNotices(yacht.id)">{{"Reported notices" | translate}}</a>
                     <a *ngIf="yacht.currentStatus.name !== 'DEACTIVATED'" (click)="changeYachtStatus(yacht)">{{"Change status" | translate}}</a>
-                    <a>{{"History of statuses" | translate}}</a>
+                    <a (click)="showHistoryStatuses(yacht.id)">{{"History of statuses" | translate}}</a>
                 </div>
             </div>
             <div class="record-content">
@@ -144,12 +144,12 @@
                     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed4">
                         <div class="record-daily-price">{{"Daily price:" | translate }}
                             <span class="record-value">
-                                {{ yacht?.dailyPrice ?? '-' }}
+                                {{ yacht?.dailyPrice ? yacht?.dailyPrice + 'zł' : '-' }}
                             </span>
                         </div>
                         <div class="record-hourly-price">{{"Hourly price:" | translate }}
                             <span class="record-value">
-                                {{ yacht?.hourlyPrice ?? '-' }}
+                                {{ yacht?.hourlyPrice ? yacht?.hourlyPrice + 'zł' : '-' }}
                             </span>
                         </div>
                     </div>

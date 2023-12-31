@@ -15,9 +15,7 @@ import { map } from "rxjs";
     @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>;
     yacht?: YachtModel;
     activeModal = inject(NgbActiveModal);
-    yachtStatuses$ = this.dictionaryService.getYachtStatusesDictionary().pipe(
-      map(x => [null, ...x])
-    );
+    yachtStatuses$ = this.dictionaryService.getYachtStatusesDictionary();
     statusForm: FormGroup = this.fb.group({
       status: [null],
     });
@@ -35,7 +33,7 @@ import { map } from "rxjs";
     ngOnInit(): void {
       if (this.yacht) {
         this.statusForm.patchValue({
-          status: this.yacht?.currentStatus,
+          status: this.yacht?.currentStatus.id,
         });
       }
     }

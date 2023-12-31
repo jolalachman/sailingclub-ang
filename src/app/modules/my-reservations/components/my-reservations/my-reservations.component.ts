@@ -26,7 +26,7 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
   formSubscription = Subscription.EMPTY;
   calendarFormSubscription = Subscription.EMPTY;
   reservationStatuses$ = this.dictionaryService.getReservationStatusesDictionary().pipe(
-    map(x => [null, ...x])
+    map(x => [null, ...(x.filter(y => (y.name !== 'CANCELLED' && y.name !== 'REJECTED')))])
   );
   pickupTimes = TIMES;
   dropoffTimes = TIMES;
@@ -43,6 +43,8 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
   });
 
   filtersForm: FormGroup = this.fb.group({
+    showCancelled: [false],
+    showRejected: [false],
     yacht: [null],
     status: [null],
     inputPickup: [null],
@@ -66,6 +68,7 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.facade.loadAll();
+    this.filter();
     this.viewCalendarForm.patchValue({
       viewCalendarDate: this.getCurrentDate(),
     })
@@ -217,12 +220,19 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
   clearSearch() {
     this.searchForm.patchValue({value: ''});
     this.filter();
-    this.facade.filterChange([{field: 'name', value: ''}]);
+    const {showCancelled, showRejected} = this.filtersForm.value;
+    this.facade.filterChange([
+      {field: 'name', value: ''},
+      {field: 'cancelled', value: showCancelled},
+      {field: 'rejected', value: showRejected},
+    ]);
   }
 
   filter() {
     const {value} = this.searchForm.value
     const {
+      showCancelled,
+      showRejected,
       yacht,
       clubMember,
       reservingUser,
@@ -255,6 +265,8 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
         )
       : null;
     this.facade.filterChange([
+      {field: 'cancelled', value: showCancelled},
+      {field: 'rejected', value: showRejected},
       {field: 'yacht', value: yacht},
       {field: 'club-member', value: clubMember},
       {field: 'reserving-user', value: reservingUser},
@@ -278,6 +290,8 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
 
   clearFilters() {
     this.filtersForm.patchValue({
+      showCancelled: false,
+      showRejected: false,
       yacht: null,
       clubMember: null,
       reservingUser: null,
@@ -288,7 +302,12 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
       inputDropoffTime: null,
     });
     const {value} = this.searchForm.value;
-    this.facade.filterChange([{field: 'name', value: value},]);
+    const {showCancelled, showRejected} = this.filtersForm.value;
+    this.facade.filterChange([
+      {field: 'name', value: value},
+      {field: 'cancelled', value: showCancelled},
+      {field: 'rejected', value: showRejected},
+    ]);
     // const queryParams: NavigationExtras = {
     //   queryParams: {},
     //   replaceUrl: true

@@ -18,9 +18,7 @@ import { DictionaryService } from "src/app/shared/service/dictionary.service";
       statusId: [null],
     });
 
-    currentStatuses$ = this.dictionaryService.getNoticeStatusesDictionary().pipe(
-      map(x => [null, ...x])
-    );
+    currentStatuses$ = this.dictionaryService.getNoticeStatusesDictionary();
 
     get formControls() {
       return this.statusForm.controls;

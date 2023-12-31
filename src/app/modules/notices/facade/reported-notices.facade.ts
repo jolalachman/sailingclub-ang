@@ -43,6 +43,13 @@ export class ReportedNoticesFacade {
                 });
             }
 
+            const closedValue = filters.find(x => x.field === 'closed')?.value;
+            if (!closedValue && typeof closedValue === 'boolean') {
+                filteredItems = filteredItems.filter(x => 
+                    x.currentStatus.name !== 'COMPLETED'
+                );
+            }
+
             const yachtValue = filters.find(x => x.field === 'yacht')?.value;
             if (yachtValue && typeof yachtValue === 'string' && yachtValue !== 'null') {
                 filteredItems = filteredItems.filter(x => x.yacht.id.toString().toLowerCase() === yachtValue.toLowerCase());

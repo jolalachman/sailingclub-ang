@@ -146,6 +146,14 @@
                 </span>
                 <div class="section" *ngIf="filters$ | async as filters" style="flex: 1; overflow-y: auto;">
                     <form class="reservations-form" [formGroup]="filtersForm">
+                        <div class="section" style="flex-direction: row; justify-content: space-between;">
+                            <label for="cancelled" class="form-label">{{ 'Show cancelled' | translate }}</label>
+                            <input type="checkbox" class="form-check-input" id="cancelled" formControlName="showCancelled">
+                        </div>
+                        <div class="section" style="flex-direction: row; justify-content: space-between;">
+                            <label for="rejected" class="form-label">{{ 'Show rejected' | translate }}</label>
+                            <input type="checkbox" class="form-check-input" id="rejected" formControlName="showRejected">
+                        </div>
                         <div class="section" *ngIf="yachts$ | async as yachts">
                             <label for="status" class="form-label">{{ 'Yacht' | translate }}</label>
                             <select
@@ -171,7 +179,7 @@
                             </select>
                         </div>
                         <div class="section">
-                            <label for="inputPickup" class="form-label">{{ 'Pick up date' | translate }}</label>
+                            <label for="inputPickup" class="form-label">{{ 'Pick up date after' | translate }}</label>
                             <div class="input-group" id="inputPickup">
                                 <input
                                     class="form-control"
@@ -197,7 +205,7 @@
                             </select>
                         </div>
                         <div class="section">
-                            <label for="inputDropoff" class="form-label">{{ 'Drop off date' | translate }}</label>
+                            <label for="inputDropoff" class="form-label">{{ 'Drop off date before' | translate }}</label>
                             <div class="input-group" id="inputDropoff">
                                 <input
                                     class="form-control"

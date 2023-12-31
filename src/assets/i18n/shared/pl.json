@@ -94,10 +94,11 @@
     "There are no yachts": "Brak jachtów",
     "There are no club members": "Brak członków klubu",
     "Edit notice": "Edytuj uwagę",
-    "NEW": "Nowa",
-    "OPENED": "Otwarta",
-    "COMPLETED": "Zamknięta",
+    "NEW": "nowa",
+    "OPENED": "otwarta",
+    "COMPLETED": "zamknięta",
     "My reservations": "Moje rezerwacje",
-    "DEACTIVATED": "Dezaktywowany"
-
+    "DEACTIVATED": "dezaktywowany",
+    "There is already a yacht with this registration number": "Istnieje już jacht z tym numerem rejestracyjnym",
+    "History of statuses": "Historia statusów"
 }

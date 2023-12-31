@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{"History of statuses" | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <div *ngIf="statuses$ | async as statuses">
+        <div *ngFor="let status of statuses">
+            <span> {{ status.statusDate | customDateFormat }}</span>
+            <span> - </span>
+            <span
+                [class.available]="status.statusName === 'AVAILABLE'"
+                [class.reserved]="status.statusName === 'RESERVED_LONG_TERM'"
+                [class.in-repair]="status.statusName === 'IN_REPAIR'"
+                [class.malfunction]="status.statusName === 'MALFUNCTION'"
+                [class.in-use]="status.statusName === 'IN_USE'"
+            >
+                {{ status.statusName | translate }}
+            </span>
+        </div>
+    </div>
+</div>
