@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoggedInGuard, NotLoggedInGuard } from './core/guards';
+import { AuthGuard, LoggedInGuard, NotLoggedInGuard } from './core/guards';
 import { AuthLayoutComponent, LayoutComponent } from './layout/layouts';
 
 const routes: Routes = [
@@ -30,7 +30,10 @@ const routes: Routes = [
   {
     path: 'reservations',
     component: LayoutComponent,
-    canActivate: [LoggedInGuard],
+    canActivate: [LoggedInGuard, AuthGuard],
+    data: {
+      allowedRoles: ['SAILOR', 'MAT', 'BOSMAN', 'ADMIN']
+    },
     loadChildren: () =>
       import('./modules/reservations/reservations.module').then(
         m => m.ReservationsModule,
@@ -64,6 +67,10 @@ const routes: Routes = [
   {
     path: 'reservation-details/:reservationId',
     component: LayoutComponent,
+    canActivate: [LoggedInGuard, AuthGuard],
+    data: {
+      allowedRoles: ['SAILOR', 'MAT', 'BOSMAN', 'ADMIN']
+    },
     loadChildren: () =>
       import('./modules/reservation-details/reservation-details.module').then(
         m => m.ReservationDetailsModule,
@@ -72,6 +79,10 @@ const routes: Routes = [
   {
     path: 'club-members',
     component: LayoutComponent,
+    canActivate: [LoggedInGuard, AuthGuard],
+    data: {
+      allowedRoles: ['BOSMAN']
+    },
     loadChildren: () =>
       import('./modules/club-members/club-members.module').then(
         m => m.ClubMembersModule,
@@ -80,6 +91,10 @@ const routes: Routes = [
   {
     path: 'notices',
     component: LayoutComponent,
+    canActivate: [LoggedInGuard, AuthGuard],
+    data: {
+      allowedRoles: ['BOSMAN', 'ADMIN']
+    },
     loadChildren: () =>
       import('./modules/notices/notices.module').then(
         m => m.NoticesModule,
@@ -88,6 +103,10 @@ const routes: Routes = [
   {
     path: 'notice-details/:noticeId',
     component: LayoutComponent,
+    canActivate: [LoggedInGuard, AuthGuard],
+    data: {
+      allowedRoles: ['SAILOR', 'MAT', 'BOSMAN', 'ADMIN']
+    },
     loadChildren: () =>
       import('./modules/notice-details/notice-details.module').then(
         m => m.NoticeDetailsModule,
@@ -96,6 +115,10 @@ const routes: Routes = [
   {
     path: 'my-reservations',
     component: LayoutComponent,
+    canActivate: [LoggedInGuard, AuthGuard],
+    data: {
+      allowedRoles: ['SAILOR', 'MAT', 'BOSMAN']
+    },
     loadChildren: () =>
       import('./modules/my-reservations/my-reservations.module').then(
         m => m.MyReservationsModule,
@@ -104,6 +127,10 @@ const routes: Routes = [
   {
     path: 'users',
     component: LayoutComponent,
+    canActivate: [LoggedInGuard, AuthGuard],
+    data: {
+      allowedRoles: ['ADMIN']
+    },
     loadChildren: () =>
       import('./modules/users/users.module').then(
         m => m.UsersModule,
@@ -112,6 +139,10 @@ const routes: Routes = [
   {
     path: 'user-details/:userId',
     component: LayoutComponent,
+    canActivate: [LoggedInGuard, AuthGuard],
+    data: {
+      allowedRoles: ['BOSMAN', 'ADMIN']
+    },
     loadChildren: () =>
       import('./modules/user-details/user-details.module').then(
         m => m.UserDetailsModule,

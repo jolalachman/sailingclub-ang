@@ -13,6 +13,7 @@ import { ChangeYachtStatusDialogComponent } from "../dialogs/change-yacht-status
 import { AddYachtReservationDialogComponent } from "../dialogs/add-yacht-reservation-dialog/add-yacht-reservation-dialog.component";
 import { FormGroup, NonNullableFormBuilder } from "@angular/forms";
 import { YachtStatusestDialogComponent } from "../dialogs/yacht-statuses-dialog/yacht-statuses-dialog.component";
+import { LoginService } from "src/app/core/service/login/login.service";
 
 @Component({
   selector: 'app-yacht-details',
@@ -31,6 +32,7 @@ export class YachtDetailsComponent implements OnInit, OnDestroy {
   isCollapsed3 = true;
   isCollapsed4 = true;
   isCollapsed5 = true;
+  role = this.loginService.userInformation?.role ?? '';
 
   viewCalendarForm: FormGroup = this.fb.group({
     viewCalendarDate: [null],
@@ -51,6 +53,7 @@ export class YachtDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private modalService: NgbModal,    
     private fb: NonNullableFormBuilder,
+    private loginService: LoginService,
   ){}
   ngOnInit(): void {
     this.viewCalendarForm.patchValue({
@@ -141,7 +144,7 @@ export class YachtDetailsComponent implements OnInit, OnDestroy {
   }
 
   handleClick(id?: number) {
-    if (id) {
+    if (id && this.role === 'SAILOR' || this.role === 'MAT' || this.role === 'BOSMAN' || this.role === 'ADMIN') {
       void this.router.navigate(['reservation-details', id])
     }
   }

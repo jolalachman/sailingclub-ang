@@ -7,6 +7,7 @@ import { NoticeDetailsService, NoticeModel } from "../service/notice-details.ser
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { EditNoticeDialogComponent } from "../dialogs/edit-notice-dialog/edit-notice-dialog.component";
 import { ChangeNoticeStatusDialogComponent } from "../dialogs/change-notice-status-dialog/change-notice-status-dialog.component";
+import { LoginService } from "src/app/core/service/login/login.service";
 
 @Component({
   selector: 'app-notice-details',
@@ -17,6 +18,9 @@ export class NoticeDetailsComponent implements OnDestroy {
   dialogSubscription: Subscription = Subscription.EMPTY;
   changeNoticeStatusSubscription: Subscription = Subscription.EMPTY;
   refreshToken: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    
+  role = this.loginService.userInformation?.role ?? '';
+  id = this.loginService.userInformation?.id ?? '';
 
   notice$: Observable<NoticeModel> = combineLatest([
     this.route.paramMap,
@@ -33,6 +37,7 @@ export class NoticeDetailsComponent implements OnDestroy {
     public router: Router,
     private service: NoticeDetailsService,
     private modalService: NgbModal,
+    private loginService: LoginService,
   ) {}
 
   ngOnDestroy(): void {

@@ -17,7 +17,7 @@
     "Reserving person": "Osoba rezerwująca",
     "Club member:": "Członek klubu:",
     "Current status:": "Aktualny status:",
-    "COMPLETED": "odbyto",
+    "RES_COMPLETED": "odbyto",
     "CONFIRMED": "potwierdzono",
     "PENDING": "oczekuje na zatwierdzenie",
     "REJECTED": "odrzucono",
@@ -49,6 +49,14 @@
     "Give reservation": "Wydaj rezerwację",
     "Report notice": "Zgłoś uwagę",
     "Complete reservation": "Odbierz rezerwację",
-    "History of statuses": "Historia statusów"
+    "History of statuses": "Historia statusów",
+    "The number of people in the reservation is greater than set maximal yacht capacity. Make sure to confirm that it is alright!":
+    "Liczba osób w tej rezerwacji jest większa niż ustawiona pojemność jachtu. Upewnij się, że jest to w porządku!",
+    "NEW": "nowa",
+    "OPENED": "otwarta",
+    "COMPLETED": "zamknięta",
+    "Reported notice:": "Zgłoszona uwaga:",
+    "Cannot give reservation because the yacht is unavailable": "Wydanie rezerwacji niemożliwe, ponieważ jacht jest niedostępny",
+    "You are not authorized to view this reservation details.": "Nie jesteś upoważniony do przeglądania detali tej rezerwacji."
 
 }

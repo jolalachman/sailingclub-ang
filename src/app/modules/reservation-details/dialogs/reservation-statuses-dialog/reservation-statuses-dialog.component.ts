@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
     templateUrl: './reservation-statuses-dialog.component.html',
     styleUrls: ['./reservation-statuses-dialog.component.scss']
   })
-  export class ReservationStatusestDialogComponent {
+  export class ReservationStatusesDialogComponent {
     activeModal = inject(NgbActiveModal);
 
     statuses$?: Observable<ReservationStatusHistoryModel[]>;

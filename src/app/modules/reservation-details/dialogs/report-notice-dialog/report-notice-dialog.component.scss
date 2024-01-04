@@ -1,5 +1,4 @@
-@import '../../../../../styles/abstracts/spacing';
-.user {
+.report-notice {
     margin-top: - $spacer-30;
     &-background-image {
         position: absolute;
@@ -114,7 +113,7 @@
     margin: 0;
 }
 
-.user-form-label {
+.report-notice-form-label {
     color: #000;
     font-family: Inter;
     font-size: $spacer-16;
@@ -123,7 +122,7 @@
     line-height: normal;
 }
 
-.user-form-title {
+.report-notice-form-title {
     color: #000;
     font-family: Inter;
     font-size: $spacer-18;
@@ -133,7 +132,7 @@
     margin-bottom: $spacer-10;
 }
 
-.user-form-link {
+.report-notice-form-link {
     color: #FF7E59;
     font-family: Inter;
     font-size: $spacer-14;

@@ -10,6 +10,11 @@ import { LanguageService } from 'src/app/core/service/language/language.service'
 })
 export class AuthHeaderComponent {
 
+  arrayOptions = [
+    { text: 'Search yacht', path: '/home', icon: 'bi-search' },
+    { text: 'Yachts', path: '/yachts', icon: 'bi-life-preserver' },
+  ];
+
   arrayLanguage = this.languageService.arrayLanguage;
 
   constructor(

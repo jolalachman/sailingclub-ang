@@ -1,54 +1,57 @@
+@import '../../../../styles/abstracts/spacing';
 :host {
+    .transparent {
+        background-color: transparent;
+    }
     .app-navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 3rem;
-        padding: 5px 20px;
+        padding: $spacer-5 $spacer-20;
         &-options {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: $spacer-15;
+            .dropdown-toggle::after {
+                display: none;
+            }
         }
 
         .left-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: $spacer-8;
 
             .btn {
                 border: none;
             }
 
             .header-icon {
-                font-size: 25px;
+                font-size: $spacer-25;
             }
         }
 
         .navbar-brand {
             color: #000;
             font-family: Gelasio;
-            font-size: 25px;
+            font-size: $spacer-25;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
-        }
-        
-        .dropdown-toggle::after {
-            display: none;
         }
 
         .align-center {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: $spacer-10;
         }
 
         .language-list {
             color: #000;
             text-align: center;
             font-family: Inter;
-            font-size: 14px;
+            font-size: $spacer-14;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
@@ -58,12 +61,12 @@
             color: #000;
             text-align: center;
             font-family: Inter;
-            font-size: 16px;
+            font-size: $spacer-16;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
-            padding-top: 8px;
-            padding-bottom: 8px;
+            padding-top: $spacer-8;
+            padding-bottom: $spacer-8;
         }
 
         .selected-language {

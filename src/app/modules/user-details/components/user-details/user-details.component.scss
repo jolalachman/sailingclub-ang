@@ -1,3 +1,4 @@
+@import '../../../../../styles/abstracts/spacing';
 :host {
     .user-details {
         &-background-image {
@@ -15,42 +16,42 @@
         &-page {
             display: flex;
             flex-direction: column;
-            padding: 40px 50px 0 50px;
-            gap: 10px;
+            padding: $spacer-40 $spacer-50 0 $spacer-50;
+            gap: $spacer-10;
         }
 
         &-main-container {
             align-self: center;
             display: flex;
             width: 70%;
-            gap: 15px;
-            padding: 10px;
-            min-height: calc(100vh - 200px);
+            gap: $spacer-15;
+            padding: $spacer-10;
+            min-height: calc(100vh - $spacer-200);
             background-color: white;
-            border-radius: 10px;
+            border-radius: $spacer-10;
         }
 
         &-subheader {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: $spacer-30;
 
             .subheader-icon {
                 color: #FFF;
-                font-size: 30px;
+                font-size: $spacer-30;
             }
         }
 
         .calendar-buttons {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: $spacer-10;
         }
 
         .record {   
             &-options {
                 display: flex;
-                gap: 10px;
+                gap: $spacer-10;
                 align-items: center;
                 height: fit-content;
             }
@@ -59,17 +60,17 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 100px;
-                height: 100px;
+                width: $spacer-100;
+                height: $spacer-100;
                 i {
-                    font-size: 80px;
+                    font-size: $spacer-80;
                 }
             }
     
             &-name {
                 color: #000;
                 font-family: Inter;
-                font-size: 25px;
+                font-size: $spacer-25;
                 font-style: normal;
                 font-weight: 700;
                 line-height: normal;
@@ -78,14 +79,14 @@
             &-main {
                 color: #000;
                 font-family: Inter;
-                font-size: 18px;
+                font-size: $spacer-18;
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
     
                 display: flex;
                 flex-direction: column;
-                gap: 20px;
+                gap: $spacer-20;
                 width: 100%;
             
             }
@@ -93,7 +94,7 @@
             &-value {
                 color: #717171;
                 font-family: Inter;
-                font-size: 18px;
+                font-size: $spacer-18;
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
@@ -102,9 +103,9 @@
             &-content {
                 display: flex;
                 flex-direction: column;
-                gap: 50px;
+                gap: $spacer-50;
                 flex: 1;
-                margin-left: 30px;
+                margin-left: $spacer-30;
                 width: 70%;
                 
             }
@@ -112,11 +113,11 @@
             &-links {
                 display: flex;
                 flex-direction: column;
-                margin: 20px 5px;
-                gap: 10px;
+                margin: $spacer-20 $spacer-5;
+                gap: $spacer-10;
                 color: #FF7E59;
                 font-family: Inter;
-                font-size: 16px;
+                font-size: $spacer-16;
                 font-style: normal;
                 font-weight: 700;
                 line-height: normal;
@@ -130,7 +131,7 @@
             }
             &-calendar {
                 flex: 1;
-                padding: 0 30px;
+                padding: 0 $spacer-30;
             }
         }
         .candidate {
@@ -154,7 +155,7 @@
 .my-subheader {
     color: #FFF;
     font-family: Inter;
-    font-size: 25px;
+    font-size: $spacer-25;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -164,12 +165,22 @@
 .user-details-form-title {
     color: #000;
     font-family: Inter;
-    font-size: 18px;
+    font-size: $spacer-18;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: $spacer-8;
+}
+
+.align-items-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.margin-bottom-20 {
+    margin-bottom: $spacer-20;
 }

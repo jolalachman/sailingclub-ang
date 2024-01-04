@@ -10,6 +10,7 @@ import { UserDetailsService, UserModel } from "../../service/user-details.servic
 import { UserDetailsReservation } from "src/app/modules/users/models/user.model";
 import { DeactivateUsertDialogComponent } from "../../dialogs/deactivate-user-dialog/deactivate-user-dialog.component";
 import { EditUserDialogComponent } from "../../dialogs/edit-user-dialog/edit-user-dialog.component";
+import { LoginService } from "src/app/core/service/login/login.service";
 
 @Component({
   selector: 'app-user-details',
@@ -27,6 +28,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   isCollapsed3 = true;
   isCollapsed4 = true;
   isCollapsed5 = true;
+
+  
+  role = this.loginService.userInformation?.role ?? '';
 
   viewCalendarForm: FormGroup = this.fb.group({
     viewCalendarDate: [null],
@@ -47,7 +51,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private modalService: NgbModal,    
     private fb: NonNullableFormBuilder,
-  ){}
+    private loginService: LoginService,
+  ) {}
+
   ngOnInit(): void {
     this.viewCalendarForm.patchValue({
       viewCalendarDate: this.getCurrentDate(),

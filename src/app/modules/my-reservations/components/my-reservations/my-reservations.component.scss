@@ -1,9 +1,10 @@
+@import '../../../../../styles/abstracts/spacing';
 :host {
     .reservations {
         .calendar-buttons {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: $spacer-10;
         }
         
         &-background-image {
@@ -21,43 +22,43 @@
         &-page {
             display: flex;
             flex-direction: column;
-            padding: 40px 50px;
-            gap: 10px;
+            padding: $spacer-40 $spacer-50;
+            gap: $spacer-10;
         }
 
         &-main-container {
             display: flex;
             width: 100%;
-            gap: 30px;
+            gap: $spacer-30;
             justify-content: space-between;
-            height: calc(100vh - 200px);
+            height: calc(100vh - $spacer-200);
         }
 
         &-container {
             flex: 1;
             background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 10px;
+            border-radius: $spacer-10;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            padding: 10px;
+            gap: $spacer-15;
+            padding: $spacer-10;
         }
 
         &-modify {
             flex: 0;
             background-color: white;
-            border-radius: 10px;
-            padding: 15px;
+            border-radius: $spacer-10;
+            padding: $spacer-15;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: $spacer-10;
             .form-control {
-                width: 200px;
+                width: $spacer-200;
             }
             .item {
                 display: flex;
                 flex-direction: column;
-                gap: 5px;
+                gap: $spacer-5;
             }
 
             .section{
@@ -68,7 +69,7 @@
             .section-row {
                 display: flex;
                 align-items: end;
-                gap: 10px;
+                gap: $spacer-10;
                 .section {
                     flex: 1;
                 }
@@ -78,13 +79,13 @@
             .dropdown-opt {
                 display: flex;
                 justify-content: space-between;
-                gap: 8px;
+                gap: $spacer-8;
             }
 
             .search {
                 display: flex;
                 flex-direction: row;
-                gap: 5px;
+                gap: $spacer-5;
             }
 
             .search-clear {
@@ -93,7 +94,7 @@
                 right: 0;
                 height: 100%;
                 background-color: lightsteelblue;
-                border-radius:  0px 6px 6px 0px;
+                border-radius:  $spacer-0 $spacer-6 $spacer-6 $spacer-0;
             }
 
             .input-container {
@@ -102,7 +103,7 @@
             }
 
             .input-group {
-                width: 250px;
+                width: $spacer-250;
             }
               
         }
@@ -112,53 +113,53 @@
             font-family: Inter;
             font-style: normal;
             font-weight: 500;
-            font-size: 14px;
+            font-size: $spacer-14;
 
             flex: 0;
             align-self: center;
             margin-top: auto;
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: $spacer-32;
         }
 
         &-page-sizes {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: $spacer-16;
         }
 
         &-results {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: $spacer-8;
             overflow-y: auto;
         }
 
         &-subheader {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: $spacer-30;
 
             .subheader-icon {
                 color: #FFF;
-                font-size: 30px;
+                font-size: $spacer-30;
             }
         }
 
         &-form {
             display: flex;
             flex-direction: column;
-            padding: 10px 3px 0px 1px;
+            padding: $spacer-10 $spacer-3 $spacer-0 $spacer-1;
 
-            gap: 10px;
+            gap: $spacer-10;
 
             .form-item {
                 display: flex;
                 flex-direction: column;
-                padding: 0 50px;
-                gap: 10px;
+                padding: 0 $spacer-50;
+                gap: $spacer-10;
             }
 
             input.ng-touched.ng-invalid {
@@ -168,7 +169,7 @@
             .error-message {
                 color: #F00;
                 font-family: Inter;
-                font-size: 16px;
+                font-size: $spacer-16;
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
@@ -186,16 +187,69 @@
 .my-subheader {
     color: #FFF;
     font-family: Inter;
-    font-size: 25px;
+    font-size: $spacer-25;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     margin: 0;
 }
 
+.align-center {
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.justify-content-center {
+    display: flex;
+    justify-content: center;
+}
+
+.justify-space-between {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pagination-height {
+    height: $spacer-38;
+}
+
+.pagination-width {
+    width: $spacer-60;
+}
+
+.search-width {
+    width: $spacer-250 !important;
+}
+
+.sort-section {
+    padding-bottom: $spacer-10;
+    border-bottom: solid $spacer-1 #717171;
+}
+
+.filter-section {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.float-right {
+    float: right;
+}
+
+.margin-left-auto {
+    margin-left: auto;
+}
+
+.manage-list-header {
+    flex-direction: row !important;
+    gap: $spacer-10;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .my-modify {
     font-family: Inter;
-    font-size: 18px;
+    font-size: $spacer-18;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -214,7 +268,7 @@ ngb-pagination ::ng-deep ul > li.active > a {
 .reservations-form-link {
     color: #FF7E59;
     font-family: Inter;
-    font-size: 14px;
+    font-size: $spacer-14;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -224,7 +278,7 @@ ngb-pagination ::ng-deep ul > li.active > a {
 .form-label {
     color: #000;
     font-family: Inter;
-    font-size: 14px;
+    font-size: $spacer-14;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -232,13 +286,13 @@ ngb-pagination ::ng-deep ul > li.active > a {
 
 .form-label, .form-select, .form-control {
     font-family: Inter;
-    font-size: 14px;
+    font-size: $spacer-14;
     font-style: normal;
     line-height: normal;
 }
 
 .section::-webkit-scrollbar {
-    width: 3px;
+    width: $spacer-3;
   }
   
   .section::-webkit-scrollbar-track {
@@ -247,9 +301,15 @@ ngb-pagination ::ng-deep ul > li.active > a {
   
   .section::-webkit-scrollbar-thumb {
     background: #888; /* Thumb color */
-    border-radius: 10px; /* Rounded corners */
+    border-radius: $spacer-10; /* Rounded corners */
   }
   
   .section::-webkit-scrollbar-thumb:hover {
     background: #555; /* Hovered thumb color */
   }
+
+  @media (max-width: 600px) {
+    .reservations-modify {
+      display: none !important;
+    }
+}

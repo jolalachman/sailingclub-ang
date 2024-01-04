@@ -3,8 +3,11 @@
     "PENDING": "pending",
     "DECLINED": "declined",
     "CANCELLED": "cancelled",
-    "COMPLETED": "completed",
+    "RES_COMPLETED": "completed",
     "REJECTED": "rejected",
-    "IN_COMPLETION": "in completion"
+    "IN_COMPLETION": "in completion",
+    "NEW": "new",
+    "OPENED": "opened",
+    "COMPLETED": "completed"
 
 }

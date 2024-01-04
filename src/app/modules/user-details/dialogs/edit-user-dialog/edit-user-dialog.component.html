@@ -6,7 +6,7 @@
     <form class="edit-user-form" [formGroup]="editUserForm">
         <div class="form-row">
             <label for="firstName" class="edit-user-form-label">{{ 'First name' | translate }}</label>
-            <input type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
+            <input maxlength="255" type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
             <div *ngIf="formControls['firstName'].invalid && (formControls['firstName'].dirty || formControls['firstName'].touched)">
                 <div *ngIf="formControls['firstName'].errors?.['required']">
                     <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -15,7 +15,7 @@
         </div>
         <div class="form-row">
             <label for="lastName" class="edit-user-form-label">{{ 'Last name' | translate }}</label>
-            <input type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
+            <input maxlength="255" type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
             <div *ngIf="formControls['lastName'].invalid && (formControls['lastName'].dirty || formControls['lastName'].touched)">
                 <div *ngIf="formControls['lastName'].errors?.['required']">
                     <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -43,7 +43,7 @@
         </div>
         <div class="form-row">
             <label for="clubStatus" class="edit-user-form-label">{{ 'Club status' | translate }}</label>
-            <input type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
+            <input maxlength="255" type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
         </div>
         <div class="form-row" *ngIf="sailingLicence$ | async as sailingLicences">
             <label for="sailingLicense" class="edit-user-form-label">{{ 'Sailing qualifications' | translate }}</label>

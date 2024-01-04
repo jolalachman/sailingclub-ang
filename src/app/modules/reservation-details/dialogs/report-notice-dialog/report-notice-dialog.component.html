@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{"Report notice" | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form class="report-notice-form" [formGroup]="noticeForm">
+        <div class="form-row">
+            <label for="description" class="report-notice-form-label">{{ 'Description' | translate }}</label>
+            <textarea rows="3" maxlength="500" class="form-control" id="description" formControlName="description"></textarea>
+            <div *ngIf="formControls['description'].invalid && (formControls['description'].dirty || formControls['description'].touched)">
+                <div *ngIf="formControls['description'].errors?.['required']">
+                    <label class="error-message"> {{'This field is required' | translate}} </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button (click)="reportNotice()"[disabled]="noticeForm.invalid || loading" class="btn sail-dialog-button btn-lg form-button">{{"Report" | translate}}</button>
+</div>

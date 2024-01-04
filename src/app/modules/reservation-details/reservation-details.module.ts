@@ -2,14 +2,15 @@ import { HttpClient } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { CommonModule, JsonPipe } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TranslateLoader, TranslateModule, TranslateService } from "@ngx-translate/core";
 import { LocalStorageService } from "src/app/core/service/storage/local-storage.service";
 import { LANGUAGE_KEY } from "src/app/core/service/language/constants";
 import { ReservationDetailsComponent } from "./components/reservation-details/reservation-details.component";
 import { ReservationDetailsRoutingModule, routedComponents } from "./reservation-details.routing.module";
 import { SharedModule } from "src/app/shared/shared.module";
-import { ReservationStatusestDialogComponent } from "./dialogs/reservation-statuses-dialog/reservation-statuses-dialog.component";
+import { ReservationStatusesDialogComponent } from "./dialogs/reservation-statuses-dialog/reservation-statuses-dialog.component";
+import { ReportNoticeDialogComponent } from "./dialogs/report-notice-dialog/report-notice-dialog.component";
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(
@@ -23,7 +24,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [
     ReservationDetailsComponent,
     routedComponents,
-    ReservationStatusestDialogComponent,
+    ReservationStatusesDialogComponent,
+    ReportNoticeDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     JsonPipe,
     SharedModule,
+    ReactiveFormsModule,
 
     // translation module
     TranslateModule.forChild({

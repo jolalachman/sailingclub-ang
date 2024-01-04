@@ -25,5 +25,6 @@
     "Reported notice details": "Detale zgłoszonej uwagi",
     "Change status": "Zmień status",
     "Description:": "Opis:",
-    "Show completed": "Pokaż zamknięte"
+    "Show completed": "Pokaż zamknięte",
+    "You are not authorized to view this reported notice.": "Nie jesteś upoważniony do przeglądania tej zgłoszonej uwagi."
 }

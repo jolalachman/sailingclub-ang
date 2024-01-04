@@ -11,7 +11,7 @@
             <form class="login-form" [formGroup]="loginForm" (submit)="login()">
                 <div class="form-row">
                     <label for="email" class="login-form-label">{{ 'Email' | translate }}</label>
-                    <input type="email" class="form-control" id="email" autocomplete="email" required formControlName="email">
+                    <input maxlength="255" type="email" class="form-control" id="email" autocomplete="email" required formControlName="email">
                     <div *ngIf="formControls['email'].invalid && (formControls['email'].dirty || formControls['email'].touched)">
                         <div *ngIf="formControls['email'].errors?.['required']">
                             <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-row">
                     <label for="password" class="login-form-label">{{ 'Password' | translate }}</label>
-                    <input type="password" class="form-control" id="password" autocomplete="current-password" required formControlName="password">
+                    <input maxlength="255" type="password" class="form-control" id="password" autocomplete="current-password" required formControlName="password">
                     <div *ngIf="formControls['password'].invalid && (formControls['password'].dirty || formControls['password'].touched)">
                         <div *ngIf="formControls['password'].errors?.['required']">
                             <label class="error-message"> {{'This field is required' | translate}} </label>

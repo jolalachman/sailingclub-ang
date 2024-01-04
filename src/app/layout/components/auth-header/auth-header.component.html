@@ -1,6 +1,16 @@
 <div class="bg-light app-navbar">
     <div class="left-header">
-      <a class="navbar-brand" href="#">{{ 'Silesian Yacht Club' | translate }}</a>
+      <div ngbDropdown placement="bottom-start" data-toggle="dropdown">
+        <button type="button" class="btn sail-secondary-button btn-sm transparent" ngbDropdownToggle>
+          <span class="navbar-brand">{{ 'Silesian Yacht Club' | translate }}</span>
+        </button>
+        <div ngbDropdownMenu>
+          <a ngbDropdownItem class="align-center option-list" *ngFor="let option of arrayOptions" [routerLink]="[option.path]">
+            <i class="bi" [className]="option.icon" ></i>
+            {{ option.text | translate }}
+          </a>
+        </div>
+      </div>
     </div>
     <div class="app-navbar-options">  
       <div ngbDropdown placement="bottom-end" data-toggle="dropdown">

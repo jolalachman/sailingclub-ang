@@ -94,7 +94,13 @@
             </div>
             <div class="form-row">
                 <label for="maxPeople" class="add-yacht-form-label">{{ 'Max. people' | translate }}</label>
-                <input min="0" max="50" type="number" class="form-control" id="maxPeople" formControlName="maxPeople">
+                <select
+                    class="form-select"
+                    id="maxPeople"
+                    formControlName="maxPeople"
+                >
+                    <option *ngFor="let number of numOfPeople" [value]="number">{{ number ?? '-' }}</option>
+                </select>
                 <div *ngIf="formControls['maxPeople'].invalid && (formControls['maxPeople'].dirty || formControls['maxPeople'].touched)">
                     <div *ngIf="(formControls['maxPeople'].errors?.['min'] || formControls['maxPeople'].errors?.['pattern'])">
                         <label class="error-message"> {{'Invalid number' | translate}} </label>
@@ -103,7 +109,13 @@
             </div>
             <div class="form-row">
                 <label for="cabinNumber" class="add-yacht-form-label">{{ 'Cabin number' | translate }}</label>
-                <input min="0" max="30" type="number" class="form-control" id="cabinNumber" formControlName="cabinNumber">
+                <select
+                    class="form-select"
+                    id="cabinNumber"
+                    formControlName="cabinNumber"
+                >
+                    <option *ngFor="let number of numOfCabins" [value]="number">{{ number ?? '-' }}</option>
+                </select>
                 <div *ngIf="formControls['cabinNumber'].invalid && (formControls['cabinNumber'].dirty || formControls['cabinNumber'].touched)">
                     <div *ngIf="formControls['cabinNumber'].errors?.['min'] || formControls['cabinNumber'].errors?.['max'] || formControls['cabinNumber'].errors?.['pattern']">
                         <label class="error-message"> {{'Invalid number' | translate}} </label>
@@ -113,19 +125,19 @@
         </div>
         <div class="form-section">
             <div class="add-yacht-form-title">{{"Equipment" | translate}}</div>
-            <div class="form-row" style="flex-direction: row;">
+            <div class="form-row row-direction">
                 <label for="shower" class="add-yacht-form-label">{{ 'Shower' | translate }}</label>
                 <input type="checkbox" class="form-check-input" id="shower" formControlName="shower">
             </div>
-            <div class="form-row" style="flex-direction: row;">
+            <div class="form-row row-direction">
                 <label for="wc" class="add-yacht-form-label">{{ 'WC' | translate }}</label>
                 <input type="checkbox" class="form-check-input" id="wc" formControlName="wc">
             </div>
-            <div class="form-row" style="flex-direction: row;">
+            <div class="form-row row-direction">
                 <label for="microwave" class="add-yacht-form-label">{{ 'Microwave' | translate }}</label>
                 <input type="checkbox" class="form-check-input" id="microwave" formControlName="microwave">
             </div>
-            <div class="form-row" style="flex-direction: row;">
+            <div class="form-row row-direction">
                 <label for="radio" class="add-yacht-form-label">{{ 'Radio' | translate }}</label>
                 <input type="checkbox" class="form-check-input" id="radio" formControlName="radio">
             </div>

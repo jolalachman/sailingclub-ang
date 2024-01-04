@@ -13,7 +13,7 @@ export class LoginService {
         firstName: string;
         lastName: string;
         id: string;
-        permission: string;
+        role: string;
     } | null>(null);
 
     get jwtToken(): string | null {
@@ -24,8 +24,8 @@ export class LoginService {
         return this.storage.get(USER_INFO);
     }
 
-    getUserInfo() {
-        return this.userInfo;
+    get userInformation() {
+        return this.userInfo.value;
     }
 
     constructor(
@@ -45,7 +45,7 @@ export class LoginService {
             tap((token) => {
                 this.storage.set([
                     {key: JWT_TOKEN, value: token.auth_token},
-                    {key: USER_INFO, value: token.firstName + ' ' + token.lastName + ' ' + token.id + ' ' + token.permission}]);
+                    {key: USER_INFO, value: token.firstName + ' ' + token.lastName + ' ' + token.id + ' ' + token.role}]);
                 this.updateUserInfo();
             })
         );
@@ -73,6 +73,7 @@ export class LoginService {
 
     signOut() {
         this.storage.remove([JWT_TOKEN]);
+        this.storage.remove([USER_INFO]);
         this.userInfo.next(null);
         this.store.dispatch(UserActions.logoutAction());
     }
@@ -83,13 +84,13 @@ export class LoginService {
         const firstName = userInfo[0];
         const lastName = userInfo[1];
         const id = userInfo[2];
-        const permission = userInfo[3];
-        this.userInfo.next({firstName, lastName, id, permission});
+        const role = userInfo[3];
+        this.userInfo.next({firstName, lastName, id, role});
     }
 
-    setUserInfo(firstName: string, lastName: string, id: string, permission: string) {
+    setUserInfo(firstName: string, lastName: string, id: string, role: string) {
         this.storage.set([
-            {key: USER_INFO, value: firstName + ' ' + lastName + ' ' + id + ' ' + permission }]);
+            {key: USER_INFO, value: firstName + ' ' + lastName + ' ' + id + ' ' + role }]);
         this.updateUserInfo();
     }
 }

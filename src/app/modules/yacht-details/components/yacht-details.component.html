@@ -8,13 +8,13 @@
             </p>
         </div>
         <div class="yacht-details-main-container" *ngIf="yacht$ | async as yacht">
-            <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="align-items-center">
                 <div class="record-pic">
                     <img [src]="yacht?.photo">
                 </div>
                 <div class="record-links">
-                    <a (click)="goToYachtNotices(yacht.id)">{{"Reported notices" | translate}}</a>
-                    <a *ngIf="yacht.currentStatus.name !== 'DEACTIVATED'" (click)="changeYachtStatus(yacht)">{{"Change status" | translate}}</a>
+                    <a *ngIf="role === 'BOSMAN'" (click)="goToYachtNotices(yacht.id)">{{"Reported notices" | translate}}</a>
+                    <a *ngIf="yacht.currentStatus.name !== 'DEACTIVATED' && role === 'BOSMAN'" (click)="changeYachtStatus(yacht)">{{"Change status" | translate}}</a>
                     <a (click)="showHistoryStatuses(yacht.id)">{{"History of statuses" | translate}}</a>
                 </div>
             </div>
@@ -24,25 +24,25 @@
                         {{yacht?.name ?? 'none' | translate}}
                     </div>
                     <div class="record-options" *ngIf="yacht.currentStatus.name !== 'DEACTIVATED'">
-                        <button class="btn sail-icon-button" (click)="editYacht(yacht)">
+                        <button *ngIf="role === 'BOSMAN'" class="btn sail-icon-button" (click)="editYacht(yacht)">
                             <i class="bi bi-pencil"></i>
                         </button>
-                        <button class="btn sail-icon-button" (click)="deactivateYacht(yacht.id)">
+                        <button *ngIf="role === 'BOSMAN'" class="btn sail-icon-button" (click)="deactivateYacht(yacht.id)">
                             <i class="bi bi-trash"></i>
                         </button>
-                        <div>
-                            <button class="btn sail-primary-button btn-lg" style="border-radius: 6px;" (click)="reserveYacht(yacht.id)">
+                        <div *ngIf="role === 'SAILOR' || role === 'MAT' || role === 'BOSMAN'">
+                            <button class="btn sail-primary-button btn-lg border-radius-6" (click)="reserveYacht(yacht.id)">
                                 {{'Reserve yacht' | translate}}
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="record-main">
-                    <div class="yacht-details-form-title" (click)="isCollapsed=!isCollapsed">
+                    <div class="yacht-details-form-title margin-bottom-20" (click)="isCollapsed=!isCollapsed">
                         {{"General information" | translate}}
                         <i class="bi" [class.bi-chevron-up]="!isCollapsed" [class.bi-chevron-down]="isCollapsed"></i>
                     </div>
-                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" style="width: 100%">
+                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="width-100">
                         <div class="record-type">{{"Type:" | translate }}
                             <span class="record-value">
                                 {{yacht?.type?.name ?? 'none' | translate}}
@@ -64,7 +64,7 @@
                                 {{yacht?.currentStatus?.name ?? 'none' | translate}}
                             </span>
                         </div>
-                        <div class="record-description" style="width: 100%">{{"Description:" | translate }}
+                        <div class="record-description width-100">{{"Description:" | translate }}
                             <div class="record-description-value">
                                 {{yacht?.description ?? 'none' | translate}}
                             </div>
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     <div *ngIf="reservationCalendar$ | async as reservationCalendar">
-                        <div class="yacht-details-form-title" style="margin-bottom: 20px;" (click)="isCollapsed5=!isCollapsed5">
+                        <div class="yacht-details-form-title" (click)="isCollapsed5=!isCollapsed5">
                             {{"Reservations" | translate}}
                             <i class="bi" [class.bi-chevron-up]="!isCollapsed5" [class.bi-chevron-down]="isCollapsed5"></i>
                         </div>

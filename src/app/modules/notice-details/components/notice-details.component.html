@@ -7,62 +7,72 @@
                 {{ 'Reported notice details' | translate }}
             </p>
         </div>
-        <div class="notice-details-main-container" *ngIf="notice$ | async as notice"> 
-            <div style="display: flex; flex-direction: column; align-items: center;">
-                <div class="record-pic">
-                    <i class="bi bi-exclamation-circle"></i>
-                </div>
-                <div class="record-links">
-                    <a (click)="changeNoticeStatus(notice)">{{"Change status" | translate}}</a>
-                </div>
-            </div>
-            <div class="record-content">
-                <div class="record-header">
-                    <div class="record-name">
-                        #{{notice?.id}}
+        <div class="notice-details-main-container" *ngIf="notice$ | async as notice">
+            <ng-container *ngIf="id === notice.clubMember.id.toString() || role === 'ADMIN' || role === 'BOSMAN'; else notAuthMessage">
+                <div class="align-items-center">
+                    <div class="record-pic">
+                        <i class="bi bi-exclamation-circle"></i>
                     </div>
-                    <div class="record-options" *ngIf="notice.currentStatus.name !== 'COMPLETED'">
-                        <button class="btn sail-icon-button" (click)="editNotice(notice)">
-                            <i class="bi bi-pencil"></i>
-                        </button>
+                    <div class="record-links">
+                        <a *ngIf="role === 'BOSMAN'" (click)="changeNoticeStatus(notice)">{{"Change status" | translate}}</a>
                     </div>
                 </div>
-                <div class="record-main">
-                    <div class="record-yacht">{{"Yacht:" | translate }}
-                        <a class="record-value" (click)="router.navigate(['yacht-details/'+notice.yacht.id])">
-                            {{notice?.yacht?.name ?? '-'}}
-                        </a>
+                <div class="record-content">
+                    <div class="record-header">
+                        <div class="record-name">
+                            #{{notice?.id}}
+                        </div>
+                        <div class="record-options" *ngIf="notice.currentStatus.name !== 'COMPLETED'">
+                            <button *ngIf="id === notice.clubMember.id.toString()" class="btn sail-icon-button" (click)="editNotice(notice)">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="record-reservation">{{"Reservation:" | translate }}
-                        <a class="record-value" (click)="router.navigate(['reservation-details/'+notice.reservationId])">
-                            {{notice?.reservationId ? ('#'+notice?.reservationId) : '-'}}
-                        </a>
-                    </div>
-                    <div class="record-status">{{"Current status:" | translate }}
-                        <span class="record-value"
-                        [class.new]="notice?.currentStatus?.name === 'NEW'"
-                        [class.opened]="notice?.currentStatus?.name === 'OPENED'"
-                        >
-                            {{notice?.currentStatus?.name ?? '-' | translate}}
-                        </span>
-                    </div>
-                    <div class="record-date">{{"Reported date:" | translate }}
-                        <span class="record-value">
-                            {{notice?.reportedAt | customDateFormat }}
-                        </span>
-                    </div>
-                    <div class="record-club-member">{{"Reported by:" | translate }}
-                        <a class="record-value" (click)="router.navigate(['user-details/'+notice.clubMember.id])">
-                            {{notice?.clubMember?.name ?? '-'}}
-                        </a>
-                    </div>
-                    <div class="record-description">{{"Description:" | translate }}
-                        <div class="record-description-value">
-                            {{notice.description}}
+                    <div class="record-main">
+                        <div class="record-yacht">{{"Yacht:" | translate }}
+                            <a class="record-value" (click)="router.navigate(['yacht-details/'+notice.yacht.id])">
+                                {{notice?.yacht?.name ?? '-'}}
+                            </a>
+                        </div>
+                        <div class="record-reservation">{{"Reservation:" | translate }}
+                            <a class="record-value" (click)="router.navigate(['reservation-details/'+notice.reservationId])">
+                                {{notice?.reservationId ? ('#'+notice?.reservationId) : '-'}}
+                            </a>
+                        </div>
+                        <div class="record-status">{{"Current status:" | translate }}
+                            <span class="record-value"
+                            [class.new]="notice?.currentStatus?.name === 'NEW'"
+                            [class.opened]="notice?.currentStatus?.name === 'OPENED'"
+                            >
+                                {{notice?.currentStatus?.name ?? '-' | translate}}
+                            </span>
+                        </div>
+                        <div class="record-date">{{"Reported date:" | translate }}
+                            <span class="record-value">
+                                {{notice?.reportedAt | customDateFormat }}
+                            </span>
+                        </div>
+                        <div class="record-club-member">{{"Reported by:" | translate }}
+                            <a *ngIf="role === 'BOSMAN' || role === 'ADMIN'; else notAuth" class="record-value" (click)="router.navigate(['user-details/'+notice.clubMember.id])">
+                                {{notice?.clubMember?.name ?? '-'}}
+                            </a>
+                            <ng-template #notAuth>
+                                <span class="record-value">
+                                    {{notice?.clubMember?.name ?? '-'}}
+                                </span>
+                            </ng-template>
+                        </div>
+                        <div class="record-description">{{"Description:" | translate }}
+                            <div class="record-description-value">
+                                {{notice.description}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </ng-container>
+            <ng-template #notAuthMessage>
+                {{'You are not authorized to view this reported notice.' | translate}}
+            </ng-template>
         </div>
     </div>
 </div>

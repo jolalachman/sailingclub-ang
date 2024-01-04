@@ -1,5 +1,6 @@
+@import '../../../../../styles/abstracts/spacing';
 .add-yacht {
-    margin-top: - 30px;
+    margin-top: - $spacer-30;
     &-background-image {
         position: absolute;
         top: 0;
@@ -13,32 +14,32 @@
     }
 
     &-page {
-        margin-top: 50px;
+        margin-top: $spacer-50;
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        padding: 20px 50px;
+        gap: $spacer-10;
+        padding: $spacer-20 $spacer-50;
     }
 
     &-subheader {
         display: flex;
         align-items: center;
-        gap: 30px;
+        gap: $spacer-30;
 
         .subheader-icon {
             color: #FFF;
-            font-size: 30px;
+            font-size: $spacer-30;
         }
     }
 
     &-container {
         background-color: #FFF;
-        border-radius: 10px;
+        border-radius: $spacer-10;
         width: fit-content;
         display: flex;
         flex-direction: column;
-        gap: 32px;
-        padding: 20px;
+        gap: $spacer-32;
+        padding: $spacer-20;
         align-self: center;
     }
 
@@ -46,41 +47,41 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 40px;
+        gap: $spacer-40;
 
         .form-section {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            width: 500px;
+            gap: $spacer-10;
+            width: $spacer-500;
         }
 
         .form-row {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            width: 500px;
+            gap: $spacer-10;
+            width: $spacer-500;
         }
 
         .form-buttons {
             display: flex;
             width: fit-content;
             align-self: center;
-            gap: 25px;
+            gap: $spacer-25;
         }
 
         .form-links {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: $spacer-15;
         }
 
         .form-button {
             width: fit-content;
-            padding-right: 30px;
-            padding-left: 30px;
-            font-size: 16px;
+            padding-right: $spacer-30;
+            padding-left: $spacer-30;
+            font-size: $spacer-16;
         }    
         
         input.ng-touched.ng-invalid {
@@ -95,7 +96,7 @@
         .error-message {
             color: #F00;
             font-family: Inter;
-            font-size: 16px;
+            font-size: $spacer-16;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
@@ -106,7 +107,7 @@
 .my-subheader {
     color: #FFF;
     font-family: Inter;
-    font-size: 25px;
+    font-size: $spacer-25;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -116,7 +117,7 @@
 .add-yacht-form-label {
     color: #000;
     font-family: Inter;
-    font-size: 16px;
+    font-size: $spacer-16;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -125,18 +126,22 @@
 .add-yacht-form-title {
     color: #000;
     font-family: Inter;
-    font-size: 18px;
+    font-size: $spacer-18;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    margin-bottom: 10px;
+    margin-bottom: $spacer-10;
 }
 
 .add-yacht-form-link {
     color: #FF7E59;
     font-family: Inter;
-    font-size: 14px;
+    font-size: $spacer-14;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
+
+.row-direction {
+    flex-direction: row;
 }

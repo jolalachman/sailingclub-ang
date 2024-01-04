@@ -15,16 +15,16 @@
                             [record]="record">
                         </app-reservation-record>
                     </div>
-                    <span class="my-modify" *ngIf="reservationList.totalCount===0" style="align-self: center; margin-top: auto; margin-bottom: auto;">
+                    <span class="my-modify align-center" *ngIf="reservationList.totalCount===0">
                         {{ 'There are no reservations' | translate}}
                     </span>
                 </div>
                 <div class="reservations-pagination" *ngIf="paging$ | async as paging">
-                    <ngb-pagination class="ngb-pagination" style="height: 38px" [collectionSize]="reservationList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
+                    <ngb-pagination class="ngb-pagination pagination-height" [collectionSize]="reservationList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
                     <div class="reservations-page-sizes">
                         <span> {{ "Page size:" | translate }}</span>
                         <div ngbDropdown data-toggle="dropdown">
-                            <button style="width: 60px;" type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+                            <button type="button" class="btn btn-primary pagination-width" id="dropdownBasic1" ngbDropdownToggle>
                                 {{paging.pageSize}}
                             </button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="reservations-container" *ngIf="viewCalendar">
-                <div *ngIf="reservationCalendar$ | async as reservationCalendar">
+                <div *ngIf="reservationCalendar$ | async as reservationCalendar" class="calendar-view">
                     <div class="calendar-buttons">
                         <button
                         class="btn sail-secondary-button btn-md"
@@ -79,28 +79,28 @@
                 </div>
             </div>
             <div class="reservations-modify">
-                <div class="section" style="flex-direction: row; gap: 10px; justify-content: space-between; align-items: center;">
+                <div class="section manage-list-header">
                     <span class="my-modify" *ngIf="!viewCalendar; else calendar"> {{"Manage list" | translate }}</span>
                     <ng-template #calendar>
                         <span class="my-modify"> {{"Manage calendar" | translate }}</span>
                     </ng-template>
-                    <button class="btn sail-icon-button" (click)="openAddReservationDialog()">
+                    <button *ngIf="role === 'BOSMAN'" class="btn sail-icon-button" (click)="openAddReservationDialog()">
                         <i class="bi bi-plus"></i>
                     </button>
                 </div>
                 <div class="section">
                     <form [formGroup]="searchForm" class="search">
                         <div class="input-container">
-                            <input formControlName="value" type="text" class="form-control" style="width: 250px" placeholder="{{'Search' | translate}}" (input)="filter()">
+                            <input maxlength="255" formControlName="value" type="text" class="form-control search-width" placeholder="{{'Search' | translate}}" (input)="filter()">
                             <button [hidden]="searchForm.invalid" class="btn sail-icon-button search-clear" (click)="clearSearch()">
                                 <i class="bi bi-x"></i>
                             </button>
                         </div>
                     </form>
                 </div>
-                <div class="section-row" style="padding-bottom: 10px; border-bottom: solid 1px #717171;">
+                <div class="section-row sort-section">
                     <div class="section" *ngIf="!viewCalendar">
-                        <div ngbDropdown data-toggle="dropdown" *ngIf="sort$ | async as sort"  style="display: flex; justify-content: center;">
+                        <div ngbDropdown data-toggle="dropdown" *ngIf="sort$ | async as sort" class="justify-center">
                             <button type="button" class="btn sail-primary-button btn-md" id="dropdownBasic1" ngbDropdownToggle>
                                 {{"Sort" | translate}}
                             </button>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <div class="section">
-                        <div ngbDropdown data-toggle="dropdown" style="display: flex; justify-content: center;">
+                        <div ngbDropdown data-toggle="dropdown" class="justify-center">
                             <button type="button" class="btn sail-primary-button btn-md" id="dropdownBasic1" ngbDropdownToggle>
                                 {{"View" | translate}}
                             </button>
@@ -144,16 +144,16 @@
                         </div>
                     </div>
                 </div>
-                <span class="reservations-form-link" style="margin-left: auto;" (click)="clearFilters()">
+                <span class="reservations-form-link margin-left-auto" (click)="clearFilters()">
                     {{ "Clear filters" | translate }}
                 </span>
-                <div class="section" *ngIf="filters$ | async as filters" style="flex: 1; overflow-y: auto;">
+                <div class="section filter-section" *ngIf="filters$ | async as filters">
                     <form class="reservations-form" [formGroup]="filtersForm">
-                        <div class="section" style="flex-direction: row; justify-content: space-between;">
+                        <div class="section justify-space-between">
                             <label for="cancelled" class="form-label">{{ 'Show cancelled' | translate }}</label>
                             <input type="checkbox" class="form-check-input" id="cancelled" formControlName="showCancelled">
                         </div>
-                        <div class="section" style="flex-direction: row; justify-content: space-between;">
+                        <div class="section justify-space-between">
                             <label for="rejected" class="form-label">{{ 'Show rejected' | translate }}</label>
                             <input type="checkbox" class="form-check-input" id="rejected" formControlName="showRejected">
                         </div>

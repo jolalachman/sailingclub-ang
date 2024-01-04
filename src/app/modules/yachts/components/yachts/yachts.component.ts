@@ -8,6 +8,7 @@ import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CABINS, PEOPLE, TIMES } from 'src/app/modules/home/constants/searchForm.constant';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { DictionaryService } from 'src/app/shared/service/dictionary.service';
+import { LoginService } from 'src/app/core/service/login/login.service';
 
 @Component({
   selector: 'app-yachts',
@@ -25,7 +26,9 @@ export class YachtsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private dictionaryService: DictionaryService,
+    private loginService: LoginService,
     ) {}
+  role = this.loginService.userInformation?.role ?? '';
   pageSizes = [5, 10, 20];
   yachtTypes$ = this.dictionaryService.getYachtTypesDictionary().pipe(
     map(x => [null, ...x])

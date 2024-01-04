@@ -15,8 +15,8 @@ import { DictionaryService } from "src/app/shared/service/dictionary.service";
     userInfo$ = this.loginService.userInfo.asObservable();
     loading = false;
     editMode = false;
-    id = this.loginService.getUserInfo().value?.id ?? '';
-    permission = this.loginService.getUserInfo().value?.permission ?? '';
+    id = this.loginService.userInformation?.id ?? '';
+    role = this.loginService.userInformation?.role ?? '';
     sailingLicenses$ = this.dictionaryService.getSailingLicensesDictionary();
 
     myAccountForm: FormGroup = this.fb.group({
@@ -70,10 +70,10 @@ import { DictionaryService } from "src/app/shared/service/dictionary.service";
       
       const {firstName, lastName, phone, clubStatus, sailingLicenseId} = this.myAccountForm.value;
       const id = this.id;
-      const permission = this.permission;
+      const role = this.role;
       this.service.editAccount({id, firstName, lastName, phone, clubStatus, sailingLicenseId}).subscribe({
         next: (result) => {
-          this.loginService.setUserInfo(firstName, lastName, id, permission);
+          this.loginService.setUserInfo(firstName, lastName, id, role);
           this.myAccountForm.patchValue({
             firstName: result.firstName,
             lastName: result.lastName,

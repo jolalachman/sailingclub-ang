@@ -4,6 +4,7 @@ import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { YachtsService } from "../../service/yachts.service";
 import { DictionaryService } from "src/app/shared/service/dictionary.service";
 import { map } from "rxjs";
+import { CABINS, PEOPLE } from "src/app/modules/home/constants/searchForm.constant";
 
 @Component({
     selector: 'app-add-yacht',
@@ -15,6 +16,8 @@ import { map } from "rxjs";
     yachtTypes$ = this.dictionaryService.getYachtTypesDictionary();
     activeModal = inject(NgbActiveModal);
     loading = false;
+    numOfCabins = CABINS;
+    numOfPeople = PEOPLE;
 
     addYachtForm: FormGroup = this.fb.group({
       name: ['', Validators.required],
@@ -26,8 +29,8 @@ import { map } from "rxjs";
       width: [null],
       immersion: [null],
       sailArea: [null],
-      maxPeople: [null, Validators.pattern("^[0-9]*$")],
-      cabinNumber: [null, Validators.pattern("^[0-9]*$")],
+      maxPeople: [null],
+      cabinNumber: [null],
       shower: [false],
       wc: [false],
       microwave: [false],

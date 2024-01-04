@@ -15,16 +15,16 @@
                             [record]="record">
                         </app-user-record>
                     </div>
-                    <span class="my-modify" *ngIf="userList.totalCount===0" style="align-self: center; margin-top: auto; margin-bottom: auto;">
+                    <span class="my-modify align-center" *ngIf="userList.totalCount===0">
                         {{ 'There are no users' | translate}}
                     </span>
                 </div>
                 <div class="users-pagination" *ngIf="paging$ | async as paging">
-                    <ngb-pagination class="ngb-pagination" style="height: 38px" [collectionSize]="userList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
+                    <ngb-pagination class="ngb-pagination pagination-height" [collectionSize]="userList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
                     <div class="users-page-sizes">
                         <span> {{ "Page size:" | translate }}</span>
                         <div ngbDropdown data-toggle="dropdown">
-                            <button style="width: 60px;" type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+                            <button type="button" class="btn btn-primary pagination-width" id="dropdownBasic1" ngbDropdownToggle>
                                 {{paging.pageSize}}
                             </button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="users-modify">
-                <div class="section" style="flex-direction: row; gap: 10px; justify-content: space-between; align-items: center;">
+                <div class="section manage-list-header">
                     <span class="my-modify"> {{"Manage list" | translate }}</span>
                     <button class="btn sail-icon-button" (click)="openAddUserDialog()">
                         <i class="bi bi-plus"></i>
@@ -47,16 +47,16 @@
                 <div class="section">
                     <form [formGroup]="searchForm" class="search">
                         <div class="input-container">
-                            <input formControlName="value" type="text" class="form-control" style="width: 250px" placeholder="{{'Search' | translate}}" (input)="filter()">
+                            <input maxlength="255" formControlName="value" type="text" class="form-control search-width" placeholder="{{'Search' | translate}}" (input)="filter()">
                             <button [hidden]="searchForm.invalid" class="btn sail-icon-button search-clear" (click)="clearSearch()">
                                 <i class="bi bi-x"></i>
                             </button>
                         </div>
                     </form>
                 </div>
-                <div class="section" *ngIf="sort$ | async as sort" style="padding-bottom: 10px; border-bottom: solid 1px #717171;">
+                <div class="section sort-section" *ngIf="sort$ | async as sort">
                     <div ngbDropdown data-toggle="dropdown">
-                        <button type="button" style="float: right;" class="btn sail-primary-button btn-md" id="dropdownBasic1" ngbDropdownToggle>
+                        <button type="button" class="btn sail-primary-button btn-md float-right" id="dropdownBasic1" ngbDropdownToggle>
                             {{"Sort" | translate}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -75,10 +75,10 @@
                         </div>
                     </div>
                 </div>
-                <span class="users-form-link" style="margin-left: auto;" (click)="clearFilters()">
+                <span class="users-form-link margin-left-auto" (click)="clearFilters()">
                     {{ "Clear filters" | translate }}
                 </span>
-                <div class="section" *ngIf="filters$ | async as filters" style="flex: 1; overflow-y: auto;">
+                <div class="section filter-section" *ngIf="filters$ | async as filters">
                     <form class="users-form" [formGroup]="filtersForm">
                         <div class="section" *ngIf="userRoles$ | async as userRoles">
                             <label for="role" class="form-label">{{ 'Role' | translate }}</label>

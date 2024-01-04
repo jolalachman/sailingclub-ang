@@ -9,5 +9,10 @@
 </div>
 <div class="modal-footer">
     <button class="btn sail-secondary-dialog-button btn-lg form-button" (click)="activeModal.dismiss('Cancel')">{{"Cancel" | translate}}</button>
-    <button class="btn sail-dialog-button btn-lg form-button" (click)="deactivateUser()">{{"Yes" | translate}}</button>
+    <button class="btn sail-dialog-button btn-lg form-button" (click)="deactivateUser()">
+        {{"Yes" | translate}}
+        <div class="spinner-border spinner-border-sm" role="status" *ngIf="loading">
+            <span class="sr-only"></span>
+        </div>
+    </button>
 </div>

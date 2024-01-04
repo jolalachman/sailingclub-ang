@@ -61,7 +61,7 @@
                 <form class="my-account-form" [formGroup]="myAccountForm" (submit)="editMyAccount()">
                     <div class="form-row">
                         <label for="firstName" class="my-account-form-label">{{ 'First name' | translate }}</label>
-                        <input type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
+                        <input maxlength="255" type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
                         <div *ngIf="formControls['firstName'].invalid && (formControls['firstName'].dirty || formControls['firstName'].touched)">
                             <div *ngIf="formControls['firstName'].errors?.['required']">
                                 <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="form-row">
                         <label for="lastName" class="my-account-form-label">{{ 'Last name' | translate }}</label>
-                        <input type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
+                        <input maxlength="255" type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
                         <div *ngIf="formControls['lastName'].invalid && (formControls['lastName'].dirty || formControls['lastName'].touched)">
                             <div *ngIf="formControls['lastName'].errors?.['required']">
                                 <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="form-row">
                         <label for="phone" class="my-account-form-label">{{ 'Phone number' | translate }}</label>
-                        <input type="tel" class="form-control" id="phone" formControlName="phone">
+                        <input maxlength="20" type="tel" class="form-control" id="phone" formControlName="phone">
                         <div *ngIf="formControls['phone'].invalid && (formControls['phone'].dirty || formControls['phone'].touched)">
                             <div *ngIf="formControls['phone'].errors?.['pattern']">
                                 <label class="error-message"> {{'Wrong phone number format' | translate}} </label>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="form-row">
                         <label for="clubStatus" class="my-account-form-label">{{ 'Club status' | translate }}</label>
-                        <input type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
+                        <input maxlength="255" type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
                     </div>
                     <div class="form-row" *ngIf="sailingLicenses$ | async as sailingLicenses">
                         <label for="sailingLicense" class="my-account-form-label">{{ 'Sailing qualifications' | translate }}</label>

@@ -6,7 +6,7 @@
     <form class="add-user-form" [formGroup]="addUserForm">
         <div class="form-row">
             <label for="firstName" class="add-user-form-label">{{ 'First name' | translate }}</label>
-            <input type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
+            <input maxlength="255" type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
             <div *ngIf="formControls['firstName'].invalid && (formControls['firstName'].dirty || formControls['firstName'].touched)">
                 <div *ngIf="formControls['firstName'].errors?.['required']">
                     <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -15,7 +15,7 @@
         </div>
         <div class="form-row">
             <label for="lastName" class="add-user-form-label">{{ 'Last name' | translate }}</label>
-            <input type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
+            <input maxlength="255" type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
             <div *ngIf="formControls['lastName'].invalid && (formControls['lastName'].dirty || formControls['lastName'].touched)">
                 <div *ngIf="formControls['lastName'].errors?.['required']">
                     <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -42,7 +42,7 @@
         </div>
         <div class="form-row">
             <label for="clubStatus" class="add-user-form-label">{{ 'Club status' | translate }}</label>
-            <input type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
+            <input maxlength="255" type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
         </div>
         <div class="form-row" *ngIf="sailingLicenses$ | async as sailingLicenses">
             <label for="sailingLicense" class="add-user-form-label">{{ 'Sailing qualifications' | translate }}</label>
@@ -67,7 +67,7 @@
         </div>
         <div class="form-row">
             <label for="email" class="add-user-form-label">{{ 'Email' | translate }}</label>
-            <input type="email" class="form-control" id="email" autocomplete="email" required formControlName="email">
+            <input maxlength="255" type="email" class="form-control" id="email" autocomplete="email" required formControlName="email">
             <div *ngIf="formControls['email'].invalid && (formControls['email'].dirty || formControls['email'].touched)">
                 <div *ngIf="formControls['email'].errors?.['required']">
                     <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -82,7 +82,7 @@
         </div>
         <div class="form-row">
             <label for="password" class="add-user-form-label">{{ 'Password' | translate }}</label>
-            <input type="password" class="form-control" id="password" autocomplete="new-password" required formControlName="password">
+            <input maxlength="255" type="password" class="form-control" id="password" autocomplete="new-password" required formControlName="password">
             <div *ngIf="formControls['password'].invalid && (formControls['password'].dirty || formControls['password'].touched)">
                 <div *ngIf="formControls['password'].errors?.['required']">
                     <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -94,7 +94,7 @@
         </div>
         <div class="form-row">
             <label for="repeatPassword" class="add-user-form-label">{{ 'Repeat password' | translate }}</label>
-            <input type="password" class="form-control" id="repeatPassword" autocomplete="new-password" required formControlName="repeatPassword">
+            <input maxlength="255" type="password" class="form-control" id="repeatPassword" autocomplete="new-password" required formControlName="repeatPassword">
             <div *ngIf="formControls['repeatPassword'].invalid && (formControls['repeatPassword'].dirty || formControls['repeatPassword'].touched)">
                 <div *ngIf="formControls['repeatPassword'].errors?.['required']">
                     <label class="error-message"> {{'This field is required' | translate}} </label>
@@ -107,5 +107,10 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button [disabled]="addUserForm.invalid || loading" type="submit" class="btn sail-dialog-button btn-lg form-button" (click)="addUser()">{{"Add" | translate}}</button>
+    <button [disabled]="addUserForm.invalid || loading" type="submit" class="btn sail-dialog-button btn-lg form-button" (click)="addUser()">
+        {{"Add" | translate}}
+        <div class="spinner-border spinner-border-sm" role="status" *ngIf="loading">
+            <span class="sr-only"></span>
+        </div>
+    </button>
 </div>

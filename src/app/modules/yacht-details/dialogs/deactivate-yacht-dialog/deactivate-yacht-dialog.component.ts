@@ -11,17 +11,21 @@ import { YachtsService } from "src/app/modules/yachts/service/yachts.service";
     @Output() yachtDeactivated: EventEmitter<boolean> = new EventEmitter<boolean>;
     yachtId?: number;
     activeModal = inject(NgbActiveModal);
+    loading = false;
   
     constructor(private yachtService: YachtsService) {}
 
     deactivateYacht() {
       if (this.yachtId) {
+        this.loading = true;
         this.yachtService.deactivateYacht(this.yachtId).subscribe({
           next: () => {
             this.yachtDeactivated.emit(true);
+            this.loading = false;
             void this.activeModal.close();
           },
           error: () => {
+            this.loading = false;
             void this.activeModal.close();
           }
         })

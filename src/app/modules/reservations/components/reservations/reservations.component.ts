@@ -9,6 +9,7 @@ import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { TIMES } from 'src/app/modules/home/constants/searchForm.constant';
 import { ReservationsService } from '../../service/reservations.service';
 import { DictionaryService } from 'src/app/shared/service/dictionary.service';
+import { LoginService } from 'src/app/core/service/login/login.service';
 
 @Component({
   selector: 'app-reservations',
@@ -70,15 +71,16 @@ export class ReservationsComponent implements OnInit, OnDestroy {
     return this.filtersForm.controls;
   }
 
+  role = this.loginService.userInformation?.role ?? '';
+
   constructor(
     public location: Location,
     private facade: ReservationsFacade,
     private modalService: NgbModal,
     private router: Router,
     private fb: NonNullableFormBuilder,
-    private route: ActivatedRoute,
-    private reservationService: ReservationsService,
     private dictionaryService: DictionaryService,
+    private loginService: LoginService,
     ) {}
 
   ngOnInit(): void {

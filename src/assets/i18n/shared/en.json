@@ -20,5 +20,12 @@
     "DEACTIVATED": "deactivated",
     "SAILING": "sail",
     "MOTOR": "motor",
-    "SAIL_MOTOR": "sail-motor"
+    "SAIL_MOTOR": "sail-motor",
+    "CONFIRMED": "confirmed",
+    "PENDING": "pending",
+    "DECLINED": "declined",
+    "CANCELLED": "cancelled",
+    "RES_COMPLETED": "completed",
+    "REJECTED": "rejected",
+    "IN_COMPLETION": "in completion"
 }

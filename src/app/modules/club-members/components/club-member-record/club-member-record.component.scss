@@ -1,27 +1,34 @@
+@import '../../../../../styles/abstracts/spacing';
 :host {
     .record {
         background-color: #FFF;
-        border-radius: 10px;
+        border-radius: $spacer-10;
         height: fit-content;
-        padding: 10px;
+        padding: $spacer-10;
         display: flex;
-        gap: 20px;
+        gap: $spacer-20;
+
+        &-container {
+            display: flex;
+            justify-content: space-between;
+            gap: $spacer-50;
+        }
 
         &-pic {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 70px;
-            height: 70px;
+            width: $spacer-70;
+            height: $spacer-70;
             i {
-                font-size: 50px;
+                font-size: $spacer-50;
             }
         }
 
         &-name {
             color: #000;
             font-family: Inter;
-            font-size: 25px;
+            font-size: $spacer-25;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
@@ -30,20 +37,20 @@
         &-main {
             color: #000;
             font-family: Inter;
-            font-size: 18px;
+            font-size: $spacer-18;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
 
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: $spacer-10;
         }
 
         &-value {
             color: #717171;
             font-family: Inter;
-            font-size: 18px;
+            font-size: $spacer-18;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
@@ -52,7 +59,7 @@
         &-content {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: $spacer-15;
         }
 
         .candidate {

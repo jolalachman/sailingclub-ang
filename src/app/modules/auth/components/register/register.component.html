@@ -11,7 +11,7 @@
             <form class="register-form" [formGroup]="registerForm" (submit)="register()">
                 <div class="form-row">
                     <label for="firstName" class="register-form-label">{{ 'First name' | translate }}</label>
-                    <input type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
+                    <input maxlength="255" type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
                     <div *ngIf="formControls['firstName'].invalid && (formControls['firstName'].dirty || formControls['firstName'].touched)">
                         <div *ngIf="formControls['firstName'].errors?.['required']">
                             <label class="error-message"> {{'This field is required' | translate}} </label>

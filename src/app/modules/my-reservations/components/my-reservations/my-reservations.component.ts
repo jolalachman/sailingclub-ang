@@ -15,7 +15,7 @@ import { DictionaryService } from "src/app/shared/service/dictionary.service";
   providers: [MyReservationsFacade]
 })
 export class MyReservationsComponent implements OnInit, OnDestroy {
-  viewCalendar = false;
+  viewCalendar = true;
   viewDate: Date = new Date();
   reservationList$ = this.facade.reservationList$;
   reservationCalendar$ = this.facade.reservationCalendar$;

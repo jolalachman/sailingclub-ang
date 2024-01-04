@@ -42,13 +42,11 @@ export class LoginComponent {
         this.loading = false;
         void this.router.navigate(['/']);
       },
-      error: (error) => {
+      error: () => {
         this.loading = false;
-        if (error instanceof HttpErrorResponse) {
-          this.loginForm.get('password')?.setErrors({
-            wrongPassword: true,
-          })
-        }
+        this.loginForm.get('password')?.setErrors({
+          wrongPassword: true,
+        })        
       }
     })
   }

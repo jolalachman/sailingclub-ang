@@ -9,7 +9,7 @@ export type LoginResponse = {
     firstName: string;
     lastName: string;
     id: string;
-    permission: string;
+    role: string;
 }
 
 export type TokenResponse = {

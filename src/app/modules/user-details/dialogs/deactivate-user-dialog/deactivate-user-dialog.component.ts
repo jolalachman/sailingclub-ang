@@ -11,17 +11,21 @@ import { UserDetailsService } from "../../service/user-details.service";
     @Output() userDeactivated: EventEmitter<boolean> = new EventEmitter<boolean>;
     userId?: number;
     activeModal = inject(NgbActiveModal);
+    loading = false;
   
     constructor(private service: UserDetailsService) {}
 
     deactivateUser() {
       if (this.userId) {
+        this.loading = true;
         this.service.deactivateUser(this.userId).subscribe({
           next: () => {
             this.userDeactivated.emit(true);
+            this.loading = false;
             void this.activeModal.close();
           },
           error: () => {
+            this.loading = false;
             void this.activeModal.close();
           }
         })

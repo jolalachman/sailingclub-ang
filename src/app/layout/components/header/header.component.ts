@@ -10,18 +10,19 @@ import { LoginService } from 'src/app/core/service/login/login.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  arrayOptions = [
-    { text: 'Search yacht', path: '/home', icon: 'bi-search' },
-    { text: 'Yachts', path: '/yachts', icon: 'bi-life-preserver' },
-    { text: 'All reservations', path: '/reservations', icon: 'bi-book' }, 
-    { text: 'Club members', path: '/club-members', icon: 'bi-people' },
-    { text: 'All users', path: '/users', icon: 'bi-people' },
-    { text: 'Reported notices', path: '/notices', icon: 'bi-exclamation-circle' }, 
-  ];
-
   arrayLanguage = this.languageService.arrayLanguage;
   isLoggedIn = this.loginService.isLoggedIn;
   userInfo$ = this.loginService.userInfo.asObservable();
+  role = this.loginService.userInformation?.role ?? '';
+
+  arrayOptions = [
+    { show: true, text: 'Search yacht', path: '/home', icon: 'bi-search' },
+    { show: true, text: 'Yachts', path: '/yachts', icon: 'bi-life-preserver' },
+    { show: (this.role === 'SAILOR' || this.role === 'MAT' || this.role === 'BOSMAN' || this.role === 'ADMIN') , text: 'All reservations', path: '/reservations', icon: 'bi-book' }, 
+    { show: (this.role === 'BOSMAN'), text: 'Club members', path: '/club-members', icon: 'bi-people' },
+    { show: (this.role === 'ADMIN'), text: 'All users', path: '/users', icon: 'bi-people' },
+    { show: (this.role === 'BOSMAN' || this.role === 'ADMIN'), text: 'Reported notices', path: '/notices', icon: 'bi-exclamation-circle' }, 
+  ];
 
   constructor(
     public languageService: LanguageService,

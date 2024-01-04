@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
   })
   export class ChangePasswordComponent {
     loading = false;
-    id = this.loginService.getUserInfo().value?.id ?? '';
+    id = this.loginService.userInformation?.id ?? '';
 
     changePasswordForm: FormGroup = this.fb.group({
       oldPassword: ['', Validators.required],

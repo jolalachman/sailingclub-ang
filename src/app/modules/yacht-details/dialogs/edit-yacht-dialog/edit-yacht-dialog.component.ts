@@ -5,6 +5,7 @@ import { YachtsService } from "src/app/modules/yachts/service/yachts.service";
 import { YachtModel } from "../../service/yacht-details.service";
 import { map } from "rxjs";
 import { DictionaryService } from "src/app/shared/service/dictionary.service";
+import { CABINS, PEOPLE } from "src/app/modules/home/constants/searchForm.constant";
 
 @Component({
     selector: 'edit-add-yacht',
@@ -19,6 +20,8 @@ import { DictionaryService } from "src/app/shared/service/dictionary.service";
     );
     activeModal = inject(NgbActiveModal);
     loading = false;
+    numOfCabins = CABINS;
+    numOfPeople = PEOPLE;
 
     addYachtForm: FormGroup = this.fb.group({
       id: [null],
@@ -31,8 +34,8 @@ import { DictionaryService } from "src/app/shared/service/dictionary.service";
       width: [null],
       immersion: [null],
       sailArea: [null],
-      maxPeople: [null, Validators.pattern("^[0-9]*$")],
-      cabinNumber: [null, Validators.pattern("^[0-9]*$")],
+      maxPeople: [null],
+      cabinNumber: [null],
       shower: [false],
       wc: [false],
       microwave: [false],

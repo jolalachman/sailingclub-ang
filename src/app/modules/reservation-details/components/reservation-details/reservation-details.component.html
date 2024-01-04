@@ -8,15 +8,17 @@
             </p>
         </div>
         <div class="reservation-details-main-container" *ngIf="reservation$ | async as reservation">
-            <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="align-items-center">
                 <div class="record-pic">
                     <img [src]="reservation?.photo">
                 </div>
                 <div class="record-links">
-                    <a *ngIf="reservation.currentStatus.name !== 'COMPLETED' && reservation.currentStatus.name !== 'CANCELLED' && reservation.currentStatus.name !== 'IN_COMPLETION' && reservation.currentStatus.name !== 'REJECTED'" (click)="cancelReservation()">
+                    <a
+                        *ngIf="(reservation.currentStatus.name === 'CONFIRMED' || reservation.currentStatus.name === 'PENDING') && reservation.clientInfo.id.toString() === id"
+                        (click)="cancelReservation(reservation.id)">
                         {{"Cancel reservation" | translate}}
                     </a>
-                    <a *ngIf="reservation.canReportNotice" (click)="reportNotice()">
+                    <a *ngIf="reservation.canReportNotice && reservation.clientInfo.id.toString() === id" (click)="reportNotice(reservation.id)">
                         {{"Report notice" | translate}}
                     </a>
                     <a (click)="showHistoryStatuses(reservation.id)">{{"History of statuses" | translate}}</a>
@@ -27,28 +29,33 @@
                     <div class="record-name">
                         #{{reservation.id}}
                     </div>
-                    <div class="record-options" *ngIf="reservation.currentStatus.name === 'PENDING'">
+                    <div class="record-options" *ngIf="reservation.currentStatus.name === 'PENDING' && role === 'BOSMAN'">
                         <div>
-                            <button class="btn sail-secondary-button btn-lg" style="border-radius: 6px;" (click)="rejectReservation()">
+                            <button class="btn sail-secondary-button btn-lg border-radius-6" (click)="rejectReservation(reservation.id)">
                                 {{'Reject reservation' | translate}}
                             </button>
                         </div>
                         <div>
-                            <button class="btn sail-primary-button btn-lg" style="border-radius: 6px;" (click)="confirmReservation()">
+                            <button class="btn sail-primary-button btn-lg border-radius-6" (click)="confirmReservation(reservation.id)">
                                 {{'Confirm reservation' | translate}}
                             </button>
                         </div>
                     </div>
-                    <div class="record-options" *ngIf="reservation.currentStatus.name === 'CONFIRMED'">
-                        <div>
-                            <button class="btn sail-primary-button btn-lg" style="border-radius: 6px;" (click)="giveReservation()">
+                    <div class="record-options" *ngIf="reservation.currentStatus.name === 'CONFIRMED' && (role === 'MAT' || role === 'BOSMAN')">
+                        <div *ngIf="reservation.yachtStatus === 'AVAILABLE'; else unavailableYacht">
+                            <button class="btn sail-primary-button btn-lg border-radius-6" (click)="giveReservation(reservation.id)">
                                 {{'Give reservation' | translate}}
                             </button>
                         </div>
+                        <ng-template #unavailableYacht>
+                            <span class="record-value record-value-error">
+                                {{'Cannot give reservation because the yacht is unavailable' | translate}}
+                            </span>
+                        </ng-template>
                     </div>
-                    <div class="record-options" *ngIf="reservation.currentStatus.name === 'IN_COMPLETION'">
+                    <div class="record-options" *ngIf="reservation.currentStatus.name === 'IN_COMPLETION' && (role === 'MAT' || role === 'BOSMAN')">
                         <div>
-                            <button class="btn sail-primary-button btn-lg" style="border-radius: 6px;" (click)="completeReservation()">
+                            <button class="btn sail-primary-button btn-lg border-radius-6" (click)="completeReservation(reservation.id)">
                                 {{'Complete reservation' | translate}}
                             </button>
                         </div>
@@ -71,14 +78,24 @@
                         </span>
                     </div>
                     <div class="record-clientInfo">{{"Club member:" | translate }}
-                        <a class="record-value" (click)="router.navigate(['user-details/'+reservation.clientInfo.id])">
+                        <a class="record-value" *ngIf="role === 'BOSMAN'; else notAuth1" (click)="router.navigate(['user-details/'+reservation.clientInfo.id])">
                             {{reservation?.clientInfo?.name ?? '-'}}
                         </a>
+                        <ng-template #notAuth1>
+                            <span class="record-value">
+                                {{reservation?.clientInfo?.name ?? '-'}}
+                            </span>
+                        </ng-template>
                     </div>
                     <div *ngIf="reservation?.clientInfo?.id !== reservation?.reservingPerson?.id" class="record-clientInfo">{{"Reserving person:" | translate }}
-                        <a class="record-value" (click)="router.navigate(['user-details/'+reservation.reservingPerson.id])">
+                        <a class="record-value" *ngIf="role === 'BOSMAN'; else notAuth2" (click)="router.navigate(['user-details/'+reservation.reservingPerson.id])">
                             {{reservation?.reservingPerson?.name ?? '-'}}
                         </a>
+                        <ng-template #notAuth2>
+                            <span class="record-value">
+                                {{reservation?.reservingPerson?.name ?? '-'}}
+                            </span>
+                        </ng-template>
                     </div>
                     <div class="record-clientInfo">{{"Current status:" | translate }}
                         <span class="record-value"
@@ -92,7 +109,24 @@
                         <span class="record-value">
                             {{reservation?.peopleNumber }}
                         </span>
+                        <div class="record-value record-warning" *ngIf="reservation.showPeopleNumberWarning">
+                            {{'The number of people in the reservation is greater than set maximal yacht capacity. Make sure to confirm that it is alright!' | translate }}
+                        </div>
                     </div>
+                    <ng-container *ngIf="this.role === 'BOSMAN' || this.role === 'ADMIN' || this.id === reservation.clientInfo.id.toString()">
+                        <div class="record-reportedNotice" *ngIf="reportedNotice$ | async as reportedNotice">
+                            {{"Reported notice:" | translate }}
+                            <div class="reported-notice-record record-value" (clickEvent)="handleClick(reportedNotice.id)" clickEmitter>
+                                <span> {{reportedNotice.reportedAt | customDateFormat }} </span>
+                                <span> - </span>
+                                <span 
+                                [class.new]="reportedNotice.currentStatus.name === 'NEW'"
+                                [class.opened]="reportedNotice.currentStatus.name === 'OPENED'">
+                                    {{reportedNotice.currentStatus.name| translate }}
+                                </span>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
         </div>
