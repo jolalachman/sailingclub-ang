@@ -182,14 +182,6 @@
     margin: 0;
 }
 
-.my-modify {
-    font-family: Inter;
-    font-size: $spacer-18;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin: 0;
-}
 
 ngb-pagination ::ng-deep ul > li.active > a {
     background-color: #0040E4 !important;
@@ -210,16 +202,6 @@ ngb-pagination ::ng-deep ul > li.active > a {
     font-size: $spacer-14;
     font-style: normal;
     line-height: normal;
-}
-
-.yachts-form-link {
-    color: #FF7E59;
-    font-family: Inter;
-    font-size: $spacer-14;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    cursor: pointer;
 }
 
 .section::-webkit-scrollbar {

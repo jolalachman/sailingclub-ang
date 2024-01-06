@@ -10,7 +10,7 @@
         <div class="login-container">
             <form class="login-form" [formGroup]="loginForm" (submit)="login()">
                 <div class="form-row">
-                    <label for="email" class="login-form-label">{{ 'Email' | translate }}</label>
+                    <label for="email" class="default-form-label">{{ 'Email' | translate }}</label>
                     <input maxlength="255" type="email" class="form-control" id="email" autocomplete="email" required formControlName="email">
                     <div *ngIf="formControls['email'].invalid && (formControls['email'].dirty || formControls['email'].touched)">
                         <div *ngIf="formControls['email'].errors?.['required']">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <label for="password" class="login-form-label">{{ 'Password' | translate }}</label>
+                    <label for="password" class="default-form-label">{{ 'Password' | translate }}</label>
                     <input maxlength="255" type="password" class="form-control" id="password" autocomplete="current-password" required formControlName="password">
                     <div *ngIf="formControls['password'].invalid && (formControls['password'].dirty || formControls['password'].touched)">
                         <div *ngIf="formControls['password'].errors?.['required']">
@@ -39,8 +39,8 @@
                         [disabled]="loginForm.invalid || loading">{{ 'Sign in' | translate }}</button>
                 </div>
                 <div class="form-links">
-                    <a class="login-form-link" [routerLink]="['/auth/recover-password']"> {{'Forgot password?' | translate}}</a>
-                    <a class="login-form-link" [routerLink]="['/auth/activate-account']"> {{'Activate account' | translate}}</a>
+                    <a class="default-form-link" [routerLink]="['/auth/recover-password']"> {{'Forgot password?' | translate}}</a>
+                    <a class="default-form-link" [routerLink]="['/auth/activate-account']"> {{'Activate account' | translate}}</a>
                 </div>
             </form>
         </div>

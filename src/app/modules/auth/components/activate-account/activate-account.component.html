@@ -13,7 +13,7 @@
             </div>
             <form class="activate-account-form" [formGroup]="activateAccountForm" (submit)="activateAccount()">
                 <div class="form-row">
-                    <label for="token" class="activate-account-form-label">{{ 'Verification token' | translate }}</label>
+                    <label for="token" class="default-form-label">{{ 'Verification token' | translate }}</label>
                     <input maxlength="255" type="text" class="form-control" id="token" required formControlName="token">
                     <div *ngIf="formControls['token'].invalid && (formControls['token'].dirty || formControls['token'].touched)">
                         <div *ngIf="formControls['token'].errors?.['required']">

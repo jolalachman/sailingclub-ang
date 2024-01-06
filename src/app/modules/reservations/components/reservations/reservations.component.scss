@@ -60,34 +60,29 @@
                 flex-direction: column;
                 gap: $spacer-5;
             }
-
             .section{
                 display: flex;
                 flex-direction: column;
             }
-
             .section-row {
                 display: flex;
-                align-items: end;
+                align-items: flex-end;
                 gap: $spacer-10;
                 .section {
                     flex: 1;
                 }
 
             }
-
             .dropdown-opt {
                 display: flex;
                 justify-content: space-between;
                 gap: $spacer-8;
             }
-
             .search {
                 display: flex;
                 flex-direction: row;
                 gap: $spacer-5;
             }
-
             .search-clear {
                 position: absolute;
                 top: 0;
@@ -96,16 +91,13 @@
                 background-color: lightsteelblue;
                 border-radius:  $spacer-0 $spacer-6 $spacer-6 $spacer-0;
             }
-
             .input-container {
                 position: relative;
                 display: inline-block;
             }
-
             .input-group {
                 width: $spacer-250;
             }
-              
         }
 
         &-pagination {
@@ -247,16 +239,6 @@
     align-items: center;
 }
 
-
-.my-modify {
-    font-family: Inter;
-    font-size: $spacer-18;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin: 0;
-}
-
 ngb-pagination ::ng-deep ul > li.active > a {
     background-color: #0040E4 !important;
     border-color: #0040E4 !important;
@@ -264,16 +246,6 @@ ngb-pagination ::ng-deep ul > li.active > a {
 
 .form-button {
     float: right;
-}
-
-.reservations-form-link {
-    color: #FF7E59;
-    font-family: Inter;
-    font-size: $spacer-14;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    cursor: pointer;
 }
 
 .form-label {

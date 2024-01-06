@@ -10,7 +10,7 @@
         <div class="register-container">
             <form class="register-form" [formGroup]="registerForm" (submit)="register()">
                 <div class="form-row">
-                    <label for="firstName" class="register-form-label">{{ 'First name' | translate }}</label>
+                    <label for="firstName" class="default-form-label">{{ 'First name' | translate }}</label>
                     <input maxlength="255" type="text" class="form-control" id="firstName" autocomplete="name" required formControlName="firstName">
                     <div *ngIf="formControls['firstName'].invalid && (formControls['firstName'].dirty || formControls['firstName'].touched)">
                         <div *ngIf="formControls['firstName'].errors?.['required']">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <label for="lastName" class="register-form-label">{{ 'Last name' | translate }}</label>
+                    <label for="lastName" class="default-form-label">{{ 'Last name' | translate }}</label>
                     <input type="text" class="form-control" id="lastName" autocomplete="name" required formControlName="lastName">
                     <div *ngIf="formControls['lastName'].invalid && (formControls['lastName'].dirty || formControls['lastName'].touched)">
                         <div *ngIf="formControls['lastName'].errors?.['required']">
@@ -28,11 +28,11 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <label for="clubStatus" class="register-form-label">{{ 'Club status' | translate }}</label>
+                    <label for="clubStatus" class="default-form-label">{{ 'Club status' | translate }}</label>
                     <input type="text" class="form-control" id="clubStatus" formControlName="clubStatus">
                 </div>
                 <div class="form-row" *ngIf="sailingLicenses$ | async as sailingLicenses">
-                    <label for="sailingLicense" class="register-form-label">{{ 'Sailing qualifications' | translate }}</label>
+                    <label for="sailingLicense" class="default-form-label">{{ 'Sailing qualifications' | translate }}</label>
                     <select
                         class="form-select"
                         id="sailingLicense"
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <label for="email" class="register-form-label">{{ 'Email' | translate }}</label>
+                    <label for="email" class="default-form-label">{{ 'Email' | translate }}</label>
                     <input type="email" class="form-control" id="email" autocomplete="email" required formControlName="email">
                     <div *ngIf="formControls['email'].invalid && (formControls['email'].dirty || formControls['email'].touched)">
                         <div *ngIf="formControls['email'].errors?.['required']">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <label for="password" class="register-form-label">{{ 'Password' | translate }}</label>
+                    <label for="password" class="default-form-label">{{ 'Password' | translate }}</label>
                     <input type="password" class="form-control" id="password" autocomplete="new-password" required formControlName="password">
                     <div *ngIf="formControls['password'].invalid && (formControls['password'].dirty || formControls['password'].touched)">
                         <div *ngIf="formControls['password'].errors?.['required']">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <label for="repeatPassword" class="register-form-label">{{ 'Repeat password' | translate }}</label>
+                    <label for="repeatPassword" class="default-form-label">{{ 'Repeat password' | translate }}</label>
                     <input type="password" class="form-control" id="repeatPassword" autocomplete="new-password" required formControlName="repeatPassword">
                     <div *ngIf="formControls['repeatPassword'].invalid && (formControls['repeatPassword'].dirty || formControls['repeatPassword'].touched)">
                         <div *ngIf="formControls['repeatPassword'].errors?.['required']">
@@ -96,7 +96,7 @@
                 </div>
                 <div class="form-link">
                     <p class="register-form-text"> {{'Do you already have an account?' | translate }}</p>
-                    <a class="register-form-link" [routerLink]="['/auth/login']"> {{'Sign in' | translate}}</a>
+                    <a class="default-form-link" [routerLink]="['/auth/login']"> {{'Sign in' | translate}}</a>
                 </div>
             </form>
         </div>

@@ -68,7 +68,7 @@
 
             .section-row {
                 display: flex;
-                align-items: end;
+                align-items: flex-end;
                 gap: $spacer-10;
                 .section {
                     flex: 1;
@@ -247,15 +247,6 @@
     align-items: center;
 }
 
-.my-modify {
-    font-family: Inter;
-    font-size: $spacer-18;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin: 0;
-}
-
 ngb-pagination ::ng-deep ul > li.active > a {
     background-color: #0040E4 !important;
     border-color: #0040E4 !important;
@@ -263,16 +254,6 @@ ngb-pagination ::ng-deep ul > li.active > a {
 
 .form-button {
     float: right;
-}
-
-.reservations-form-link {
-    color: #FF7E59;
-    font-family: Inter;
-    font-size: $spacer-14;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    cursor: pointer;
 }
 
 .form-label {
