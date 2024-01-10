@@ -36,17 +36,6 @@
             display: flex;
             align-items: center;
             gap: $spacer-30;
-
-            .subheader-icon {
-                color: #FFF;
-                font-size: $spacer-30;
-            }
-        }
-
-        .calendar-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: $spacer-10;
         }
 
         .record {   
@@ -56,19 +45,6 @@
                 align-items: center;
                 height: fit-content;
             }
-
-            &-description-value {
-                width: 100%;
-                overflow-x: hidden;
-                overflow-y: auto;
-                word-wrap: break-word;
-                color: #717171;
-                font-family: Inter;
-                font-size: $spacer-18;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-            } 
             
             &-pic {
                 display: flex;
@@ -148,40 +124,5 @@
                 padding: 0 $spacer-30;
             }
         }
-        .new {
-            color: green;
-        }
-        .opened {
-            color: orange;
-        }
     }
-}
-
-.my-subheader {
-    color: #FFF;
-    font-family: Inter;
-    font-size: $spacer-25;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 0;
-}
-
-.notice-details-form-title {
-    color: #000;
-    font-family: Inter;
-    font-size: $spacer-18;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: $spacer-8;
-}
-
-.align-items-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }

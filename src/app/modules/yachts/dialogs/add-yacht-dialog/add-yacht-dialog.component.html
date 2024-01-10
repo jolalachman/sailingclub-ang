@@ -50,8 +50,13 @@
                 <textarea rows="3" maxlength="500" class="form-control" id="description" formControlName="description"></textarea>
             </div>
             <div class="form-row">
-                <label for="photo" class="add-yacht-form-label">{{ 'Photo' | translate }}</label>
+                <label for="photo" class="add-yacht-form-label">{{ 'Photo' | translate }} [.png, max. 64 KB]</label>
                 <input type="file" class="form-control-file" id="photo" accept="image/*" (change)="onFileChange($event)">
+                <div *ngIf="formControls['photo'].invalid">
+                    <div *ngIf="formControls['photo'].errors?.['wrongPhoto']">
+                        <label class="error-message"> {{'Invalid photo format' | translate}} </label>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-section">

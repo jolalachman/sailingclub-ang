@@ -73,15 +73,6 @@
                 gap: $spacer-5;
             }
 
-            .search-clear {
-                position: absolute;
-                top: 0;
-                right: 0;
-                height: 100%;
-                background-color: lightsteelblue;
-                border-radius:  $spacer-0 $spacer-6 $spacer-6 $spacer-0;
-            }
-
             .input-container {
                 position: relative;
                 display: inline-block;
@@ -126,11 +117,6 @@
             display: flex;
             align-items: center;
             gap: $spacer-30;
-
-            .subheader-icon {
-                color: #FFF;
-                font-size: $spacer-30;
-            }
         }
 
         &-form {
@@ -146,132 +132,8 @@
                 padding: 0 $spacer-50;
                 gap: $spacer-10;
             }
-
-            input.ng-touched.ng-invalid {
-                border-color: red;
-            }
-
-            .error-message {
-                color: #F00;
-                font-family: Inter;
-                font-size: $spacer-14;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-            }  
-        }
-
-        .dropdown-toggle {
-            background-color: #0040E4;
-            border-color: #0040E4;
         }
     }
-}
-
-.form-button {
-    float: right;
-}
-
-.my-subheader {
-    color: #FFF;
-    font-family: Inter;
-    font-size: $spacer-25;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 0;
-}
-
-
-ngb-pagination ::ng-deep ul > li.active > a {
-    background-color: #0040E4 !important;
-    border-color: #0040E4 !important;
-}
-
-.form-label {
-    color: #000;
-    font-family: Inter;
-    font-size: $spacer-14;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.form-label, .form-select, .form-control {
-    font-family: Inter;
-    font-size: $spacer-14;
-    font-style: normal;
-    line-height: normal;
-}
-
-.section::-webkit-scrollbar {
-    width: $spacer-3;
-  }
-  
-  .section::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Track color */
-  }
-  
-  .section::-webkit-scrollbar-thumb {
-    background: #888; /* Thumb color */
-    border-radius: $spacer-10; /* Rounded corners */
-  }
-  
-  .section::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Hovered thumb color */
-  }
-
-.align-center {
-    align-self: center;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.justify-center {
-    display: flex;
-    justify-content: center;
-}
-
-.justify-space-between {
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.pagination-height {
-    height: $spacer-38;
-}
-
-.pagination-width {
-    width: $spacer-60;
-}
-
-.search-width {
-    width: $spacer-250 !important;
-}
-
-.sort-section {
-    padding-bottom: $spacer-10;
-    border-bottom: solid $spacer-1 #717171;
-}
-
-.filter-section {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.float-right {
-    float: right;
-}
-
-.margin-left-auto {
-    margin-left: auto;
-}
-
-.manage-list-header {
-    flex-direction: row !important;
-    gap: $spacer-10;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .no-results {

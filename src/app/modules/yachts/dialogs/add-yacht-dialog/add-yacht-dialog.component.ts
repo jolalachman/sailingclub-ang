@@ -108,7 +108,6 @@ import { CABINS, PEOPLE } from "src/app/modules/home/constants/searchForm.consta
         },
         error: () => {
           this.loading = false;
-          void this.activeModal.close();
         }
       })
     }
@@ -118,7 +117,7 @@ import { CABINS, PEOPLE } from "src/app/modules/home/constants/searchForm.consta
      
       if(event.target.files && event.target.files.length) {
         const [file] = event.target.files;
-        if(file.type.includes('image')){
+        if(file.type.includes('image') && file.type.includes('png') && file.size < 65535){
           reader.readAsDataURL(file);
       
           reader.onload = () => {
@@ -127,6 +126,11 @@ import { CABINS, PEOPLE } from "src/app/modules/home/constants/searchForm.consta
             });
             this.cd.markForCheck();
           };
+        }
+        else {
+          this.addYachtForm.get('photo')?.setErrors({
+            wrongPhoto: true,
+          })   
         }
       }
     }

@@ -35,17 +35,6 @@
             display: flex;
             align-items: center;
             gap: $spacer-30;
-
-            .subheader-icon {
-                color: #FFF;
-                font-size: $spacer-30;
-            }
-        }
-
-        .calendar-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: $spacer-10;
         }
 
         .record {   
@@ -55,18 +44,6 @@
                 align-items: center;
                 height: fit-content;
             }
-            &-description-value {
-                width: 100%;
-                overflow-x: hidden;
-                overflow-y: auto;
-                word-wrap: break-word;
-                color: #717171;
-                font-family: Inter;
-                font-size: $spacer-18;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-            } 
             &-pic {
                 width: $spacer-200;
                 height: $spacer-200;
@@ -125,20 +102,6 @@
                 width: 70%;
             }
 
-            &-links {
-                display: flex;
-                flex-direction: column;
-                margin: $spacer-20 $spacer-5;
-                gap: $spacer-10;
-                color: #FF7E59;
-                font-family: Inter;
-                font-size: $spacer-16;
-                font-style: normal;
-                font-weight: 700;
-                line-height: normal;
-                cursor: pointer;
-            }
-
             &-header {
                 align-items: center;
                 display: flex;
@@ -150,33 +113,9 @@
                 padding: 0 $spacer-30;
             }
         }
-        .available {
-            color: green;
-        }
-        .reserved {
-            color: violet;
-        }
-        .in-repair {
-            color: orange;
-        }
-        .malfunction {
-            color: red;
-        }
-        .in-use {
-            color: violet;
-        }
     }
 }
 
-.my-subheader {
-    color: #FFF;
-    font-family: Inter;
-    font-size: $spacer-25;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 0;
-}
 
 .yacht-details-form-title {
     color: #000;
@@ -189,24 +128,6 @@
     display: flex;
     align-items: center;
     gap: $spacer-8;
-}
-
-.align-items-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.border-radius-6 {
-    border-radius: $spacer-6;
-}
-
-.margin-bottom-20 {
-    margin-bottom: $spacer-20;
-}
-
-.width-100 {
-    width: 100%;
 }
 
 @media (max-width: 600px) {

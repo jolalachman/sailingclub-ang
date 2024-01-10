@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, filter, map, switchMap, take, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoginService } from '../service/login/login.service';
 
@@ -14,8 +14,6 @@ const TOKEN_HEADER_KEY = 'authorization';
 
 @Injectable()
 export class WithCredentialsInterceptor implements HttpInterceptor {
-  private isRefreshing = false;
-  private refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
   constructor(private router: Router, private loginService: LoginService) {}
   
@@ -30,6 +28,10 @@ export class WithCredentialsInterceptor implements HttpInterceptor {
     }
     
     return next.handle(req).pipe(catchError(error => {
+      if ( this.loginService.isLoggedIn) {
+        this.loginService.signOut();
+        window.location.reload();
+      }
       return throwError(() => error);
     }));
   }

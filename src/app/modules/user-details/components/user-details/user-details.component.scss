@@ -35,17 +35,6 @@
             display: flex;
             align-items: center;
             gap: $spacer-30;
-
-            .subheader-icon {
-                color: #FFF;
-                font-size: $spacer-30;
-            }
-        }
-
-        .calendar-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: $spacer-10;
         }
 
         .record {   
@@ -110,20 +99,6 @@
                 
             }
 
-            &-links {
-                display: flex;
-                flex-direction: column;
-                margin: $spacer-20 $spacer-5;
-                gap: $spacer-10;
-                color: #FF7E59;
-                font-family: Inter;
-                font-size: $spacer-16;
-                font-style: normal;
-                font-weight: 700;
-                line-height: normal;
-                cursor: pointer;
-            }
-
             &-header {
                 align-items: center;
                 display: flex;
@@ -134,33 +109,10 @@
                 padding: 0 $spacer-30;
             }
         }
-        .candidate {
-            color: green;
-        }
-        .admin {
-            color: red;
-        }
-        .sailor {
-            color: violet;
-        }
-        .mat {
-            color: orange;
-        }
-        .bosman {
-            color: blue;
-        }
     }
 }
 
-.my-subheader {
-    color: #FFF;
-    font-family: Inter;
-    font-size: $spacer-25;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 0;
-}
+
 
 .user-details-form-title {
     color: #000;
@@ -175,11 +127,7 @@
     gap: $spacer-8;
 }
 
-.align-items-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+
 
 .margin-bottom-20 {
     margin-bottom: $spacer-20;

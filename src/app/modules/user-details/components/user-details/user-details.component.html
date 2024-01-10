@@ -22,11 +22,11 @@
                     <div class="record-name">
                         {{user?.firstName + " " + (user?.lastName === '-' ? '' : user?.lastName) }}
                     </div>
-                    <div class="record-options" *ngIf="user.role.name !== 'DEACTIVATED' && role === 'ADMIN'">
-                        <button class="btn sail-icon-button" (click)="editUser(user)">
+                    <div class="record-options">
+                        <button class="btn sail-icon-button" (click)="editUser(user)" *ngIf="user.role.name !== 'DEACTIVATED' && role === 'ADMIN'">
                             <i class="bi bi-pencil"></i>
                         </button>
-                        <button *ngIf="user.role.name!=='ADMIN'" class="btn sail-icon-button" (click)="deactivateUser(user.id)">
+                        <button class="btn sail-icon-button" (click)="deactivateUser(user.id)" *ngIf="user.role.name !== 'DEACTIVATED' && (role === 'ADMIN' || role === 'BOSMAN') && user.role.name!=='ADMIN'">
                             <i class="bi bi-trash"></i>
                         </button>
                     </div>

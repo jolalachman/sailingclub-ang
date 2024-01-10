@@ -20,7 +20,7 @@
                     </span>
                 </div>
                 <div class="users-pagination" *ngIf="paging$ | async as paging">
-                    <ngb-pagination class="ngb-pagination pagination-height" [collectionSize]="userList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
+                    <ngb-pagination class="ngb-pagination pagination-height" [page]="(paging.skip/paging.pageSize)+1" [collectionSize]="userList.totalCount*10/paging.pageSize" (pageChange)="pageChange($event, paging.pageSize)"/>
                     <div class="users-page-sizes">
                         <span> {{ "Page size:" | translate }}</span>
                         <div ngbDropdown data-toggle="dropdown">

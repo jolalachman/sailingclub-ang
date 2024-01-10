@@ -35,17 +35,6 @@
             display: flex;
             align-items: center;
             gap: $spacer-30;
-
-            .subheader-icon {
-                color: #FFF;
-                font-size: $spacer-30;
-            }
-        }
-
-        .calendar-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: $spacer-10;
         }
 
         .record {   
@@ -109,10 +98,6 @@
                     font-size: $spacer-14;
                 }
             }
-
-            &-warning {
-                color: red;
-            }
     
             &-content {
                 display: flex;
@@ -122,20 +107,6 @@
                 margin-left: $spacer-30;
                 width: 70%;
                 
-            }
-
-            &-links {
-                display: flex;
-                flex-direction: column;
-                margin: $spacer-20 $spacer-5;
-                gap: $spacer-10;
-                color: #FF7E59;
-                font-family: Inter;
-                font-size: $spacer-16;
-                font-style: normal;
-                font-weight: 700;
-                line-height: normal;
-                cursor: pointer;
             }
 
             &-header {
@@ -149,71 +120,7 @@
                 padding: 0 $spacer-30;
             }
         }
-        .confirmed {
-            color: green;
-        }
-
-        .rejected {
-            color: red;
-        }
-
-        .pending {
-            color: orange;
-        }
-
-        .new {
-            color: green;
-        }
-        .opened {
-            color: orange;
-        }
-
-        .reported-notice-record {
-            border: solid $spacer-1 #717171;
-            border-radius: $spacer-10;
-            padding: $spacer-5;
-            margin-top: $spacer-5;
-            width: fit-content;
-            cursor: pointer;
-
-            &:hover, &:focus {
-                background-color: lighten(#717171, 50%);;
-            }
-        }
     }
-}
-
-.my-subheader {
-    color: #FFF;
-    font-family: Inter;
-    font-size: $spacer-25;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 0;
-}
-
-.reservation-details-form-title {
-    color: #000;
-    font-family: Inter;
-    font-size: $spacer-18;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: $spacer-8;
-}
-
-.border-radius-6 {
-    border-radius: $spacer-6;
-}
-
-.align-items-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 @media (max-width: 600px) {
